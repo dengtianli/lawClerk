@@ -1,0 +1,66 @@
+.calculator {
+  max-width: 232px;
+  min-width: 232px;
+  height: 258px;
+  .form-group {
+    .input-group-addon {
+      padding: 6px 12px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1;
+      color: #555;
+      text-align: center;
+      background-color: #eee;
+      border-bottom: 1px solid #ccc;
+      border-top: 1px solid #ccc;
+      border-right: 1px solid #ccc;
+    }
+    .input-group-addon,
+    .input-group-btn {
+      width: 1%;
+      white-space: nowrap;
+      vertical-align: middle;
+    }
+    .dcalculator {
+      font-family: Helvetica Neue, Helvetica, Arial, Verdana, sans-serif;
+      width: 200px;
+      height: 201px;
+      margin-left: 15px;
+      display: none;
+      position: absolute;
+      left: 0;
+      text-align: center;
+      background: @white;
+      // border-top: 1px solid #F1F1F1;
+      border-right: 1px solid @dark-gray;
+      span {
+        cursor: pointer;
+        float: left;
+        display: block;
+        color: @white;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+        box-sizing: border-box;
+        background: @white;
+        color: @caramel;
+        border-bottom: 1px solid @dark-gray;
+        border-left: 1px solid @dark-gray;
+        //box-shadow: inset -1px -1px 0px @dark-gray;
+      }
+      span:active {
+        line-height: 52px;
+      }
+      .operate {
+        width: 49px;
+        color: @default-blue;
+        font-size: 20px;
+      }
+      .equal {
+        background: @red;
+        font-size: 20px;
+      }
+    }
+  }
+}

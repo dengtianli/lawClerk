@@ -1,0 +1,22 @@
+<div id="modal-body" >
+  <button ng-click="Trial.event.other.recordModel.closeModal()" type="button" class="close top15" >
+    <span aria-hidden="true">×</span>
+  </button>
+  <div class="show-content" id="record-content" slim-scroll slim-scroll-color="green" slim-scroll-offset="50" slim-scroll-width="10">
+    <article id="record">
+        <div class="title">
+          <h1>{{Trial.court_name}}</h1>
+          <h2>法&nbsp;庭&nbsp;笔&nbsp;录</h2>
+        </div>
+        <!--content-->
+        <div class="show-body">
+          <div>
+            <!--The trial information-->
+            <p class="undo" ng-repeat="item in Trial.info track by $index" ng-bind-html="item.value" id="{{item._id}}"  ng-if="item.value.length"></p>
+          </div>
+        </div>
+    </article>
+  </div>
+</div>
+<div calss="modal-footer">
+</div>

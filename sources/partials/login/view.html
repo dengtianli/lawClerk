@@ -1,0 +1,41 @@
+<div id="login" class="animated slideInDown">
+  <section class="top">
+    <button ng-click="Login.downloadTools.open()" class="btn btn-default btn-flat btn-danger pull-right">
+      <i class="fa fa-download" aria-hidden="true"></i>
+      下载客户端
+    </button>
+    <div class="center">
+      <div class="brand"></div>
+    </div>
+  </section>
+  <section class="bottom">
+    <form name="user" novalidate>
+      <div class="form-group">
+        <input ng-model="Login.username" autocomplete="off" name="username" type="text" class="form-control input-md" placeholder="请填写用户名" required>
+        <span class="error" ng-show="user.username.$error.required && user.username.$dirty">用户名不能为空</span>
+      </div>
+      <div class="form-group">
+        <input ng-model="Login.password" autocomplete="off" name="password" type="password" class="form-control input-md" placeholder="请填写密码" required ng-minlength="6" ng-maxlength="12">
+         <span class="error" ng-show="user.password.$error.required && user.password.$dirty">密码不能为空</span>
+         <span class="error" ng-show="user.password.$error.minlength && user.password.$dirty">密码长度不能小于6位</span>
+         <span class="error" ng-show="user.password.$error.maxlength && user.password.$dirty">密码长度不能大于12位</span>
+      </div>
+      <div class="row">
+        <div class="col-xs-4">
+          <div class="checkbox icheck">
+            <label>
+              <input id="ck_rmbUser" class='rember-me' type="checkbox">&nbsp;记住我
+            </label>
+          </div>
+        </div>
+        <div class="col-xs-8">
+          <button type="submit" ng-click="Login.auth(user.$valid)"
+                  ng-keypress="Login.auth(user.$valid)" 
+                  class="btn btn-danger btn-block btn-flat">
+                  登录
+          </button>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>

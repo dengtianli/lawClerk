@@ -1,0 +1,160 @@
+<div class="modal-header">
+  <button ng-click="Cases.writer.closeModal()" type="button" class="close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="box-body" slim-scroll slim-scroll-color="red" slim-scroll-offset="50" slim-scroll-width="10" cg-busy="{promise:Cases.promise_getCaseList,message:'加载中',backdrop:backdrop,delay:delay,minDuration:minDuration}">
+    <article id="judgment">
+      <div id="head">
+        <!-- 标题 -->
+        <p class="name" wiserv-program id="{{Cases.writer.article[0].nodes[0].id}}" placeholder="{{Cases.writer.article[0].nodes[0].name}}"
+          ng-model="Cases.writer.article[0].nodes[0].content">
+        </p>
+        <p class="title" wiserv-program id="{{Cases.writer.article[0].nodes[1].id}}" placeholder="{{Cases.writer.article[0].nodes[1].name}}"
+          ng-model="Cases.writer.article[0].nodes[1].content">
+        </p>
+        <p class="code" wiserv-program id="{{Cases.writer.article[0].nodes[2].id}}" placeholder="{{Cases.writer.article[0].nodes[2].name}}"
+          ng-model="Cases.writer.article[0].nodes[2].content">
+        </p>
+      </div>
+      <div id="body">
+        <!-- 首部 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[1].nodes[0].id}}" placeholder="{{Cases.writer.article[1].nodes[0].name}}"
+          ng-model="Cases.writer.article[1].nodes[0].content">
+        </p>
+        <p class="main" wiserv-program id="{{Cases.writer.article[1].nodes[1].id}}" placeholder="{{Cases.writer.article[1].nodes[1].name}}"
+          ng-model="Cases.writer.article[1].nodes[1].content">
+        </p>
+        <!-- 事实 诉辩意见 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[2].nodes[0].nodes[0].id}}" placeholder="{{Cases.writer.article[2].nodes[0].nodes[0].name}}"
+          ng-model="Cases.writer.article[2].nodes[0].nodes[0].content">
+        </p>
+        <p class="main" wiserv-program id="{{Cases.writer.article[2].nodes[0].nodes[1].id}}" placeholder="{{Cases.writer.article[2].nodes[0].nodes[1].name}}"
+          ng-model="Cases.writer.article[2].nodes[0].nodes[1].content">
+        </p>
+        <p class="main" wiserv-program id="{{Cases.writer.article[2].nodes[0].nodes[2].id}}" placeholder="{{Cases.writer.article[2].nodes[0].nodes[2].name}}"
+          ng-model="Cases.writer.article[2].nodes[0].nodes[2].content">
+        </p>
+        <!-- 事实 争点归纳 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[2].nodes[1].nodes[0].id}}" placeholder="{{Cases.writer.article[2].nodes[1].nodes[0].name}}"
+          ng-model="Cases.writer.article[2].nodes[1].nodes[0].content">
+        </p>
+        <p class="main" wiserv-program id="{{Cases.writer.article[2].nodes[1].nodes[1].id}}" placeholder="{{Cases.writer.article[2].nodes[1].nodes[1].name}}"
+          ng-model="Cases.writer.article[2].nodes[1].nodes[1].content">
+        </p>
+        <!-- 事实 举证质证 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[2].nodes[2].id}}" placeholder="{{Cases.writer.article[2].nodes[2].name}}"
+          ng-model="Cases.writer.article[2].nodes[2].content">
+        </p>
+        <!-- 事实 证据事实认定 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[2].nodes[3].nodes[0].id}}" placeholder="{{Cases.writer.article[2].nodes[3].nodes[0].name}}"
+          ng-model="Cases.writer.article[2].nodes[3].nodes[0].content">
+        </p>
+        <p class="main" wiserv-program id="{{Cases.writer.article[2].nodes[3].nodes[1].id}}" placeholder="{{Cases.writer.article[2].nodes[3].nodes[1].name}}"
+          ng-model="Cases.writer.article[2].nodes[3].nodes[1].content">
+        </p>
+        <!-- 理由 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[3].id}}" placeholder="{{Cases.writer.article[3].name}}" ng-model="Cases.writer.article[3].content">
+        </p>
+        <!-- 裁判依据 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[4].id}}" placeholder="{{Cases.writer.article[4].name}}" ng-model="Cases.writer.article[4].content">
+        </p>
+        <!-- 裁判结果 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[5].id}}" placeholder="{{Cases.writer.article[6].nodes[0].name}}"
+          ng-model="Cases.writer.article[5].content">
+        </p>
+        <!-- 尾部 -->
+        <p class="main" wiserv-program id="{{Cases.writer.article[6].nodes[0].id}}" placeholder="{{Cases.writer.article[6].nodes[0].name}}"
+          ng-model="Cases.writer.article[6].nodes[0].content">
+        </p>
+        <p class="main" wiserv-program id="{{Cases.writer.article[6].nodes[1].id}}" placeholder="{{Cases.writer.article[6].nodes[1].name}}"
+          ng-model="Cases.writer.article[6].nodes[1].content">
+        </p>
+      </div>
+      <div id="foot">
+        <!-- 落款 -->
+        <p class="sign" wiserv-program id="{{Cases.writer.article[7].nodes[0].id}}" placeholder="{{Cases.writer.article[7].nodes[0].name}}"
+          ng-model="Cases.writer.article[7].nodes[0].content">
+        </p>
+        <p class="sign" wiserv-program id="{{Cases.writer.article[7].nodes[1].id}}" placeholder="{{Cases.writer.article[7].nodes[1].name}}"
+          ng-model="Cases.writer.article[7].nodes[1].content">
+        </p>
+        <p class="sign" wiserv-program id="{{Cases.writer.article[7].nodes[2].id}}" placeholder="{{Cases.writer.article[7].nodes[2].name}}"
+          ng-model="Cases.writer.article[7].nodes[2].content">
+        </p>
+        <!-- 附录 -->
+        <p class="attach" wiserv-program id="{{Cases.writer.article[8].nodes[0].id}}" placeholder="{{Cases.writer.article[8].nodes[0].name}}"
+          ng-model="Cases.writer.article[8].nodes[0].content">
+        </p>
+        <p class="attach" wiserv-program id="{{Cases.writer.article[8].nodes[1].id}}" placeholder="{{Cases.writer.article[8].nodes[1].name}}"
+          ng-model="Cases.writer.article[8].nodes[1].content">
+        </p>
+      </div>
+      <style>
+        #judgment {
+          width: 80%;
+          color: #000000;
+          margin: 0 auto;
+          word-wrap: break-word;
+          word-break: break-all;
+        }
+        
+        #judgment p {
+          margin: 0;
+          padding: 0;
+          border: none;
+        }
+        
+        #judgment .name {
+          text-align: center;
+          line-height: 25pt;
+          margin: 0.5pt 0cm;
+          font-family: 宋体;
+          font-size: 22pt;
+        }
+        
+        #judgment .title {
+          text-align: center;
+          line-height: 30pt;
+          margin: 0.5pt 0cm;
+          font-family: 仿宋;
+          font-size: 26pt;
+        }
+        
+        #judgment .code {
+          text-align: right;
+          line-height: 30pt;
+          margin: 0.5pt 0cm;
+          font-family: 仿宋;
+          font-size: 16pt;
+        }
+        
+        #judgment .main {
+          line-height: 25pt;
+          text-align: justify;
+          text-justify: inter-ideograph;
+          text-indent: 30pt;
+          margin: 0.5pt 0cm;
+          font-family: 仿宋;
+          font-size: 16pt;
+        }
+        
+        #judgment #foot {
+          float: right;
+          width: 17em;
+          margin: 0.5pt 0cm;
+          /*margin: 0.5pt 72pt 0.5pt 0cm;*/
+        }
+        
+        #judgment .sign {
+          line-height: 25pt;
+          font-family: 仿宋;
+          font-size: 16pt;
+        }
+      </style>
+    </article>
+  </div>
+</div>
+<div calss="modal-footer">
+</div>

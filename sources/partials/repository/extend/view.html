@@ -1,0 +1,126 @@
+<div id="repository-extend" class="animated fadeIn">
+  <section class="content-header">
+    <form name="search">
+      <div class="input-wrap">
+        <a href="javascript:;" ng-click="Extend.prev()">返回上一页</a>
+        <div class="input-group col-lg-6">
+          <input type="text" class="form-control" placeholder="输专业关键字" name="keyword" ng-maxlength="100" ng-model="Extend.keyword"
+          />
+          <span class="input-group-btn">
+          <button class="btn search-button" type="button" ng-click="Extend.inquire(search.$valid)">搜索</button>
+        </span>
+        </div>
+        <a href="javascript:;"></a>
+      </div>
+      <span style="color:red;margin-left:30%" ng-if="search.keyword.$error.maxlength && search.keyword.$dirty">搜索内容不能超过100个字符!</span>
+    </form>
+  </section>
+  <section class="content">
+    <div class="column" slim-scroll slim-scroll-offset=130>
+      <form name="outerForm" class="tab-form-demo">
+        <uib-tabset active="Extend.initRequest.type">
+          <uib-tab index="1" heading="法条库">
+            <div ng-if="!Extend.initRequest.law.length">
+              <h5>法条库中没有找到你要搜索的内容！</h5>
+            </div>
+            <div ng-repeat="lawData in Extend.initRequest.law">
+              <div id="wrap" ng-if="Extend.initRequest.law.length">
+                <style>
+                  #wrap {
+                    padding: 10px 20px;
+                    border-bottom: 1px solid #d2d6de;
+                  }
+                </style>
+                <p>分类名称：
+                  <span>{{lawData.category_name}}</span>
+                </p>
+                <p>公布机关：
+                  <span>{{lawData.publish_department}}</span>
+                </p>
+                <p>效力状况：
+                  <span>{{lawData.effective}}</span>
+                </p>
+                <p>公布日期：
+                  <span>{{lawData.publish_date}}</span>
+                </p>
+                <p>施行日期：
+                  <span>{{lawData.force_date}}</span>
+                </p>
+                <p>
+                  失效日期：
+                  <span>{{lawData.expiry_date}}</span>
+                </p>
+                <p ng-show="lawData.article_no.length">文号：
+                  <span>{{lawData.article_no}}</span>
+                </p>
+                <p ng-bind-html="lawData.article_content"></p>
+              </div>
+            </div>
+          </uib-tab>
+          <uib-tab index="2" heading="案由库">
+            <div ng-if="!Extend.initRequest.cause.length">
+              <h5>案由库中没有找到你要搜索的内容！</h5>
+            </div>
+            <div ng-repeat="causeData in Extend.initRequest.cause">
+              <div id="wrap" ng-show="Extend.initRequest.cause.length">
+                <style>
+                  #wrap {
+                    padding: 10px 20px;
+                    border-bottom: 1px solid #d2d6de;
+                  }
+                </style>
+                <p>
+                  <strong>【案由】：</strong>
+                  <span>{{causeData.case_cause}}</span>
+                </p>
+                <p>
+                  <strong>【释义】：</strong>
+                  <span>{{causeData.case_explain}}</span>
+                </p>
+                <p>
+                  <strong>【管辖】：</strong>
+                  <span>{{causeData.case_administer}}</span>
+                </p>
+                <p>
+                  <strong>【法律依据】：</strong>
+                  <span>{{causeData.case_accord}}</span>
+                </p>
+              </div>
+            </div>
+          </uib-tab>
+          <uib-tab index="3" heading="裁判文书库">
+            <div ng-if="!Extend.initRequest.judgment.length">
+              <h5>裁判文书库中没有找到你要搜索的内容！</h5>
+            </div>
+            <div ng-repeat="judgmentData in Extend.initRequest.judgment">
+              <div id="wrap" ng-show="Extend.initRequest.judgment.length">
+                <style>
+                  #wrap {
+                    padding: 10px 20px;
+                    border-bottom: 1px solid #d2d6de;
+                  }
+                </style>
+                <p>
+                  <strong>【标题】：</strong>
+                  <a href="" ng-click="Extend.getDetails(judgmentData.row_key)">{{judgmentData.title}}</a>
+                </p>
+                <p ng-show="judgmentData.ori_text.length">
+                  <strong>【正文】：</strong>
+                  <span>{{judgmentData.ori_text}}</span>
+                </p>
+                <p>
+                  <strong>【案号】：</strong>
+                  <span>{{judgmentData.case_no}}</span>
+                </p>
+                <p>
+                  <strong>【法院名称】：</strong>
+                  <span>{{judgmentData.court_name}}</span>
+                </p>
+              </div>
+            </div>
+          </uib-tab>
+        </uib-tabset>
+      </form>
+    </div>
+  </section>
+</div>

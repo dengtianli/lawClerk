@@ -1,0 +1,122 @@
+<div id="repository-result" class="animated fadeIn">
+  <section class="content-header">
+    <form name="search">
+      <div class="input-wrap">
+        <a href="javascript:;" ng-click="Result.prev()">返回上一页</a>
+        <div class="input-group col-lg-6">
+          <input type="text" name="keyword" ng-model="Result.keyword" class="form-control" placeholder="输专业关键字" ng-maxlength="100" />
+          <span class="input-group-btn">
+          <button class="btn" type="button" ng-click="Result.inquire(search.$valid)">搜索</button>
+        </span>
+        </div>
+        <a href="javascript:;"></a>
+      </div>
+        <span style="color:red;margin:0 0 0 30%" ng-if="search.keyword.$error.maxlength && search.keyword.$dirty">搜索内容不能超过100个字符!</span>
+    </form>
+    <div class="filtrate">
+      <form class="form-inline" role="form" name="resultLawSearch">
+        <div class="form-group">
+          <label class="">法律类别</label>
+          <select type="text" class="form-control" ng-model="Result.law.category_name" ng-change="">
+                       <option value="民法商法">民法商法</option>
+                       <option value="行政法">行政法</option>
+                       <option value="社会法">社会法</option>
+                       <option value="诉讼与非诉讼程序法">诉讼与非诉讼程序法</option>
+                       <option value="刑法">刑法</option>
+                       <option value="宪法">宪法</option>
+                    </select>
+        </div>
+        <div class="form-group">
+          <label class="">时效性</label>
+          <select type="text" class="form-control" ng-model="Result.law.effective" ng-change="">
+                       <option value="有效">有效</option>
+                       <option value="已修改">已修改</option>
+                       <option value="失效">失效</option>
+                       <option value="无效">无效</option>
+                       <!--<option value="有已修改">有已修改</option>-->
+                       <option value="废止">废止</option>
+                       <option value="已修正">已修正</option>
+                    </select>
+        </div>
+        <div class="form-group">
+          <label class="">颁布单位</label>
+          <input class="form-control" ng-model="Result.law.publish_department" id="exampleInputEmail2" placeholder="请输入查找的颁布单位" />
+        </div>
+        <div class="keyWord form-group">
+          <label>关键词</label>
+          <input type="text" name="title" class="form-control" ng-model="Result.law.title" id="exampleInputEmail2" placeholder="请输入查找的法条" ng-maxlength="40">
+           <span class="pull-right" style="color:red;margin-top: 15px;" ng-if="resultLawSearch.title.$error.maxlength && resultLawSearch.title.$dirty">关键词不能超过40个字符!</span>
+        </div>
+        <div class="form-group">
+          <label>颁布日期</label>
+          <p class="input-group">
+            <input type="text" value="<%=Now()%>" readOnly class="form-control" name="publish_date_start" placeholder="请输入颁布日期起始日" uib-datepicker-popup
+              ng-model="Result.law.publish_date_start" is-open="Result.date.popup1.opened" datepicker-options="Result.date.dateOptions1 "
+              ng-change="Result.changeDate()" clear-text="清除" close-text="关闭" current-text="今天" />
+            <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="Result.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+          <label>&nbsp;至</label>
+          <p class="input-group">
+            <input type="text" value="<%=Now()%>" readOnly class="form-control" name="publish_date_end" placeholder="请输入颁布日期结束日" uib-datepicker-popup
+              ng-model="Result.law.publish_date_end" is-open="Result.date.popup2.opened" datepicker-options="Result.date.dateOptions2 "
+              clear-text="清除" close-text="关闭" current-text="今天" />
+            <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="Result.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+        <span class="">
+        <a type="button" class="btn btn-default search-style " ng-click="Result.search(resultLawSearch.$valid)">搜索</a>
+         </span>
+      </form>
+    </div>
+  </section>
+  <section class="content">
+    <div class="column">
+      <div class="col-lg-12 content-box" slim-scroll slim-scroll-offset=250>
+        <p>为您搜索出&nbsp;<span>{{Result.Paging.totalItems}}</span>&nbsp;条信息</p>
+        <div class="result-list" ng-repeat="obj in Result.data">
+          <a>{{obj.title}}</a>
+          <div id="wrap">
+            <ul>
+              <li ng-show="obj.publish_department.length">
+                <span>公布机关:</span> {{obj.publish_department}}
+              </li>
+              <li ng-show="obj.effective.length">
+                <span>效力状况:</span> {{obj.effective}}
+              </li>
+              <li ng-show="obj.publish_date.length">
+                <span>发布时间:</span> {{obj.publish_date}}
+              </li>
+              <li ng-show="obj.force_date.length">
+                <span>施行日期:</span> {{obj.force_date}}
+              </li>
+              <li ng-show="obj.expiry_date.length">
+                <span>失效时间：</span> {{obj.expiry_date}}
+              </li>
+              <li ng-show="obj.article_no.length">
+                <span>文号：</span> {{obj.article_no}}
+              </li>
+            </ul>
+            <p>{{obj.article_content}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="foot">
+    <!-- Pagination -->
+    <div id="paging">
+      <div class="text-primary pull-left">
+        共<b>&nbsp;{{Result.totalPage}}&nbsp;</b>页，第<b>&nbsp;{{Result.Paging.currentPage}}&nbsp;</b>页
+      </div>
+      <ul uib-pagination total-items="Result.Paging.totalItems" max-size="Result.Paging.maxSize" items-per-page="Result.Paging.itemsPerPage"
+        ng-model="Result.Paging.currentPage" ng-change="Result.Paging.pageChanged()" rotate="true" boundary-links="true" boundary-link-numbers="true"
+        first-text="首页" last-text="尾页" previous-text="上一页" next-text="下一页" class="pagination-sm no-margin pull-right">
+      </ul>
+    </div>
+    <!-- #Pagination -->
+  </section>
+</div>

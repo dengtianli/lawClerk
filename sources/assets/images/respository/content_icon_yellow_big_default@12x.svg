@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="94px" height="95px" viewBox="0 0 94 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>content_icon_yellow_big_default</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="98.439493%" id="linearGradient-1">
+            <stop stop-color="#F8BF5C" offset="0%"></stop>
+            <stop stop-color="#F59D00" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="法条搜索1" transform="translate(-236.000000, -340.000000)">
+            <g id="content_icon_yellow_big_default" transform="translate(236.000000, 340.000000)">
+                <ellipse id="Oval" fill="url(#linearGradient-1)" cx="47" cy="47.0909091" rx="47" ry="47.0909091"></ellipse>
+                <path d="M30.7381368,23.0649351 L27.8314309,23.0649351 L24.9387755,25.953683 L24.9387755,57.7070344 L47.9591837,69.4006918 L47.9591837,31.7829146 L30.7381368,23.0649351 Z M65.1802306,23.0649351 L68.0869365,23.0649351 L70.9795918,25.953683 L70.9795918,57.7070344 L47.9591837,69.4006918 L47.9591837,31.7829146 L65.1802306,23.0649351 Z M30.6938776,28.8067088 L30.6938776,54.7848519 L45.0816327,61.9148647 L45.0816327,36.2279544 L30.6938776,28.8067088 Z M65.2244898,28.8067088 L65.2244898,54.7848519 L50.8367347,61.9148647 L50.8367347,36.2279544 L65.2244898,28.8067088 Z" id="book" fill="#FFFFFF"></path>
+                <ellipse id="Oval-Copy" fill="url(#linearGradient-1)" cx="47" cy="47.0909091" rx="47" ry="47.0909091"></ellipse>
+                <path d="M30.7381368,23.0649351 L27.8314309,23.0649351 L24.9387755,25.953683 L24.9387755,57.7070344 L47.9591837,69.4006918 L47.9591837,31.7829146 L30.7381368,23.0649351 Z M65.1802306,23.0649351 L68.0869365,23.0649351 L70.9795918,25.953683 L70.9795918,57.7070344 L47.9591837,69.4006918 L47.9591837,31.7829146 L65.1802306,23.0649351 Z M30.6938776,28.8067088 L30.6938776,54.7848519 L45.0816327,61.9148647 L45.0816327,36.2279544 L30.6938776,28.8067088 Z M65.2244898,28.8067088 L65.2244898,54.7848519 L50.8367347,61.9148647 L50.8367347,36.2279544 L65.2244898,28.8067088 Z" id="book-copy" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

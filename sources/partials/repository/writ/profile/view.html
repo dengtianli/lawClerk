@@ -1,0 +1,120 @@
+<div id="writ-profile">
+  <section class="profile-head">
+    <form name="search">
+      <div class="profile-search-box">
+        <a href="javascript:;" ng-click="WritProfile.prev()">返回上一页</a>
+        <div class="input-group col-lg-6">
+          <input type="text" ng-maxlength="100" name="keyword" class="form-control" placeholder="输专业关键字" ng-model="WritProfile.keyword"
+          />
+          <span class="input-group-btn">
+          <button class="btn" type="button"ng-click="WritProfile.inquire(search.$valid)">搜索</button>
+        </span>
+        </div>
+        <a href="javascript:;"></a>
+      </div>
+      <span style="color:red;margin:0 0 0 30%" ng-if="search.keyword.$error.maxlength && search.keyword.$dirty">搜索内容不能超过100个字符!</span>
+    </form>
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <label>法院层级</label>
+        <select type="text" class="form-control" ng-model="WritProfile.writSelectVal.court_level">
+              <option value="">全选</option>
+              <option value="最高人民法院">最高人民法院</option>
+              <option value="高级人民法院">高级人民法院</option>
+              <option value="中级人民法院">中级人民法院</option>
+              <option value="人民法院">人民法院</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label>地域</label>
+        <input type="text" class="form-control" id="exampleInputEmail2" ng-model="WritProfile.writSelectVal.court_place" placeholder="输入地域"
+        />
+      </div>
+      <div class="form-group">
+        <label class="">文书类型</label>
+        <select type="text" class="form-control" ng-model="WritProfile.writSelectVal.doc_type">
+              <option value="">全选</option>
+              <option value="民事裁判书">民事裁判书</option>
+              <option value="民事决定书">民事决定书</option>
+              <option value="民事判定书">民事判定书</option>
+              <option value="民事裁决书">民事裁决书</option>
+              <option value="民事调解书">民事调解书</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label class="">案由</label>
+        <input type="text" class="form-control" ng-model="WritProfile.writSelectVal.case_brief" placeholder="输入案由" />
+      </div>
+      </form>
+      <form class="form-inline" role="form" name="writProfileSearch">
+      <div class="form-group">
+        <label>关键字&nbsp;&nbsp;</label>
+        <input type="text" name="keyword" ng-maxlength="40" class="form-control" ng-model="WritProfile.writSelectVal.keyword" id="exampleInputEmail2" placeholder="请输入裁判文书关键字"
+        />
+        <span class="pull-right" style="color:red;margin-top: 10px;" ng-if="writProfileSearch.keyword.$error.maxlength && writProfileSearch.keyword.$dirty">关键字不能超过40个字符!</span>
+      </div>
+    </form>
+    <form class="form-inline" role="form">
+      <div class="form-group">
+        <label>裁判时间</label>
+        <p class="input-group">
+          <input type="text" value="<%=Now()%>" readOnly class="form-control" name="judge_date_start" placeholder="请输入开始日期" uib-datepicker-popup
+            ng-model="WritProfile.writSelectVal.judge_date_start" is-open="WritProfile.date.popup1.opened" datepicker-options="Writ.date.dateOptions1 "
+            ng-required="true" ng-change="WritProfile.changeDate()" clear-text="清除" close-text="关闭" current-text="今天" />
+          <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="WritProfile.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+        </p>
+        <label>&nbsp;至</label>
+        <p class="input-group">
+          <input type="text" value="<%=Now()%>" readOnly class="form-control" name="judge_date_end " placeholder="请输入结束日期" uib-datepicker-popup
+            ng-model="WritProfile.writSelectVal.judge_date_end " is-open="WritProfile.date.popup2.opened" datepicker-options="WritProfile.date.dateOptions2 "
+            ng-required="true" clear-text="清除" close-text="关闭" current-text="今天" />
+          <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" ng-click="WritProfile.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+        </p>
+      </div>
+      <span class="">
+        <a type="button" class="btn btn-default search-style " ng-click="WritProfile.search(writProfileSearch.$valid)">搜索</a>
+      </span>
+    </form>
+  </section>
+  <section class="profile-box">
+    <div class="column" slim-scroll slim-scroll-offset=240>
+      <div class="col-lg-12 profile-content">
+        <p>为您搜索出&nbsp;<span>{{WritProfile.Paging.totalItems}}</span>&nbsp;条信息</p>
+        <div class="profile-list" ng-repeat="obj in WritProfile.data">
+          <a href="" ng-click="WritProfile.getDetails(obj.id)">{{obj.title}}</a>
+          <div id="wrap">
+            <ul>
+              <li>
+                {{obj.court_name}}
+              </li>
+              <li>
+                {{obj.case_no}}
+              </li>
+              <li>
+                {{obj.judge_date}}
+              </li>
+            </ul>
+            <p>{{obj.legal_basis}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="profile-foot">
+    <!-- Pagination -->
+    <div id="paging">
+      <div class="text-primary pull-left">
+        共<b>&nbsp;{{WritProfile.totalPage}}&nbsp;</b>页，第<b>&nbsp;{{WritProfile.Paging.currentPage}}&nbsp;</b>页
+      </div>
+      <ul uib-pagination total-items="WritProfile.Paging.totalItems" max-size="WritProfile.Paging.maxSize" items-per-page="WritProfile.Paging.itemsPerPage"
+        ng-model="WritProfile.Paging.currentPage" ng-change="WritProfile.Paging.pageChanged()" rotate="true" boundary-links="true"
+        boundary-link-numbers="true" first-text="首页" last-text="尾页" previous-text="上一页" next-text="下一页" class="pagination-sm no-margin pull-right">
+      </ul>
+    </div>
+    <!-- #Pagination -->
+  </section>
+</div>

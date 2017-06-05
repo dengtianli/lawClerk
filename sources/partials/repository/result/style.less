@@ -1,0 +1,102 @@
+#repository-result {
+   ::-webkit-scrollbar {
+    width: 6px;
+    background-color: @white;
+  }
+   ::-webkit-scrollbar-thumb {
+    background: rgba(221, 75, 57, 0.6);
+    border-radius: 1rem;
+  }
+  .content-header {
+    margin-bottom: 15px;
+    form {
+      margin-bottom: 15px;
+      label {
+        color: @caramel;
+      }
+      input {
+        width: 11rem;
+        margin: 10px;
+      }
+      select {
+        width: 11rem;
+        margin: 0 20px 0 10px;
+      }
+      p {
+        input {
+          margin: 10px 0 10px 10px;
+        }
+      }
+      .search-style {
+        margin: 0 0 10px 50px;
+        background: @yellow;
+         color: @white;
+         border-radius: 5px;
+      }
+    }
+  }
+  .column {
+    background: @white;
+  }
+  .input-wrap {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    input {
+      height: 35px;
+      width: 99% !important;
+    }
+    button {
+      height: 35px;
+      background: @yellow;
+       color: @white;
+       border-radius: 0 5px 5px 0;
+    }
+  }
+  .content-box {
+    border: 1px solid @gray;
+    background: @white;
+    padding-left: 30px;
+    p:nth-child(1) {
+      margin: 10px 0;
+      color: @caramel;
+    }
+  }
+  .result-list {
+    margin-bottom: 10px;
+    a {
+      color:@yellow;
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+    p {
+      margin-top: 10px;
+      line-height: 25px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      color: @caramel;
+    }
+    #wrap {
+      border-bottom: 1px dashed @gray;
+      ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+      }
+      ul li {
+        list-style: none;
+        justify-content: space-between;
+        margin-right: 20px;
+        color: @font-gray;
+        span {
+          background: @paper;
+        }
+      }
+    }
+  }
+  #paging {
+    padding: 0 15px;
+  }
+}

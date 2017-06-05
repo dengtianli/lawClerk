@@ -1,0 +1,95 @@
+#writ-profile {
+  .profile-head {
+    margin-bottom: 15px;
+    padding: 15px 15px 0 15px;
+    form {
+      margin-bottom: 15px;
+      label {
+        color: @caramel;
+      }
+      input {
+        width: 11rem;
+        margin: 0 20px 0 10px;
+      }
+      select {
+        width: 11rem;
+        margin: 0 20px 0 10px;
+      }
+      p {
+        input {
+          margin: 10px 0 10px 10px;
+        }
+      }
+      .search-style {
+        margin: 0 0 10px 50px;
+        background: @default-purple;
+        color: @white;
+        border-radius: 5px;
+      }
+    }
+  }
+  .profile-box {
+    padding: 0 15px;
+  }
+  .profile-search-box {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    input {
+      height: 35px;
+      width:99% !important;
+    }
+    button {
+      height: 35px;
+      background: @default-purple;
+      color:  @white;
+    }
+  }
+  .profile-content {
+    border: 1px solid @gray;
+    background: @white;
+    padding-left: 30px;
+    p:nth-child(1) {
+      margin: 10px 0;
+      color: @caramel;
+    }
+  }
+  .profile-list {
+    margin-bottom: 10px;
+    a {
+      color: @default-purple;
+      font-size: 0.95rem;
+      font-weight: 900;
+    }
+    p {
+      margin-top: 10px;
+      line-height: 25px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      color: @caramel;
+    }
+    #wrap {
+      border-bottom: 1px dashed @gray;
+      ul {
+        display: flex;
+        padding: 0;
+        margin: 0;
+      }
+      ul li {
+        list-style: none;
+        justify-content: space-between;
+        margin-right: 20px;
+        color: @font-gray;
+        span {
+          background: @paper;
+        }
+      }
+    }
+  }
+  .profile-foot {
+    padding: 0 15px;
+    margin-top: 0.6rem;
+  }
+}

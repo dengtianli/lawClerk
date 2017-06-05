@@ -1,0 +1,88 @@
+#repository-cause {
+  .box-wrap {
+    a:nth-child(1) {
+      display: block;
+      margin-top: 20px;
+    }
+  }
+  .lawLibrary-wrap {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    .search {
+      margin: 50px 0 10px 0;
+      input {
+        height: 45px;
+      }
+      button {
+        height: 45px;
+        width: 75px;
+        background: @default-blue;
+        color: @white;
+        border-radius: 0 5px 5px 0;
+      }
+    }
+    .cancel {
+      button {
+        background: @default-blue;
+        color: @white;
+        border-radius: 5px;
+      }
+    }
+  }
+  .form-wrap {
+    select {
+      width: 8rem;
+    }
+  }
+  .lawLibrary-content {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+    color: @caramel;
+    h3 {
+      margin-top: 10px;
+      span {
+        color: @orange;
+      }
+    }
+    p {
+      padding-left: 10px;
+    }
+  }
+  .icon {
+    width: 130px;
+    height: 130px;
+    background-image: url("../assets/images/respository/content_icon_bule_big_default@12x.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+  }
+  .box {
+    display: flex;
+    justify-content: center;
+    display: none;
+    border: 1px solid @gray;
+    form {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+      label {
+        margin-right: 10px;
+        color: @caramel;
+      }
+    }
+  }
+  .cancel {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+  }
+  .cause-content {
+    h3 {
+      padding-left: 8px;
+      span {
+        color: @default-blue;
+      }
+    }
+  }
+}

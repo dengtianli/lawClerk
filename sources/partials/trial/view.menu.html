@@ -1,0 +1,101 @@
+<section class="sidebar">
+  <ul class="sidebar-menu">
+    <!-- 庭审信息 -->
+    <li class="treeview" ng-click="Trial.operation.anchor('info')">
+      <a>
+        <i class="fa fa-tasks"></i>&nbsp;<span>庭审信息</span>
+      </a>
+    </li>
+    <!-- 法庭纪律 -->
+    <li class="treeview" ng-click="Trial.operation.anchor('discipline')">
+      <a>
+        <i class="fa  fa-book"></i>&nbsp;<span>法庭纪律</span>
+      </a>
+    </li>
+    <!-- 信息核对 -->
+    <li class="treeview">
+      <a>
+        <i class="fa fa-eye"></i>&nbsp;<span>信息核对</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu" style="display: none;">
+        <li class="treeview" ng-click="Trial.operation.anchor('verify_participant')"><a><i class="fa fa-circle-o"></i>&nbsp;诉讼参与人</a></li>
+        <li ng-click="Trial.operation.anchor('verify_objection')"><a><i class="fa fa-circle-o"></i>&nbsp;异议及理由</a></li>
+        <li ng-click="Trial.operation.anchor('verify_absence')"><a><i class="fa fa-circle-o"></i>&nbsp;缺席审理</a></li> 
+        <li ng-click="Trial.operation.anchor('verify_witness')"><a><i class="fa fa-circle-o"></i>&nbsp;是否有证人出庭</a></li>
+      </ul>
+    </li>
+    <!-- 庭审序言 -->
+    <li class="treeview">
+      <a>
+        <i class="fa fa-map"></i>&nbsp;<span>庭审序言</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu" style="display: none;">
+        <li class="" ng-click="Trial.operation.anchor('preface_organization')"><a><i class="fa fa-circle-o"></i>&nbsp;庭审组织</a></li>
+        <li ng-click="Trial.operation.anchor('preface_right')"><a><i class="fa fa-circle-o"></i>&nbsp;告知诉讼权利</a></li>
+        <li ng-click="Trial.operation.anchor('preface_inform')"><a><i class="fa fa-circle-o"></i>&nbsp;告知事项</a></li>
+        <li ng-click="Trial.operation.anchor('preface_withdrawal')"><a><i class="fa fa-circle-o"></i>&nbsp;是否申请回避</a></li>
+        <li ng-click="Trial.operation.anchor('preface_time_limit')"><a><i class="fa fa-circle-o"></i>&nbsp;举证期限异议</a></li>
+      </ul>
+    </li>
+    <!-- 法庭调查 -->
+    <li class="treeview">
+      <a>
+        <i class="fa fa-road"></i>&nbsp;<span>法庭调查</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu" style="display: none;">
+        <li class="" ng-click="Trial.operation.anchor('investigate_opinion')"><a><i class="fa fa-circle-o"></i>&nbsp;诉辩意见</a></li>
+        <li ng-click="Trial.operation.anchor('investigate_inquiry')"><a><i class="fa fa-circle-o"></i>&nbsp;法庭询问</a></li>
+        <li ng-click="Trial.operation.anchor('investigate_summary')"><a><i class="fa fa-circle-o"></i>&nbsp;归纳争点</a></li>
+        <li ng-click="Trial.operation.anchor('investigate_evidence')"><a><i class="fa fa-circle-o"></i>&nbsp;举证质证</a></li>
+        <!--<li><a><i class="fa fa-circle-o"></i>&nbsp;调查总结</a></li>-->
+      </ul>
+    </li>
+    <!-- 法庭辩论 -->
+    <li class="treeview">
+      <a>
+        <i class="fa fa-coffee"></i>&nbsp;<span>法庭辩论</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu" style="display: none;">
+        <li class="" ng-click="Trial.operation.anchor('debate_accuser')"><a><i class="fa fa-circle-o"></i>&nbsp;原告方辩论意见</a></li>
+        <li ng-click="Trial.operation.anchor('debate_defendant')"><a><i class="fa fa-circle-o"></i>&nbsp;被告方辩论意见</a></li>
+        <li ng-click="Trial.operation.anchor('debate_third')"><a><i class="fa fa-circle-o"></i>&nbsp;第三人辩论意见</a></li>
+      </ul>
+    </li>
+    <!-- 最后陈述 -->
+    <li class="treeview" ng-click="Trial.operation.anchor('statement')">
+      <a>
+        <i class="fa fa-share-alt"></i>&nbsp;<span>最后陈述</span>
+      </a>
+    </li>
+    <!-- 法庭调解 -->
+    <li class="treeview" ng-click="Trial.operation.anchor('conciliation')">
+      <a>
+        <i class="fa fa-graduation-cap"></i>&nbsp;<span>法庭调解</span>
+      </a>
+    </li>
+    <!-- 休庭宣读 -->
+    <li class="treeview" ng-click="Trial.operation.anchor('announce')">
+      <a>
+        <i class="fa fa-hourglass-3"></i>&nbsp;<span>休庭宣读</span>
+      </a>
+    </li>  
+    <!--其他-->
+    <li class="treeview" ng-click="Trial.operation.anchor('other')">
+      <a>
+        <i class="fa fa-tags"></i>&nbsp;<span>其他</span>
+      </a>
+    </li>  
+  </ul>
+</section>

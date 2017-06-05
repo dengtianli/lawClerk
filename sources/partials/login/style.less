@@ -1,0 +1,46 @@
+#login {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("../assets/images/login/background.jpg") no-repeat;
+  background-size: 100%;
+  background-position: 0;
+  .top {
+    display: block;
+    width: 100%;
+    height: 47%;
+    background-color: @red;
+    .center {
+      width: 150px;
+      height: 200px;
+      position: relative;
+      left: 50%;
+      top: 50%;
+    }
+    .brand {
+      width: 150px;
+      height: 200px;
+      background: url("../assets/images/login/brand.svg") no-repeat;
+      background-size: 150px;
+      position: relative;
+      top: -17%;
+      left: -50%;
+    }
+  }
+  .bottom {
+    background: rgba(256, 256, 256, 0.8);
+    height: 53%;
+    form {
+      width: 350px;
+      margin: 0 auto;
+      position: relative;
+      top: 40px;
+      .error {
+        color:@red;
+      }
+      .checkbox{
+        color:@black;
+      }
+    }
+  }
+}

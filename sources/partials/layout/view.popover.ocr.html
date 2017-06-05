@@ -1,0 +1,70 @@
+  <!-- access -->
+  <div id="access">
+    <input type="file" multiple nv-file-select uploader="Layout.uploader" filter="Layout.uploader.filters" />
+    <div class="btn-group pull-right">
+      <!--
+      <button class="btn btn-default btn-sm" ng-click="Layout.ocr.active()">
+        <i class="fa fa-camera"></i>&nbsp;拍照扫描
+      </button>
+      <button class="btn btn-default btn-xs" ng-click="Layout.ocr.active()">
+        <i class="fa fa-cloud-upload"></i>&nbsp;文件上传
+      </button>
+      -->
+    </div>
+  </div>
+  <!-- upload -->
+  <div id="upload" ng-show="Layout.ocr.actived" nv-file-drop uploader="Layout.uploader">
+    <div ng-if="Layout.uploader.queue.length!==0">
+      <div ng-repeat="item in Layout.uploader.queue" class="panel panel-info panel-fix">
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+          <span class="text-muted">{{ item.file.name }}</span>
+          <div class="box-tools pull-right">
+            <button ng-click="item.remove()" type="button" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div wiserv-thumb="{file:item._file,height:100,width:133}"></div>
+          <div class="status">
+            <span class="text-info">{{item.file.size/1024/1024|number:2}} MB</span>
+            <span class="text-center">
+              <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+              <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+              <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+            </span>
+          </div>
+          <div class="btn-group">
+            <button type="button" class="btn btn-info btn-xs btn-flat"
+                ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+              <span class="glyphicon glyphicon-upload"></span>&nbsp;识别
+            </button>
+            <button type="button" class="btn btn-default btn-xs btn-flat"
+                ng-click="item.cancel()" ng-disabled="!item.isUploading">
+              <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;取消
+            </button>
+          </div>
+        </div>
+        <div class="progress progress-xxs" style="margin-bottom: 0;">
+          <div class="progress-bar progress-bar-primary progress-bar-striped" ng-style="{'width':item.progress+'%'}"></div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="Layout.ocr.result.length!==0" class="row row-result">
+      <div class="text-muted" contenteditable="true"
+           slim-scroll
+           slim-scroll-width="8"
+           slim-scroll-offset="320"
+           slim-scroll-color="gray">
+        <p ng-repeat="result in Layout.ocr.result">
+          {{result.text}}
+        </p>
+      </div>
+    </div>
+  </div>
+  <!-- Camera tab -->
+  <div id="camera" ng-hide="Layout.ocr.actived">
+    <!-- 
+    <div class="source" wiserv-camera />
+    -->
+    <div class="target" />
+  </div>

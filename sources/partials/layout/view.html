@@ -1,0 +1,138 @@
+<div id="layout" class="wrapper">
+  <!-- TOP NAV -->
+  <header class="main-header">
+    <nav class="navbar navbar-static-top">
+      <div class="fluid-container">
+        <div class="navbar-header">
+          <a ui-sref="cases" class="logo">
+            <span></span><span></span>
+          </a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <i class="fa fa-bars"></i>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
+          <ul ui-sref-active-eq class="nav navbar-nav">
+            <!-- cases -->
+            <li ui-sref-active-eq="active" class="active">
+              <a ui-sref="cases" ui-sref-opts="{reload: true}">
+                <i class="fa fa-database"></i>&nbsp;<span>案件信息</span>
+              </a>
+            </li>
+            <!-- OCR -->
+            <li>
+              <a uib-popover-template="Layout.ocr.propover.templateUrl"
+                 popover-class = "ocr"
+                 popover-title="{{Layout.ocr.propover.title}}"
+                 popover-trigger ="{outsideClick: outsideClick}"
+                 popover-placement="{{Layout.ocr.propover.placement}}">
+                <i class="fa fa-opera"></i>
+                <span>OCR识别</span>
+              </a>
+            </li>
+            <!-- calculator -->
+            <li>
+              <a uib-popover-template="Layout.calculator.propover.templateUrl"
+                 popover-class = "calculator"
+                 popover-trigger ="{outsideClick: outsideClick}"
+                 popover-placement="{{Layout.calculator.propover.placement}}">
+                <i class="fa fa-calculator"></i>
+                <span>快捷计算</span>
+              </a>
+            </li>
+            <!-- template & helper -->
+            <li class="dropdown" uib-dropdown>
+              <a class="dropdown-toggle" uib-dropdown-toggle>
+                <i class="fa fa-book"></i>
+                模板管理
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" uib-dropdown-menu>
+                <li role="menuitem">
+                  <a ui-sref="template.helper" ui-sref-opts="{reload: true}">
+                    <i class="fa fa-file-text-o"></i>&nbsp;区块模板
+                  </a>
+                </li>
+                <li class="divider"></li>
+                <li role="menuitem">
+                  <a ui-sref="template.judged" ui-sref-opts="{reload: true}">
+                    <i class="fa fa-copy"></i>&nbsp;文书模板
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- repository -->
+            <li ui-sref-active-eq="active">
+              <a ui-sref="repository.law" ui-sref-opts="{reload: true}">
+                <i class="fa fa-paste"></i>&nbsp;<span>知识库</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- navbar -->
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li class="search-shortcut visible-lg" ui-sref-active-eq="active">
+              <form class="navbar-form navbar-left">
+                <div class="form-group">
+                  <div class="input-group">
+                    <!-- repository -->
+                    <span ng-click="Layout.search.searchWriter($event,Layout.search.info,1)" class="input-group-addon">
+                      <i class="fa fa-search"></i>
+                    </span>
+                    <input id="navbar-search-input" ng-model="Layout.search.info.keyword" ng-keyup="Layout.search.searchWriter($event,Layout.search.info,0)" type="text" class="form-control" placeholder="快速检索并按回车确认"  required />
+                  </div>
+                  <div class="input-group">
+                    <select class="form-control" id="select-repository" name="type" ng-model="Layout.search.info.type">
+                      <option value="null" >全选</option>
+                      <option value="law" selected >法条库</option>
+                      <option value="cause">案由库</option>
+                      <option value="judgment">文书库</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </li>
+            <!-- #repository -->            
+            <!-- user -->
+            <li id="feedback" class="dropdown" uib-dropdown>
+              <a class="dropdown-toggle" uib-dropdown-toggle>
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <span id="username" ng-bind="Layout.user.owner"></span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu " uib-dropdown-menu>
+                  <li role="menuitem">
+                    <a id="editPassword" ng-click="Layout.user.openModal()">
+                      <i class="fa fa-key"></i>&nbsp;修改密码
+                    </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li role="menuitem">
+                    <a id="editPassword" ng-click="Layout.feedback.openModal()">
+                      <i class="fa fa-comment"></i>&nbsp;提交反馈
+                    </a>
+                  </li>
+                  <li class="divider"></li>
+                  <li role="menuitem">
+                    <a id="editPassword" ng-click="Layout.user.loginout()">
+                      <i class="fa fa-reply"></i>&nbsp;退出
+                    </a>
+                  </li>
+                </ul>
+            </li>
+            <!-- # user -->                  
+          </ul>
+        </div>
+        <!-- navbar -->        
+      </div>
+    </nav>
+  </header>
+  <!-- # TOP NAV -->
+  <!-- MAIN CONTENT -->
+  <div class="content-wrapper">
+    <div id="layout" ui-view class="container-fluid"></div>
+  </div>
+  <!-- # MAIN CONTENT -->
+</div>
+

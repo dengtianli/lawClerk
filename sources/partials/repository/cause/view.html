@@ -1,0 +1,82 @@
+
+<div id="repository-cause" class="animated fadeIn">
+  <section class="content">
+    <div class="column">
+      <div class="box-wrap">
+        <a href="javascript:;" ng-click="Cause.prev()">返回上一页</a>
+        <!--search-->
+        <div class="row lawLibrary-wrap">
+          <div class="col-lg-7">
+             <form name="search">
+            <div class="input-group search">
+              <input type="text" name="keyword" ng-maxlength="100" class="form-control" ng-model="Cause.keyword" placeholder="输专业关键字" />
+              <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" ng-click="Cause.inquire(search.$valid)">搜索</button>
+                </span>
+            </div>
+              <span style="color:red" ng-if="search.keyword.$error.maxlength && search.keyword.$dirty">搜索内容不能超过100个字符!</span>
+            </form>
+            <p class="tips"><a href="javascript:;" class=" fa fa-plus" ng-click="Cause.search()">&nbsp;高级搜索</a></p>
+            <!--exact search-->
+            <div class="box col-lg-7">
+              <div class="form-wrap col-lg-11">
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <label class="">案由类型</label>
+                    <select  class="form-control" disabled>
+                      <option value="1">民事案由</option>
+                      <option value="2 ">刑事案由</option>
+                    </select>
+                  </div>
+                </form>
+                <form class="form-inline" role="form">
+                  <div class="form-group">
+                    <label class="">一级案由</label>
+                    <select type="text" class="form-control" 
+                            ng-model="level_1_part" 
+                            ng-options=" item.case_part as item.case_part for item in Cause.level_1"
+                            ng-change="Cause.levelChange(level_1_part)">
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="">二级案由</label>
+                    <select type="text" class="form-control"
+                            ng-model="level_2_part" 
+                            ng-options=" level.case_district as level.case_district for level in Cause.level_2"
+                            ng-change="Cause.levelChildChange(level_2_part)">
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="">三级案由</label>
+                    <select type="text" class="form-control"
+                            ng-model="level_3_part" 
+                            ng-options=" levelChild.case_cause as levelChild.case_cause for levelChild in Cause.level_3">
+                    </select>
+                  </div>
+                </form>
+              </div>
+              <div class="col-lg-12 cancel">
+                <button type="button" class="btn btn-default" ng-click="Cause.cancel()">搜索</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--content-->
+        <div class="row lawLibrary-wrap summary">
+          <div class="col-lg-7 lawLibrary-content ">
+            <div class="icon"></div>
+            <div class="cause-content">
+              <h3>
+                案由库目前已收录法条
+                <span>{{ Cause.total }}</span>
+                条
+              </h3>
+              <p>汇集了海量的法规法学文献，并运用科学的法学方法论和信息化 手段对这些文献进行了深入的加工，为用户呈现完整的中国法学知识体系。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div> 
+    </div>
+  </section>
+</div>

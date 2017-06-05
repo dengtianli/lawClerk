@@ -1,0 +1,2267 @@
+ <div id="record" class="wrapper animated fadeIn">
+  <section class="content">
+      <!--左侧导航-->
+      <div id="navigation">
+        <section class="sidebar">
+          <ul class="sidebar-menu">
+            <!-- 庭审信息 -->
+            <li class="treeview" ng-click="Record.goContent('trial_info')">
+              <a>
+                <i class="fa fa-tasks"></i>&nbsp;<span>庭审信息</span>
+              </a>
+            </li>
+            <!-- 法庭纪律 -->
+            <li class="treeview" ng-click="Record.goContent('court_discipline')">
+              <a>
+                <i class="fa  fa-book"></i>&nbsp;<span>法庭纪律</span>
+              </a>
+            </li>
+            <!-- 信息核对 -->
+            <li class="treeview">
+              <a>
+                <i class="fa fa-eye"></i>&nbsp;<span>信息核对</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li class="" ng-click="Record.goContent('itigant_participant')"><a><i class="fa fa-circle-o"></i>&nbsp;诉讼参与人</a></li>
+                <li ng-click="Record.goContent('dissent_reason')"><a><i class="fa fa-circle-o"></i>&nbsp;异议及理由</a></li>
+                <li ng-click="Record.goContent('absent_trial')"><a><i class="fa fa-circle-o"></i>&nbsp;缺席审理</a></li> 
+                <li ng-click="Record.goContent('witness')"><a><i class="fa fa-circle-o"></i>&nbsp;是否有证人出庭</a></li>                 
+              </ul>
+            </li>
+            <!-- 庭审序言 -->
+            <li class="treeview">
+              <a>
+                <i class="fa fa-map"></i>&nbsp;<span>庭审序言</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li class="" ng-click="Record.goContent('trial_org')"><a><i class="fa fa-circle-o"></i>&nbsp;庭审组织</a></li>
+                <li ng-click="Record.goContent('litigation_rights')"><a><i class="fa fa-circle-o"></i>&nbsp;告知诉讼权利</a></li>
+                <li ng-click="Record.goContent('told_matters')"><a><i class="fa fa-circle-o"></i>&nbsp;告知事项</a></li>
+                <li ng-click="Record.goContent('withdrawal_petition')"><a><i class="fa fa-circle-o"></i>&nbsp;是否申请回避</a></li>
+                <li ng-click="Record.goContent('adducing_evidence_objection')"><a><i class="fa fa-circle-o"></i>&nbsp;举证期限异议</a></li>
+              </ul>
+            </li>
+            <!-- 法庭调查 -->
+            <li class="treeview">
+              <a>
+                <i class="fa fa-road"></i>&nbsp;<span>法庭调查</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li class="" ng-click="Record.goContent('the_plea_opinion')"><a><i class="fa fa-circle-o"></i>&nbsp;诉辩意见</a></li>
+                <li ng-click="Record.goContent('the_court_asked')"><a><i class="fa fa-circle-o"></i>&nbsp;法庭询问</a></li>
+                <li ng-click="Record.goContent('conclude_contest')"><a><i class="fa fa-circle-o"></i>&nbsp;归纳争点</a></li>
+                <li ng-click="Record.goContent('proof')"><a><i class="fa fa-circle-o"></i>&nbsp;举证质证</a></li>
+                <!--<li><a><i class="fa fa-circle-o"></i>&nbsp;调查总结</a></li>-->
+              </ul>
+            </li>
+            <!-- 法庭辩论 -->
+            <li class="treeview">
+              <a>
+                <i class="fa fa-coffee"></i>&nbsp;<span>法庭辩论</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu" style="display: none;">
+                <li class="" ng-click="Record.goContent('court_debate_accuser')"><a><i class="fa fa-circle-o"></i>&nbsp;原告方辩论意见</a></li>
+                <li ng-click="Record.goContent('court_debate_defendant')"><a><i class="fa fa-circle-o"></i>&nbsp;被告方辩论意见</a></li>
+                <li ng-click="Record.goContent('court_debate_third_man')"><a><i class="fa fa-circle-o"></i>&nbsp;第三人辩论意见</a></li>
+              </ul>
+            </li>
+            <!-- 最后陈述 -->
+            <li class="treeview" ng-click="Record.goContent('final_statement')">
+              <a>
+                <i class="fa fa-share-alt"></i>&nbsp;<span>最后陈述</span>
+              </a>
+            </li>
+            <!-- 法庭调解 -->
+            <li class="treeview" ng-click="Record.goContent('court_mediation')">
+              <a>
+                <i class="fa fa-graduation-cap"></i>&nbsp;<span>法庭调解</span>
+              </a>
+            </li>
+            <!-- 休庭宣读 -->
+            <li class="treeview" ng-click="Record.goContent('closed_court_read')">
+              <a>
+                <i class="fa fa-hourglass-3"></i>&nbsp;<span>休庭宣读</span>
+              </a>
+            </li>  
+            <!--其他-->
+            <li class="treeview" ng-click="Record.goContent('others')">
+              <a>
+                <i class="fa fa-tags"></i>&nbsp;<span>其他</span>
+              </a>
+            </li>  
+          </ul>
+        </section>
+      </div>
+      <!--笔录内容-->
+      <div class="main-body" ui-view>
+        <div class="box box-default" id="recordMain">
+          <div class="box-header">             
+            <h3 class="box-title">
+              <button type="button" class="btn btn-info btn-sm"
+                wiserv-toggle wiserv-toggle-selector="#navigation"
+                data-toggle="tooltip" data-placement="bottom" title="笔录导航">
+                <i class="fa  fa-hand-lizard-o"></i>
+              </button>
+              <button type="button" class="btn btn-default btn-sm" ng-click="Record.RecordSave(Record.trialNumber)" id="save">
+                <i class="fa fa-save text-primary">&nbsp;保存</i>
+              </button>
+              <!-- <button type="button" class="btn btn-default btn-sm" ng-click="Record.cancel()">
+                <i class="fa fa-save text-primary">&nbsp;撤销休庭</i>
+              </button> -->
+            </h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-default btn-sm" title="返回案件列表" ui-sref="cases">
+                <i class="fa fa-mail-reply text-primary"></i>
+              </button>
+            </div>
+          </div>
+          <div class="box-body" id="record-content"
+              wiserv-scroll wiserv-scroll-offset="30">
+            <div id="wrap">
+            <!-- 内容主体开始 -->
+              <div class="head">
+                <div class="title" contenteditable="true">
+                  <h1>{{Record.data.caseInfoList.court_name}}</h1>
+                  <h2>法&nbsp;庭&nbsp;笔&nbsp;录</h2>
+                </div>
+                <div class="content-head undo" id="trial_info" contenteditable="true">
+                  <p id="open-date">
+                    时间：
+                    <a href="#" editable-bsdate="Record.time.startDate"
+                                e-is-open="Record.opened.$data"
+                                e-ng-click="Record.open($event,'$data')"
+                                e-datepicker-popup="dd-MMMM-yyyy">
+                      {{ (Record.time.startDate | date:"yyyy年MM月dd日") || 'empty' }}
+                    </a>
+                    <span class="underline">9时30分</span>至<span class="underline">11时30分</span> 
+                  </p>
+                  <p class="form-inline">
+                    地点：
+                    <!-- <input type="text" class="form-control" name="courtName" placeholder="法庭名称" ng-model="Record.courtName" >&nbsp; -->
+                    <span>{{Record.data.caseInfoList.court_name}}</span>
+                    第
+                    <!-- 临时添加span -->
+                    <span class="temporary">{{Record.data.courtnumber}}</span>
+                    <!-- 临时 end -->
+                    <input type="text" class="form-control small" value=""  ng-model="Record.data.courtnumber" ng-blur="Record.event.setNumberFormat('courtnumber')">号法庭第   
+                    <!-- 临时添加span -->
+                    <span class="temporary">{{Record.trialNumber}}</span>
+                    <!-- 临时 end -->          
+                    <input type="text" class="form-control small"  ng-init="Record.trialNumber" ng-model="Record.trialNumber">次开庭  
+                    <!-- <span>{{Record.trialNumber}}</span>-->
+                  </p>
+                  <p class="case-number form-inline">案号：
+                    <span>{{Record.data.caseInfoList.case_no}}</span>
+                  </p>
+                  <p class="form-inline">
+                    案由：
+                    <span>{{Record.data.caseInfoList.case_brief }}</span>
+                  </p>
+                  <p class="form-inline" contenteditable="false">
+                    是否公开审理：
+                    <!-- 临时添加span -->
+                    <span class="temporary">{{Record.data.hear_open}}</span>
+                    <!-- 临时 end -->
+                    <select ng-init="Record.data.hear_open = Record._selectConditionMap.statuses.options[0].text" ng-model="Record.data.hear_open" ng-options="x.text as x.text for x in Record._selectConditionMap.statuses.options">{{Record.data.hear_open}}</select>
+                    <span>&nbsp;&nbsp;&nbsp;旁听人数：</span>
+                    <!-- 临时添加span -->
+                    <span class="temporary">{{Record.data.person}}</span>
+                    <!-- 临时 end -->
+                    <input type="text" class="form-control small" ng-model="Record.data.person" ng-blur="Record.event.setNumberFormat('person')">人
+                  </p>
+                  <!--审判员职务-->
+                  <div id="judge_info">
+                    <p class="form-inline" contenteditable="false">
+                      <!-- 临时添加span -->
+                      <span class="temporary">{{Record._selectConditionMap.duties.options[Record.data.judge_info.dutiesStatus-1].text}}</span>
+                      <!-- 临时 end -->
+                      <select ng-model="Record.data.judge_info.dutiesStatus" ng-options="x.value as x.text for x in Record._selectConditionMap.duties.options" ng-change="Record.event.judgeShow(Record.data.judge_info.dutiesStatus)" contenteditable="false"></select>：
+                      <!-- 临时添加span -->
+                      <span class="temporary">{{Record.data.judge_info.judgeName}}</span>
+                      <!-- 临时 end -->
+                      <input type="text" class="form-control" placeholder="姓名" ng-blur="Record.event.setNameFormat('judgeName',$event)" ng-focus="Record.event.checkName($event)" ng-model="Record.data.judge_info.judgeName">
+                    </p>
+                    <p ng-show="Record.duties_flag" class="form-inline" contenteditable="false">
+                      <!-- 临时添加span -->
+                      <span class="temporary">{{Record._selectConditionMap.agents.options[Record.data.judge_info.agent-1].text}}</span>
+                      <!-- 临时 end -->
+                      <select ng-model="Record.data.judge_info.agent" ng-options="x.value as x.text for x in Record._selectConditionMap.agents.options" contenteditable="false"></select>：
+                      <!-- 临时添加span -->
+                      <span class="temporary">{{Record.data.judge_info.judgeName_second}}</span>
+                      <!-- 临时 end -->
+                      <input type="text" class="form-control" placeholder="姓名" ng-blur="Record.event.setNameFormat('judgeName_second',$event)" ng-focus="Record.event.checkName($event)" ng-model="Record.data.judge_info.judgeName_second" >
+                    </p>
+                    <p ng-show="Record.duties_flag" class="form-inline" contenteditable="false">
+                      <!-- 临时添加span -->
+                      <span class="temporary">{{Record._selectConditionMap.agents.options[Record.data.judge_info.jurors-1].text}}</span>
+                      <!-- 临时 end -->
+                      <select ng-model="Record.data.judge_info.jurors" ng-options="x.value as x.text for x in Record._selectConditionMap.agents.options" contenteditable="false"></select>：
+                      <!-- 临时添加span -->
+                      <span class="temporary">{{Record.data.judge_info.judgeName_third}}</span>
+                      <!-- 临时 end -->
+                      <input type="text" class="form-control" placeholder="姓名" ng-blur="Record.event.setNameFormat('judgeName_third',$event)" ng-focus="Record.event.checkName($event)" ng-model="Record.data.judge_info.judgeName_third" >
+                    </p>
+                  </div>
+                  <p class="form-inline" contenteditable="false">
+                    <span>书&nbsp;记&nbsp;员：</span>
+                    <!-- 临时添加span -->
+                    <span class="temporary">{{Record.data.judge_info.court_clerk}}</span>
+                    <!-- 临时 end -->
+                     <input type="text" class="form-control" placeholder="姓名" ng-blur="Record.event.setNameFormat('court_clerk',$event)" ng-focus="Record.event.checkName($event)" ng-model="Record.data.judge_info.court_clerk" >
+                  </p>
+                </div>
+              </div>
+              <!--书记员-->
+              <div class="body">
+                <div class="record-details">
+                  <!--法庭纪律-->
+                  <div class="rules undo" id="court_discipline" contenteditable="true"> 
+                    <p>书记员：请安静！请各方当事人及其诉讼代理人入庭（核对当事人及代理人情况）。</p>
+                    <p>书记员：为了维护法庭秩序，保障审判活动正常进行，根据《中华人民共和国民事诉讼法》第一百三十七条第一款和《中华人民共和国人民法院法庭规则》之规定，现在宣布法庭纪律:</p>
+                    <p>1．全体人员在庭审活动中应当服从<span>{{ Record._selectConditionMap.duties.options[Record.data.judge_info.dutiesStatus-1].text | replaceTrim }}</span>的指挥，尊重司法礼仪，遵守法庭纪律，不得实施下列行为
+                    <p>
+                    <p>（一）鼓掌、喧哗；</p>
+                    <p>（二）吸烟、进食；</p>
+                    <p>（三）拨打或接听电话；</p>
+                    <p>（四）对庭审活动进行录音、录像、拍照或使用移动通信工具等传播庭审活动；</p>
+                    <p>（五）其他危害法庭安全或妨害法庭秩序的行为。</p>
+                    <p>2．诉讼参与人发言或提问，应当经<span>{{ Record._selectConditionMap.duties.options[Record.data.judge_info.dutiesStatus-1].text | replaceTrim }}</span>许可。</p>
+                    <p>3．旁听人员不得进入审判活动区，不得随意站立、走动，不得发言和提问。</p>
+                    <p>4．媒体记者经许可实施第一款第四项规定的行为，应当在指定的时间及区域进行，不得影响或干扰庭审活动。</p>
+                    <p>5．<span>{{ Record._selectConditionMap.duties.options[Record.data.judge_info.dutiesStatus-1].text | replaceTrim }}</span>对违反法庭纪律的人员应当予以警告；对不听警告的，予以训诫；对训诫无效的，责令其退出法庭；对拒不退出法庭的，指令司法警察将其强行带出法庭。
+                    </p>
+                    <p>6．行为人违反第一款第四项规定的，人民法院可以暂扣其使用的设备及存储介质，删除相关内容。</p>
+                    <p>书记员:全体起立,请审判人员入庭。</p>
+                    <p>审：（全体审判人员就位后）请坐下。</p>
+                    <p>书记员:（面向审判人员正面站立）报告<span>{{ Record._selectConditionMap.duties.options[Record.data.judge_info.dutiesStatus-1].text | replaceTrim }}</span>，本案到庭参加庭审活动的诉讼参与人已经到齐，法庭准备就绪，请审判人员开庭。</p>
+                    <p>审：请坐下，准备法庭记录。</p>
+                  </div> 
+                  <!--核对人员信息-->
+                  <div class="undo" id="check_info" contenteditable="true">
+                    <p>审：（敲击法槌）现在开庭。首先核对当事人和其他诉讼参与人的基本信息。</p>
+                    <!--诉讼参与人-->     
+                    <div class="undo" id="itigant_participant">
+                      <!--原告信息-->
+                      <p ng-repeat="item in Record.personList.accuserList track by $index" class="form-inline" contenteditable="false">
+                        原告：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{item.name}}</span>
+                        <!-- 临时 end -->
+                        <input type="text" class="form-control" ng-model="item.name" ng-blur="Record.event.setPersonFormat('accuserList',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                        <span contenteditable="true" class="editable-area">{{item.info}}</span> 
+                        （
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select class="medium" ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" contenteditable="false"></select>
+                        ，以下简称
+                        <span>原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i></span>）
+                        <button class="btn btn-info btn-sm" ng-click="Record.addBailor('0')" ng-show='$index === 0'>
+                          <i class="fa fa-plus"></i>
+                        </button>
+                        <i class="fa fa-times" ng-click="Record.delBailor('0',$index)" ng-show='$index > 0'></i>
+                      </p> 
+                      <!--原告法定代表人-->
+                      <p ng-repeat="item in Record.personList.agentLegal" class="form-inline" contenteditable="false">
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.legal.options[item.legalSelect-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.legalSelect" ng-options="x.value as x.text for x in Record._selectConditionMap.legal.options" ng-change="Record.event.lagalAgentChange(item)" contenteditable="false"></select>
+                        ：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{item.name}}</span>
+                        <!-- 临时 end -->
+                        <input type="text" class="form-control" placeholder="姓名" ng-model="item.name" ng-blur="Record.event.setPersonFormat('agentLegal',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                        <span contenteditable="true" class="editable-area">{{item.info}}</span>
+                        （
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" contenteditable="false"></select>
+                         ，以下简称
+                        <span>{{item.legalShortA}}</span>
+                        <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>）
+                        <button class="btn btn-danger btn-sm" ng-click="Record.delBailor('6',$index)" ng-show='$index === 0 && Record.personList.agentLegal.length <= 1'>
+                          <i class="fa fa-minus"></i>
+                        </button>
+                        <button class="btn btn-info btn-sm" ng-click="Record.addBailor('6')" ng-show='$index === 0'>
+                          <i class="fa fa-plus"></i>
+                        </button>
+                        <i class="fa fa-times" ng-click="Record.delBailor('6',$index)" ng-show='$index > 0'></i>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentAccuserList" class="form-inline" contenteditable="false">       
+                          委托诉讼代理人：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{item.name}}</span>
+                          <!-- 临时 end -->
+                          <input type="text" class="form-control" ng-model="item.name" ng-blur="Record.event.setPersonFormat('agentAccuserList',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                          <span contenteditable="true" class="editable-area">{{item.info}}</span>（
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" contenteditable="false"></select>
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.Authorization.options[item.warrant-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.warrant" ng-options="x.value as x.text for x in Record._selectConditionMap.Authorization.options" contenteditable="false"></select>
+                          ，以下简称
+                          <span>原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i></span>）
+                          <button class="btn btn-danger btn-sm" ng-click="Record.delBailor('3',$index)" ng-show='$index === 0 && Record.personList.agentAccuserList.length <= 1'>
+                            <i class="fa fa-minus"></i>
+                          </button>
+                          <button  class="btn btn-info btn-sm" ng-click="Record.addBailor('3')" ng-show='$index === 0'>
+                            <i class="fa fa-plus"></i>
+                          </button>
+                          <i class="fa fa-times" ng-click="Record.delBailor('3',$index)" ng-show='$index > 0'></i>         
+                      </p> 
+                      <!--被告信息-->
+                      <p ng-repeat="item in Record.personList.defendantList" class="form-inline" contenteditable="false">
+                        被告：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{item.name}}</span>
+                        <!-- 临时 end -->                     
+                        <input type="text" class="form-control" ng-model="item.name" ng-blur="Record.event.setPersonFormat('defendantList',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                        <span contenteditable="true" class="editable-area">{{item.info}}</span>（
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" contenteditable="false"></select>
+                        以下简称
+                        <span>被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i></span>）
+                        <button class="btn btn-info btn-sm" ng-click="Record.addBailor('1')" ng-show='$index === 0'>
+                          <i class="fa fa-plus"></i>
+                        </button>
+                        <i class="fa fa-times" ng-click="Record.delBailor('1',$index)" ng-show='$index > 0'></i>
+                      </p> 
+                       <!--被告法定代表人-->
+                      <p ng-repeat="item in Record.personList.agentDefendantLegal" class="form-inline" contenteditable="false">
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.legal.options[item.legalSelect-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.legalSelect" ng-options="x.value as x.text for x in Record._selectConditionMap.legal.options" ng-change="Record.event.lagalAgentChange(item)" contenteditable="false"></select>
+                        ：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{item.name}}</span>
+                        <!-- 临时 end -->
+                        <input type="text" class="form-control" placeholder="姓名" ng-model="item.name" ng-blur="Record.event.setPersonFormat('agentDefendantLegal',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                        <span contenteditable="true" class="editable-area">{{item.info}}</span>
+                        （
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" contenteditable="false"></select>
+                         ，以下简称
+                        <span>{{item.legalShortB}}</span>
+                        <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>）
+                        <button class="btn btn-danger btn-sm" ng-click="Record.delBailor('7',$index)" ng-show='$index === 0 && Record.personList.agentDefendantLegal.length <= 1'>
+                          <i class="fa  fa-minus"></i>
+                        </button>
+                        <button class="btn btn-info btn-sm" ng-click="Record.addBailor('7')" ng-show='$index === 0'>
+                          <i class="fa fa-plus"></i>
+                        </button>
+                        <i class="fa  fa-times" ng-click="Record.delBailor('7',$index)" ng-show='$index > 0'></i>
+                      </p>              
+                      <p ng-repeat="item in Record.personList.agentDefendantList" class="form-inline" contenteditable="false">
+                        委托诉讼代理人：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{item.name}}</span>
+                        <!-- 临时 end -->
+                        <input type="text" class="form-control" ng-model="item.name" ng-blur="Record.event.setPersonFormat('agentDefendantList',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                        <span contenteditable="true" class="editable-area">{{item.info}}</span>（
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.Authorization.options[item.warrant-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.warrant" ng-options="x.value as x.text for x in Record._selectConditionMap.Authorization.options" contenteditable="false"></select>
+                        以下简称
+                        <span>被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i></span>）
+                        <button class="btn btn-danger btn-sm" ng-click="Record.delBailor('4',$index)" ng-show='$index === 0 && Record.personList.agentDefendantList.length <= 1'>
+                          <i class="fa  fa-minus"></i>
+                        </button>
+                        <button class="btn btn-info btn-sm remove-dom" ng-click="Record.addBailor('4')" ng-show='$index === 0'>
+                          <i class="fa fa-plus remove-dom"></i>
+                        </button>
+                        <i class="fa fa-times remove-dom" ng-click="Record.delBailor('4',$index)" ng-show='$index > 0'></i>
+                      </p>
+                      <!--第三人信息-->
+                      <p ng-repeat="item in Record.personList.thirdPeopleList" class="form-inline" contenteditable="false">
+                        第三人：
+                        <!-- 临时添加span -->
+                        <span class="temporary remove-dom">{{item.name}}</span>
+                        <!-- 临时 end -->
+                        <input type="text" class="form-control remove-dom" ng-model="item.name"  ng-blur="Record.event.setPersonFormat('thirdPeopleList',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                        <span contenteditable="true" class="editable-area">{{item.info}}</span>（
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" class='remove-dom' contenteditable="false"></select>
+                        以下简称
+                        <span class='remove-dom'>第
+                        <i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i></span>）
+                        <button class="btn btn-danger btn-sm remove-dom" ng-click="Record.delBailor('2',$index)" ng-show='$index === 0 && Record.personList.thirdPeopleList.length <= 1'>
+                            <i class="fa  fa-minus remove-dom"></i>
+                        </button>
+                        <button class="btn btn-info btn-sm remove-dom" ng-click="Record.addBailor('2')" ng-show='$index === 0'>
+                          <i class="fa fa-plus remove-dom"></i>
+                        </button>
+                        <i class="fa fa-times remove-dom" ng-click="Record.delBailor('2',$index)" ng-show='$index > 0'></i>
+                      </p>
+                       <!--第三人法定代表人-->
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" class="form-inline" contenteditable="false">
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.legal.options[item.legalSelect-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.legalSelect" ng-options="x.value as x.text for x in Record._selectConditionMap.legal.options" ng-change="Record.event.lagalAgentChange(item)" contenteditable="false"></select>
+                        ：
+                        <!-- 临时添加span -->
+                        <span class="temporary remove-dom">{{item.name}}</span>
+                        <!-- 临时 end -->
+                        <input type="text" class="form-control" placeholder="姓名" ng-model="item.name" ng-blur="Record.event.setPersonFormat('agentThirdPeopleLegal',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                        <span contenteditable="true" class="editable-area">{{item.info}}</span>
+                        （
+                        <!-- 临时添加span -->
+                        <span class="temporary remove-dom">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" contenteditable="false"></select>
+                         ，以下简称
+                        <span>{{item.legalShortT}}</span><i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>）
+                        <button class="btn btn-danger btn-sm remove-dom" ng-click="Record.delBailor('8',$index)" ng-show='$index === 0 && Record.personList.agentThirdPeopleLegal.length <= 1'>
+                            <i class="fa  fa-minus remove-dom"></i>
+                        </button>
+                        <button class="btn btn-info btn-sm remove-dom" ng-click="Record.addBailor('8')" ng-show='$index === 0'>
+                          <i class="fa fa-plus remove-dom"></i>
+                        </button>
+                        <i class="fa  fa-times remove-dom" ng-click="Record.delBailor('8',$index)" ng-show='$index > 0'></i>
+                      </p>
+                      <p class="bailor_third form-inline" ng-repeat="item in Record.personList.agentThirdPeopleList" contenteditable="false">
+                          委托诉讼代理人：
+                          <!-- 临时添加span -->
+                          <span class="temporary remove-dom">{{item.name}}</span>
+                          <!-- 临时 end -->
+                          <input type="text" class="form-control remove-dom" ng-model="item.name"  ng-blur="Record.event.setPersonFormat('agentThirdPeopleList',$index,$event)" ng-focus="Record.event.checkName($event)">，
+                          <span contenteditable="true" class="editable-area">{{item.info}}</span>（
+                          <!-- 临时添加span -->
+                          <span class="temporary remove-dom">{{Record._selectConditionMap.attendance.options[item.toCourt-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.toCourt" ng-options="x.value as x.text for x in Record._selectConditionMap.attendance.options" ng-change="Record.event.toCourtChange(item)" contenteditable="false"></select>
+                          <!-- 临时添加span -->
+                          <span class="temporary remove-dom">{{Record._selectConditionMap.Authorization.options[item.warrant-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.warrant" ng-options="x.value as x.text for x in Record._selectConditionMap.Authorization.options" contenteditable="false"></select>
+                          以下简称
+                          <span>第代</span><i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>）
+                          <button class="btn btn-danger btn-sm remove-dom" ng-click="Record.delBailor('5',$index)" ng-show='$index === 0 && Record.personList.agentThirdPeopleList.length <= 1'>
+                            <i class="fa fa-minus remove-dom"></i>
+                          </button>
+                          <button class="btn btn-info btn-sm remove-dom" ng-click="Record.addBailor('5')" ng-show='$index === 0'>
+                            <i class="fa fa-plus remove-dom" ></i>
+                          </button>
+                          <i class="fa fa-times remove-dom" ng-click="Record.delBailor('5',$index)" ng-show='$index > 0'></i>
+                      </p>
+                    </div>
+                    <!--仅原告或其诉讼代理人到庭时，隐藏absent-->
+                    <div id="dissent_reason">
+                    <div class="absent undo"  ng-if="((!Record.defendant_part_flag && Record.third_man_flag) || (Record.defendant_part_flag && !Record.third_man_flag)) || Record.attendance_flag" contenteditable="true">
+                      <p >审：各方对出庭人员有无异议？</p>
+                        <!-- 原告、被告、第三人对出庭人员有无异议 -->
+                      <div>
+                      <!-- 原告 -->
+                        <p ng-repeat="item in Record.personList.accuserList" class="form-inline">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                        <!-- 原告法定代表 -->
+                        <p ng-repeat="item in Record.personList.agentLegal" class="form-inline remove-dom">
+                          <span>{{item.legalShortA}}</span><i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary remove-dom">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                        <!-- 原告代理 -->
+                        <p ng-repeat="item in Record.personList.agentAccuserList" class="form-inline">
+                          原代<span ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></span>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                      </div>
+                      <!-- 被告 -->
+                      <div>
+                        <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag" class="form-inline remove-dom">
+                          被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary remove-dom">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                        <!-- 被告法定代表 -->
+                        <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag" class="form-inline remove-dom">
+                          <span class='remove-dom'>{{item.legalShortB}}</span>
+                          <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary remove-dom">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                        <!-- 被告代理 -->
+                        <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag" class="form-inline remove-dom">
+                          被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                      </div>
+                      <!-- 第三人 -->
+                      <div>
+                        <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag" class="form-inline remove-dom">
+                          第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                           <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                        <!-- 第三人法定代表 -->
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag" class="form-inline remove-dom">
+                          <span>{{item.legalShortT}}</span><i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary remove-dom">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                        <!-- 第三人代理 -->
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag" class="form-inline remove-dom">
+                          第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary remove-dom">{{Record._selectConditionMap.objection.options[item.objection-1].text}}</span>
+                          <!-- 临时 end -->
+                           <select ng-model="item.objection" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_flag" class="editable-area" ng-bind="item.objectionReason
+                          "></span>
+                        </p>
+                      </div>
+                    </div>
+                    </div>
+                      <!--部分缺席时，显示absent-->
+                    <div id="absent_trial" contenteditable="true"> 
+                      <div class="absent undo" ng-if="((!Record.defendant_part_flag && Record.thirdPeop_part_flag) || (Record.defendant_part_flag && !Record.thirdPeop_part_flag)) || !Record.attendance_flag" >
+                          <p>
+                            审：
+                            <span ng-repeat="item in Record.data.absentee">
+                              <i>{{ item.type }}</i>
+                              <i>{{ item.name }}</i>
+                            </span>
+                            经本院依法传唤，无正当理由拒不当庭，本案缺席审理，是否清楚？
+                          </p>
+                          <!--诉讼参与人-->
+                          <div>
+                            <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                              原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                              <span>{{item.legalShortA}}</span><i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                              原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                            </p>
+                            <p ng-repeat="item in Record.personList.defendantList" ng-if="item.show_flag">
+                              被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-if="item.show_flag">
+                              <span>{{item.legalShortB}}</span>
+                              <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantList" ng-if="item.show_flag">
+                              被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                            </p>
+                            <p ng-repeat="item in Record.personList.thirdPeopleList" ng-if="item.show_flag">
+                              第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-if="item.show_flag">
+                              <span>{{item.legalShortT}}</span><i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-if="item.show_flag">
+                              第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                            </p>
+                          </div>
+                      </div> 
+                    </div>
+                    <div class="undo" id="witness" contenteditable="true">
+                      <p>审：经核对，各方当事人和其他诉讼参加人均符合法律规定，可以参加本次诉讼活动。各方当事人是否有证人出庭作证？</p>
+                      <div>
+                          <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                            原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                            <span>{{item.legalShortA}}</span><i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                            原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                          <p ng-repeat="item in Record.personList.defendantList" ng-if="item.show_flag">
+                            被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-if="item.show_flag">
+                            <span>{{item.legalShortB}}</span>
+                            <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantList" ng-if="item.show_flag">
+                            被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                          <p ng-repeat="item in Record.personList.thirdPeopleList" ng-if="item.show_flag">
+                            第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-if="item.show_flag">
+                            <span>{{item.legalShortT}}</span><i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-if="item.show_flag">
+                            第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：无。
+                          </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="undo" id="trial_org" contenteditable="true">
+                    <!--审判员职务中出现审判长，走普通程序 反之-->
+                    <p class="general" ng-if="Record.duties_flag">审：本院受理
+                      <!--案号-->
+                      <span>{{Record.data.caseInfoList.case_no}}</span>
+                      <span>{{Record.data.caseInfoList.accuser}}</span>
+                      与
+                      {{Record.data.caseInfoList.defendant}}
+                      <!--<案由>-->
+                      <span>{{ Record.data.caseInfoList.case_brief }}</span>
+                      一案后，根据《中华人民共和国民事诉讼法》第一百三十四条之规定，依法适用 
+                      <span>{{Record.data.program}}</span> 
+                      第<span>{{ Record.trialNumber }}</span>次开庭
+                      <!--<是否公开开庭>-->
+                      <span>{{ Record.data.hear_open }}</span>
+                      开庭进行审理。
+                      <button class="btn btn-info btn-sm" id="ordinary-button" title="变更审判人员" ng-click='Record.event.replacePerson("ordinary")'>
+                        <i class="fa fa-plus"></i>
+                      </button>
+                      <span id="change-ordinary">因工作调动，审判员/审判长/代理审判员/人民陪审员/书记员由XXX更换为XXX。
+                      <button class="btn btn-danger btn-sm" id="ordinary-delete" title="删除" ng-click='Record.event.ordinaryDelete("ordinary")'>
+                        <i class="fa fa-minus"></i>
+                      </button>
+                      </span>
+                      本案由
+                      <!--<审判人员职务><审判人员名称>、<审判人员职务><审判人员名称>、<审判人员职务><审判人员名称>-->
+                      <span>{{ Record._selectConditionMap.duties.options[Record.data.judge_info.dutiesStatus-1].text | replaceTrim }}</span>
+                      <span>{{ Record.data.judge_info.judgeName | replaceTrim }}</span>
+                      <span>{{ Record._selectConditionMap.agents.options[Record.data.judge_info.agent-1].text | replaceTrim }}</span>
+                      <span>{{ Record.data.judge_info.judgeName_second | replaceTrim }}</span>
+                      <span>{{ Record._selectConditionMap.agents.options[Record.data.judge_info.jurors-1].text | replaceTrim }}</span>
+                      <span>{{ Record.data.judge_info.judgeName_third | replaceTrim }}</span>
+                      依法组成合议庭，由审判员
+                      <!--<审判人员名称>-->
+                      <span>{{ Record.data.judge_info.judgeName | replaceTrim }}</span>
+                      担任审判长，由书记员
+                      <!--<书记员名称>-->
+                      <span>{{ Record.data.judge_info.court_clerk | replaceTrim }}</span>
+                      担任记录。
+                    </p>
+                    <!--简易程序-->
+                    <p class="simple" ng-if="!Record.duties_flag">审：本院受理
+                      <!--案号-->
+                      <span>{{Record.data.caseInfoList.case_no}}</span>
+                      <span>{{Record.data.caseInfoList.accuser}}</span>
+                      与
+                      {{Record.data.caseInfoList.defendant}}
+                      <!--<案由>-->
+                      <span>{{Record.data.caseInfoList.case_brief}}</span>
+                      一案后，根据《中华人民共和国民事诉讼法》第三十九条、第四十一条之规定，依法适用
+                      <span>{{Record.data.program}}</span>
+                      第<span>{{ Record.trialNumber }}</span>次开庭
+                      <!--<是否公开开庭>-->
+                      <span>{{ Record.data.hear_open }}</span>
+                      开庭进行审理。
+                      <button class="btn btn-info btn-sm" id="simple-button" title="变更审判人员" ng-click="Record.event.replacePerson('simple')">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                      <span id="change-simple">因工作调动，审判员/审判长/代理审判员/人民陪审员/书记员由XXX更换为XXX。
+                        <button class="btn btn-danger btn-sm" id="simple-delete" title="删除" ng-click='Record.event.ordinaryDelete("simple")'>
+                          <i class="fa fa-minus"></i>
+                        </button>
+                      </span>
+                      本案由
+                      <!--<审判人员职务><审判人员名称>-->
+                      <span>{{ Record._selectConditionMap.duties.options[Record.data.judge_info.dutiesStatus-1].text | replaceTrim }}</span>
+                      <span>{{ Record.data.judge_info.judgeName | replaceTrim }}</span>
+                      独任审理，由书记员
+                      <!--<书记员名称>-->
+                      <span>{{ Record.data.judge_info.court_clerk | replaceTrim}}</span>
+                      担任记录。
+                    </p>
+                    <!--******-->
+                  </div>
+                  <div class="undo" id="litigation_rights" contenteditable="true">
+                    <p>审：根据《中华人民共和国民事诉讼法》第四十九条、第五十条、第五十一条之规定，当事人在审理过程中的权利义务是：</p>
+                    <p>1、当事人有收集、提供证据，进行辩论，请求调解，提起上诉，申请执行的权利；</p>
+                    <p>2、依法行使诉讼权利，遵守诉讼秩序，听从审判人员指挥，发言、提问、辩论需经审判长许可，不得相互吵闹和谩骂；</p>
+                    <p>3、当事人可以自行和解；</p>
+                    <p>4、原告人可以放弃或者变更诉讼请求，被告人可以承认或反驳诉讼请求，有权提起反诉；</p>
+                    <p>5、根据《中华人民共和国民事诉讼法》第一百三十九条第三款之规定，当事人申请重新鉴定、调查或勘验者，是否准许由人民法院决定；</p>
+                    <p>6、根据《中华人民共和国民事诉讼法》第一百四十三条之规定，原告经传票传唤，无正当理由拒不到庭的或者未经法庭许可中途退庭的，可按撤诉处理。被告反诉的，可以缺席判决；</p>
+                    <p>7、根据《中华人民共和国民事诉讼法》第一百四十四条之规定，被告经传票传唤，无正当理由拒不到庭的或者未经法庭许可中途退庭的，可以缺席判决；</p>
+                    <p>8、根据《中华人民共和国民事诉讼法》第一百四十五条第二款之规定，人民法院裁定不准撤诉的，原告经传票传唤，无正当理由拒不到庭的，可以缺席判决。</p>
+                    <p>审：根据《中华人民共和国民事诉讼法》第十条、第四十四条、第四十五条、第四十六条之规定，当事人对审判人员有申请回避的权利，如果当事人认为上列人员中有与本案有利害关系或者其他关系，可能影响案件的公正审理，有权用口头或书面形式申请回避，但应当说明理由。审判人员的回避由本院院长决定，书记员的回避由审判长决定。</p>
+                    <p>审：“四个明示”的具体内容如下：</p>
+                    <p>（一）明示全程录音录像。明确告知当事人及其他诉讼参与人、旁听群众，庭审活动将全程录音录像，所形成的视频资料将存入案件卷宗，可能在网上公开，也可能作法制宣传等之用（不公开审理案件除外），提醒和促使法官、当事人及其他诉讼参与人、旁听群众自觉约束和规范言行，确保庭审的严肃性和良好的审判秩序。对不遵守法庭纪律，扰乱法庭秩序的要坚决予以制止，依法给予处理。</p>
+                    <p>（二）明示诚信诉讼原则。在民事案件开庭审理中，明确告知当事人及其他诉讼参与人，在诉讼活动中应当遵循诚实信用原则，不得作虚假陈述，提供虚假证据，妨碍证人、鉴定人、勘验人作证。如有违反，将按照法律规定严格追究其法律责任，合议庭并将其违反诚信的行为作为综合评判案件事实和判决结果的考量因素。</p>
+                    <p>（三）明示不得干扰法院独立审判。明确告知当事人及其他诉讼参与人，应以法律规定的方式表达诉求和提供证据。在诉讼过程中不得通过他人转交材料或转达诉求，不得庭外请托合议庭法官或其他法官，不得以任何形式干扰法院独立和公正行使审判权。对有上述不符合法律规定行为的，合议庭将记录在案并告知对方当事人，同时责令行为方向合议庭及对方当事人作出说明。代理律师有上述行为的，同时还将函告司法行政部门。</p>
+                    <p>（四）明示审判工作纪律。明确告知当事人及其他诉讼参与人、旁听群众，合议庭在案件审理的全过程将严格遵守最高人民法院“五个严禁”等相关规定，庄严宣示合议庭和其他法官不会接受案件当事人及相关人员的请客送礼，不会违反规定与律师进行不正当交往等。同时，公布监督举报电话，告知如发现法官有上述违反纪律行为或有人借法官之名索要财物的，可进行举报、投诉。通过明示，既表明法官中立、公正的立场，也警示和提醒当事人及其他诉讼参与人配合规范自身行为。</p>
+                  </div>
+                  <div class="undo" id="told_matters" contenteditable="true">
+                    <p>审：以上权利义务及四个明示的内容是否清楚?</p>
+                    <div>
+                      <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                        原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                        <span>{{item.legalShortA}}</span><i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                        原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.defendantList" ng-if="item.show_flag">
+                        被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-if="item.show_flag">
+                        <span>{{item.legalShortB}}</span>
+                        <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantList" ng-if="item.show_flag">
+                        被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.thirdPeopleList" ng-if="item.show_flag">
+                        第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-if="item.show_flag">
+                        <span>{{item.legalShortT}}</span><i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-if="item.show_flag">
+                        第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="undo" id="withdrawal_petition" contenteditable="true">
+                    <p>审：根据《中华人民共和国民事诉讼法》第四十四条、四十五条、四十六条之规定，当事人可以申请回避，各方是否申请回避？</p>
+                    <div>
+                      <p ng-repeat="item in Record.personList.accuserList" class="form-inline" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <i ng-show="item.avoid_flag">。</i>
+                          <span ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                        </p>
+                        <!-- 原告法定代表 -->
+                        <p ng-repeat="item in Record.personList.agentLegal" class="form-inline" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <i ng-show="item.avoid_flag">。</i>
+                          <span contenteditable="true" ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentAccuserList" class="form-inline" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <i ng-show="item.avoid_flag">。</i>
+                          <span contenteditable="true" ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                        </p>
+                    </div>
+                    <div>
+                      <p ng-repeat="item in Record.personList.defendantList" ng-if="item.show_flag" class="form-inline">
+                        被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <i ng-show="item.avoid_flag">。</i>
+                        <span contenteditable="true" ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                      </p>
+                      <!-- 被告法定代表 -->
+                      <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="  item.show_flag" class="form-inline">
+                        <span>{{item.legalShortB}}</span>
+                        <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <i ng-show="item.avoid_flag">。</i>
+                        <span contenteditable="true" ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                      </p>      
+                      <p ng-repeat="item in Record.personList.agentDefendantList" ng-if="item.show_flag" class="form-inline">
+                        被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <i ng-show="item.avoid_flag">。</i>
+                        <span contenteditable="true" ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                      </p>  
+                    </div>
+                    <div>
+                      <p ng-repeat="item in Record.personList.thirdPeopleList" ng-if="item.show_flag" class="form-inline">
+                        第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <i ng-show="item.avoid_flag">。</i>
+                        <span contenteditable="true" ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                      </p>
+                      <!-- 第三人法定代表 -->
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag" class="form-inline">
+                        <span>{{item.legalShortT}}</span>
+                        <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <i ng-show="item.avoid_flag">。</i>
+                        <span contenteditable="true" ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                        第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.debarb.options[item.avoid-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.avoid" ng-options="x.value as x.text for x in Record._selectConditionMap.debarb.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <i ng-show="item.avoid_flag">。</i>
+                        <span contenteditable="true" ng-show="!item.avoid_flag" class="editable-area" ng-bind="item.debarbReason
+                          "></span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="undo" id="adducing_evidence_objection" contenteditable="true">
+                    <p>审：庭前向各方送达权利义务通知书、举证通知书，各方是否已收到？对证据期限有无异议？是否同意今天开庭？</p>
+                    <div>
+                      <p ng-repeat="item in Record.personList.accuserList" class="form-inline" ng-if="item.show_flag">
+                        原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>  
+                        <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                          "></span>
+                      </p>
+                      <!-- 原告法定代表 -->
+                      <p ng-repeat="item in Record.personList.agentLegal" class="form-inline" ng-if="item.show_flag">
+                        <span>{{item.legalShortA}}</span>
+                        <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：已收到，
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>
+                        <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                        "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentAccuserList" class="form-inline" ng-if="item.show_flag">
+                        原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>
+                        <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                          "></span>  
+                      </p>
+                      <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag" class="form-inline">
+                        被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>
+                        <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                          "></span>   
+                      </p>
+                      <!-- 被告法定代表 -->
+                      <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag" class="form-inline">
+                        <span>{{item.legalShortB}}</span>
+                        <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>；已收到，
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>
+                        <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag" class="form-inline">
+                        被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>
+                        <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                          "></span>   
+                      </p>
+                    </div>
+                    <div>
+                      <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                        第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>
+                        <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                          "></span>  
+                      </p>
+                      <!-- 第三人法定代表 -->
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag" class="form-inline">
+                          <span>{{item.legalShortT}}</span>
+                          <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：已收到，
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                        第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_open-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                        <!-- 临时添加span -->
+                        <span class="temporary">{{Record._selectConditionMap.agree.options[item.agree-1].text}}</span>
+                        <!-- 临时 end -->
+                        <select ng-model="item.agree" ng-options="x.value as x.text for x in Record._selectConditionMap.agree.options" contenteditable="false"></select>
+                        <span contenteditable="true" ng-show="!item.objection_open_flag" class="editable-area" ng-bind="item.objection_open_Reason
+                          "></span> 
+                      </p>
+                    </div>
+                  </div>
+                  <!-- <p>（以下为诉辩意见阶段）</p> -->
+                  <div>
+                    <div class="undo" id="the_plea_opinion" contenteditable="true">
+                      <p>审：现在进行法庭调查。首先由原告简要陈述诉讼请求、事实和理由。</p>
+                      <div id="opinion_accuser">
+                        <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                      </div>
+                      <p ng-show="Record.defendant_part_flag && ((Record.personList.defendantList.length > 0 )||(Record.personList.agentDefendantList.length > 0)|| (Record.personList.agentDefendantLegal.length > 0))">审：现在由被告简要宣读答辩状或针对原告的诉讼请求及理由进行答辩。</p>
+                      <div id="opinion_defendant">
+                        <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                          被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortB}}</span>
+                          <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                          被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                      </div>
+                      <p ng-show="Record.thirdPeop_part_flag && ((Record.personList.thirdPeopleList.length > 0 )||(Record.personList.agentThirdPeopleList.length > 0)|| (Record.personList.agentThirdPeopleLegal.length > 0))">审：现在由第三人陈述意见。</p>
+                      <div id="opinion_third_man">
+                        <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                          第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortT}}</span>
+                          <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                          第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                      </div>
+                      <div ng-if="(!Record.defendant_part_flag || !Record.thirdPeop_part_flag) && !Record.attendance_flag">
+                      <p contenteditable="true">
+                        审：鉴于
+                        <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>:
+                          <i>{{ item.name }}</i>
+                        </span>
+                        经本院依法传唤，无正当理由拒不到庭参加诉讼，且未提交书面<当事人意见>，<当事人意见>予以省略。
+                      </p>
+                      <div>
+                        <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                          被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortB}}</span>
+                          <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                          被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                          第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortT}}</span>
+                          <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                          第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                      </div>
+                    </div>
+                    <!--存在缺席时添加-->
+                    <div ng-if="(!Record.defendant_part_flag || !Record.thirdPeop_part_flag) && Record.attendance_flag">
+                      <p>
+                        审：鉴于
+                        <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>
+                          <i>{{ item.name }}</i>
+                        </span>
+                        经本院依法传唤，无正当理由拒不到庭参加诉讼，且未提交书面<当事人意见>，<当事人意见>予以省略。
+                      </p>
+                      <div>
+                        <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                          被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortB}}</span>
+                          <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                          被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                          第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortT}}</span>
+                          <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                          第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                      </div>
+                    </div>
+                    </div>
+                    <!--法庭询问阶段-->
+                    <div class="undo" id="the_court_asked" contenteditable="true">
+                      <p>审：现在法庭做如下询问：</p>
+                      <!-- <select ng-model="Record.data.checkQuestion" ng-options="x.value as x.text for x in Record.data.partiesQuestion" ng-change="Record.event.partiesChange(Record.data.checkQuestion)"></select> -->
+                      <div id="findConclude">  
+                        <div ng-repeat="item in Record.data.allQuestion" style="background: #CCC">
+                        <button class="btn btn-danger" ng-click="Record.event.delCurr($index)"><i class="fa fa-times"></i></button>
+                          <p>{{item.askInfo}}<i class="fa fa-graduation-cap"></i></p>
+                          <!-- <p>{{item.answerInfo}}</p> -->
+                          <div>
+                            <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                            原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                              <span>{{item.legalShortA}}</span>
+                              <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                              原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.defendantList" ng-if="item.show_flag">
+                              被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-if="item.show_flag">
+                              <span>{{item.legalShortB}}</span>
+                              <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantList" ng-if="item.show_flag">
+                              被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.thirdPeopleList" ng-if="item.show_flag">
+                              第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-if="item.show_flag">
+                              <span>{{item.legalShortT}}</span>
+                              <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-if="item.show_flag">
+                              第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                          </div>
+                          <p ng-bind-html="item.summaryInfo"></p>
+                        </div>
+                      </div>
+                      <p>
+                      <select ng-model="Record.data.question" ng-options="x.value as x.text for x in Record.data.all" ng-change="Record.event.questionChange(Record.data.question)" contenteditable="false"></select>
+                      </p>
+                    </div>
+                    <!--归纳争点阶段-->
+                    <div class="undo" id="conclude_contest" contenteditable="true">
+                      <!-- <p>(以下为归纳争点阶段）</p> -->
+                      <div id="no_contest_conclude">
+                        <p class="form-inline">
+                          审：根据各方陈述意见，归纳无争议及争议事实如下：
+                          无争议事实：
+                          <!-- <span class="temporary">{{Record.data.noControversy}}</span>
+                          <input type="text" class="form-control big" ng-model='Record.data.noControversy'> --> 
+                          <span contenteditable="true" class="editable-area" id="noControversy">{{Record.data.noControversy}}</span>
+                        </p>
+                        <!--原告-->
+                        <div>
+                          <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                            原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentLegal" class="form-inline" ng-if="item.show_flag">
+                            <span>{{item.legalShortA}}</span>
+                            <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                            原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                        </div>
+                        <!--被告-->
+                        <div>
+                          <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                            被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag" class="form-inline">
+                            <span>{{item.legalShortB}}</span>
+                            <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                            被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                        </div>
+                        <!--第三人-->
+                        <div>
+                          <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                            第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" class="form-inline" ng-show="item.show_flag">
+                            <span>{{item.legalShortT}}</span>
+                            <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                            第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_no_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.no_controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                        </div>
+                      </div>
+                      <div id="contest_conclude">
+                        <p class="form-inline">
+                          争议事实：
+                          <!-- <span class="temporary">{{Record.data.Controversy}}</span>
+                          <input type="text" class="form-control big" ng-model='Record.data.Controversy'> -->
+                          <span contenteditable="true" class="editable-area" id="Controversy">{{Record.data.Controversy}}</span>
+                          对于本院归纳内容是否有异议或补充？ 
+                        </p> 
+                        <!--原告-->
+                        <div>
+                          <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                            原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                            <span>{{item.legalShortA}}</span>
+                            <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                            原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>： 
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end -->                         
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                        </div>
+                        <!--被告-->
+                        <div>
+                          <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                            被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>： 
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end -->                         
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag" >
+                            <span>{{item.legalShortB}}</span>
+                            <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end --> 
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                            被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：    
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end -->                      
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                        </div>
+                        <!--第三人-->
+                        <div>
+                          <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                            第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end -->                           
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                            <span>{{item.legalShortT}}</span>
+                            <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end --> 
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                            第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.objection.options[item.objection_controversy-1].text}}</span>
+                            <!-- 临时 end -->                           
+                            <select ng-model="item.objection_controversy" ng-options="x.value as x.text for x in Record._selectConditionMap.objection.options" contenteditable="false"></select>
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.replenish.options[item.controversy_isAdd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.controversy_isAdd" ng-options="x.value as x.text for x in Record._selectConditionMap.replenish.options" contenteditable="false"></select>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <p>（以下为举证质证阶段）</p> -->
+                    <div class="undo" id="proof" contenteditable="true">
+                      <!--<p>如果全部到庭时：</p>-->
+                      <div ng-show="Record.attendance_flag">
+                          <p>审：现在开始举证，先由原告方举证。</p>
+                          <div> 
+                            <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                              原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                              <span>{{item.legalShortA}}</span>
+                              <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                              原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>  
+                          </div>
+                          <p>审：各方发表质证意见。</p>
+                          <div>
+                            <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                              被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                              <span>{{item.legalShortB}}</span>
+                              <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                              被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                            </p> 
+                            <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                              第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                              <span>{{item.legalShortT}}</span>
+                              <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                              第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                          </div>
+                          <p ng-show="Record.defendant_part_flag && ((Record.personList.defendantList.length > 0 )||(Record.personList.agentDefendantList.length > 0)|| (Record.personList.agentDefendantLegal.length > 0))">审：现由被告方举证。</p>
+                          <div>
+                            <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                              被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                              <span>{{item.legalShortB}}</span>
+                              <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                              被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                          </div>
+                          <p ng-show="Record.defendant_part_flag && ((Record.personList.defendantList.length > 0 )||(Record.personList.agentDefendantList.length > 0)|| (Record.personList.agentDefendantLegal.length > 0))">审：各方发表质证意见。</p>
+                          <div ng-show="Record.defendant_part_flag && ((Record.personList.defendantList.length > 0 )||(Record.personList.agentDefendantList.length > 0)|| (Record.personList.agentDefendantLegal.length > 0))">
+                            <p ng-repeat="item in Record.personList.accuserList">
+                              原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentLegal">
+                              <span>{{item.legalShortA}}</span>
+                              <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentAccuserList">
+                              原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                              第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                              <span>{{item.legalShortT}}</span>
+                              <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                              第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>  
+                          </div>
+                          <p ng-show="Record.thirdPeop_part_flag && ((Record.personList.thirdPeopleList.length > 0 )||(Record.personList.agentThirdPeopleList.length > 0)|| (Record.personList.agentThirdPeopleLegal.length > 0))">审：现由第三人举证。</p>
+                          <div>
+                            <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                              第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                              <span>{{item.legalShortT}}</span>
+                              <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                              第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>      
+                          </div>
+                          <p ng-show="Record.thirdPeop_part_flag && ((Record.personList.thirdPeopleList.length > 0 )||(Record.personList.agentThirdPeopleList.length > 0)|| (Record.personList.agentThirdPeopleLegal.length > 0))">审：各方发表质证意见。</p>
+                          <div ng-show="Record.thirdPeop_part_flag && ((Record.personList.thirdPeopleList.length > 0 )||(Record.personList.agentThirdPeopleList.length > 0)|| (Record.personList.agentThirdPeopleLegal.length > 0))">
+                            <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                              原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                              <span>{{item.legalShortA}}</span>
+                              <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                              原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                              被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                              <span>{{item.legalShortB}}</span>
+                              <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                            </p>
+                            <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                              被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                            </p>  
+                          </div>
+                      </div>
+                      <!--如果全部缺席时：-->
+                      <div ng-show="!Record.attendance_flag">
+                        <p>审：现在开始举证，先由原告方举证。</p>
+                        <div>
+                          <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                            原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                            <span>{{item.legalShortA}}</span>
+                            <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                            原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>      
+                        </div>
+                      </div>
+                      <!--如果出现部分缺席时，或全部缺席时添加以下2行内容 start-->
+                      <div ng-if="((!Record.defendant_part_flag && Record.thirdPeop_part_flag) || (Record.defendant_part_flag && !Record.thirdPeop_part_flag)) || !Record.attendance_flag">
+                        <p>
+                          审：鉴于
+                          <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>
+                          <i>{{ item.name }}</i>
+                        </span>
+                          经本院依法传唤，无正当理由拒不当庭，也未提交书面举证质证意见，
+                          <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>
+                          <i>{{ item.name }}</i>
+                        </span>
+                          举证质证意见予以省略。
+                        </p>
+                        <div>
+                          <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                            原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                            <span>{{item.legalShortA}}</span>
+                            <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                            原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                          <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                            被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                            <span>{{item.legalShortB}}</span>
+                            <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                            被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                          <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                            第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                            <span>{{item.legalShortT}}</span>
+                            <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                            第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                          </p>
+                        </div>
+                      </div>
+                      <!--end-->
+                      <div ng-if="((!Record.defendant_part_flag && Record.third_man_flag) || (Record.defendant_part_flag && !Record.third_man_flag)) || Record.attendance_flag"> 
+                        <p>审：各方当事人是否需要交叉询问或法庭补充调查？</p>
+                        <div>
+                          <p ng-repeat="item in Record.personList.accuserList" class="form-inline" ng-if="item.show_flag">
+                            原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentLegal" class="form-inline" ng-if="item.show_flag">
+                            <span>{{item.legalShortA}}</span>
+                            <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentAccuserList" class="form-inline" ng-if="item.show_flag">
+                            原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p> 
+                        </div>
+                        <div>
+                          <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag" class="form-inline">
+                            被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag" class="form-inline">
+                            <span>{{item.legalShortB}}</span>
+                            <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag" class="form-inline">
+                            被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p>
+                        </div>
+                        <div>
+                          <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                            第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag" class="form-inline">
+                            <span>{{item.legalShortT}}</span>
+                            <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                            第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                            <!-- 临时添加span -->
+                            <span class="temporary">{{Record._selectConditionMap.need.options[item.askedtoadd-1].text}}</span>
+                            <!-- 临时 end -->
+                            <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Record._selectConditionMap.need.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                            <span contenteditable="true" ng-show="!item.askedtoadd_flag" class="editable-area" ng-bind="item.askedtoaddReason
+                          "></span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <!--二期 调查总结阶段-->
+                    <!--<div class="undo" id="research_summary">
+                      <p>（以下是调查总结阶段）</p>
+                      <p>审：根据各方当事人陈述意见及举证质证意见，本院做出如下法庭调查的意见总结：</p>
+                    </div>-->
+                  </div>
+                  <div class="undo" id="court_debate">      
+                    <!--若全部到庭时-->
+                    <div ng-show="Record.attendance_flag || !Record.attendance_flag">
+                      <div class="undo" id="court_debate_accuser" contenteditable="true">
+                        <p>
+                        审：法庭调查结束，现在进行法庭辩论。为保证法庭辩论正常有序的进行，本庭提醒各方当事人，
+                        辩论应当实事求是、以理服人，在辩论中，各方当事人要围绕本案争议的焦点，对本案的事实认定、责任、
+                        法律适用等发表辩论意见，不得引用与本案无关或者未经法庭核对的事实、证据，不得重复，严禁使用不文明语言。
+                        首先由原告发表辩论意见。
+                        </p>
+                        <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                      </div>
+                      <div class="undo" id="court_debate_defendant" contenteditable="true">
+                        <p ng-if="Record.defendant_part_flag && ((Record.personList.defendantList.length > 0 )||(Record.personList.agentDefendantList.length > 0)|| (Record.personList.agentDefendantLegal.length > 0))">审：现在由被告发表辩论意见。</p>
+                        <div>
+                          <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                            被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                            <span>{{item.legalShortB}}</span>
+                            <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                            被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                        </div>
+                      </div>
+                      <div class="undo" id="court_debate_third_man" contenteditable="true">
+                        <p ng-if="Record.thirdPeop_part_flag && ((Record.personList.thirdPeopleList.length > 0 )||(Record.personList.agentThirdPeopleList.length > 0)|| (Record.personList.agentThirdPeopleLegal.length > 0))">审：现在由第三人发表意见。</p>
+                        <div>
+                          <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                            第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                            <span>{{item.legalShortT}}</span>
+                            <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                            第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                        </div>
+                      </div>
+                    </div>                  
+                    <!--辩论次数-->
+                    <div class="default" ng-repeat="times in Record.debateArray" contenteditable="true" >
+                      <p>
+                        审：现在进行第
+                        <span>{{$index + 1}}</span>
+                        轮辩论。首先由原告发表第
+                        <span>{{$index + 1}}</span>
+                        轮辩论意见。
+                        <i class="fa fa-times-circle-o" ng-click="Record.delDebate('debate')"></i>
+                      </p>
+                      <div>
+                        <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>:
+                        </p>
+                      </div>
+                        <!--被告-->
+                      <div>
+                        <p ng-show="Record.defendant_part_flag && ((Record.personList.defendantList.length > 0 )||(Record.personList.agentDefendantList.length > 0)|| (Record.personList.agentDefendantLegal.length > 0))">审：现在由被告发表辩论意见。</p>
+                        <div>
+                          <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                            被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                            <span>{{item.legalShortB}}</span>
+                            <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                            被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                        </div>
+                      </div>
+                        <!--第三人-->
+                      <div>
+                        <p ng-show="Record.thirdPeop_part_flag && ((Record.personList.thirdPeopleList.length > 0 )||(Record.personList.agentThirdPeopleList.length > 0)|| (Record.personList.agentThirdPeopleLegal.length > 0))">审：现在由第三人发表意见。</p>
+                        <div>
+                          <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                            第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                            <span>{{item.legalShortT}}</span>
+                            <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                          <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                            第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                          </p>
+                        </div>
+                      </div>
+                    </div>    
+                    <p>
+                      <button class="btn" ng-click="Record.addTrial('debate')" title="新增辩论次数">
+                        <i class="fa fa-plus"></i>
+                      </button>
+                    </p>   
+                    <!--如果部分缺席时，那么增加以下内容-->
+                    <div class="default" ng-if="((!Record.defendant_part_flag && Record.thirdPeop_part_flag) || (Record.defendant_part_flag && !Record.thirdPeop_part_flag)) || !Record.attendance_flag" contenteditable="true">
+                      <p>
+                        审：鉴于
+                        <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>
+                        </span>
+                        经本院依法传唤，无正当理由拒不当庭，无法发表辩论意见，
+                        <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>
+                        </span>
+                        辩论意见予以省略。
+                      </p>
+                      <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                        原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                        <span>{{item.legalShortA}}</span>
+                        <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                        原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                        被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                        <span>{{item.legalShortB}}</span>
+                        <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                        被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                        第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                        <span>{{item.legalShortT}}</span>
+                        <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                        第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="undo" id="final_statement" contenteditable="true">
+                    <!--以下为最后陈述阶段-->
+                    <div>
+                      <!-- <p>（以下为最后陈述阶段）</p> -->
+                      <p>审：法庭辩论终结。现在由各方当事人最后陈述。首先由原告陈述。</p>
+                      <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                        原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                        <span>{{item.legalShortA}}</span>
+                        <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                        原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                      <p ng-show="Record.defendant_part_flag && ((Record.personList.defendantList.length > 0 )||(Record.personList.agentDefendantList.length > 0)|| (Record.personList.agentDefendantLegal.length > 0))">审：现在由被告陈述。</p>
+                      <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                        被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                        <span>{{item.legalShortB}}</span>
+                        <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                        被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                      <!--第三人-->
+                      <p ng-show="Record.thirdPeop_part_flag && ((Record.personList.thirdPeopleList.length > 0 )||(Record.personList.agentThirdPeopleList.length > 0)|| (Record.personList.agentThirdPeopleLegal.length > 0))">审：现在由第三人陈述。</p>
+                      <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                        第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                        <span>{{item.legalShortT}}</span>
+                        <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                        第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                      </p>
+                    </div>
+                    <!--如果存在部分缺席时，添加以下2行内容-->
+                    <div class="default" ng-show="((!Record.defendant_part_flag && Record.thirdPeop_part_flag) || (Record.defendant_part_flag && !Record.thirdPeop_part_flag)) || !Record.attendance_flag">
+                      <p>
+                        审：鉴于
+                        <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>
+                        </span>
+                        经本院依法传唤，无正当理由拒不当庭，无法发表最后陈述意见，
+                        <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>
+                        </span>
+                        最后陈述意见予以省略。
+                      </p>
+                      <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                        原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                        <span>{{item.legalShortA}}</span>
+                        <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                        原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                        被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                        <span>{{item.legalShortB}}</span>
+                        <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                        被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                        第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                        <span>{{item.legalShortT}}</span>
+                        <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                        第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                    </div>
+                  </div>
+                  <!-- <p>（以下为法庭调解阶段）</p> -->
+                  <div class="undo" id="court_mediation" contenteditable="true">
+                    <!--部分缺席或全部缺席时  -->
+                    <div class="default" ng-if="((!Record.defendant_part_flag && Record.thirdPeop_part_flag) || (Record.defendant_part_flag && !Record.thirdPeop_part_flag)) || !Record.attendance_flag">
+                      <p>
+                        审：法庭辩论终结，应当依法作出判决，判决前能够调解的可以进行调解。鉴于本案
+                        <span ng-repeat="item in Record.data.absentee">
+                          <i>{{ item.type }}</i>
+                          <i>{{ item.name }}</i>
+                        </span>
+                        未到庭参加诉讼，本庭不组织各方调解，但不影响各方庭下进行调解。
+                      </p>
+                      <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                        原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                        <span>{{item.legalShortA}}</span>
+                        <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                        原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                      </p>
+                      <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                          被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortB}}</span>
+                          <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                          被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                          第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortT}}</span>
+                          <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                          第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                    </div> 
+                    <!--全部到庭时-->
+                    <div ng-show="Record.defendant_part_flag && Record.thirdPeop_part_flag">
+                      <p>审：法庭辩论终结，应当依法作出判决，判决前能够调解的可以进行调解，各方是否申请由法庭主持调解？</p>
+                      <!--原告-->
+                      <p ng-repeat="item in Record.personList.accuserList" class="form-inline" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentLegal" class="form-inline" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentAccuserList" class="form-inline" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>  
+                      <!--被告-->
+                      <p ng-show="Record.defendant_part_flag && ((Record.personList.defendantList.length > 0 )||(Record.personList.agentDefendantList.length > 0)|| (Record.personList.agentDefendantLegal.length > 0))">审：被告是否愿意调解？</p>
+                      <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag" class="form-inline">
+                          被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag" class="form-inline">
+                          <span>{{item.legalShortB}}</span>
+                          <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag" class="form-inline">
+                          被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>
+                      <!--第三人-->
+                      <p ng-show="Record.thirdPeop_part_flag && ((Record.personList.thirdPeopleList.length > 0 )||(Record.personList.agentThirdPeopleList.length > 0)|| (Record.personList.agentThirdPeopleLegal.length > 0))">审：第三人是否愿意参加调解？</p>
+                      <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                          第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag" class="form-inline">
+                          <span>{{item.legalShortT}}</span>
+                          <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>
+                      <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag" class="form-inline">
+                          第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                          <!-- 临时添加span -->
+                          <span class="temporary">{{Record._selectConditionMap.reconcile.options[item.peace-1].text}}</span>
+                          <!-- 临时 end -->
+                          <select ng-model="item.peace" ng-options="x.value as x.text for x in Record._selectConditionMap.reconcile.options" ng-change="Record.event.objectionChange(item)" contenteditable="false"></select>
+                          <span contenteditable="true" ng-show="!item.reconcile_flag" class="editable-area" ng-bind="item.reconcileReason
+                          "></span>
+                      </p>
+                      <!--在全部到庭的前提下，如果任何一方不同意调解时：-->
+                      <div class="default" ng-show="Record.attendance_flag && !Record.toMediate_flag">      
+                        <p ng-repeat="item in Record.data.toMediateMan">
+                          审：鉴于
+                          <span>{{item.type}}</span>
+                          <span>{{item.name}}</span>
+                          不同意调解，本庭不再当庭组织各方调解，但不影响各方庭下进行调解。
+                        </p>
+                        <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                          被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortB}}</span>
+                          <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                          被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                          第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortT}}</span>
+                          <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                          第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                      </div>
+                      <!--在全部到庭的前提下，如果各方均同意调解时：-->
+                      <div class="default" ng-show="Record.attendance_flag && Record.toMediate_flag">
+                        <p>审：鉴于各方当事人均同意调解，休庭后由法庭组织各方当事人进行调解，也可以自行调解。</p>            
+                        <p ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                          原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                          <span>{{item.legalShortA}}</span>
+                          <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                          原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                          被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortB}}</span>
+                          <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                          被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                          第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                          <span>{{item.legalShortT}}</span>
+                          <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                        <p ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                          第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="test"></div>
+              <!--body end （以下为闭庭宣读的阶段） --> 
+              <div class="foot record-details" id="closed_court_read" contenteditable="true">
+                <div id="adjourn">
+                  <div class="form-inline Paragraph-style" contenteditable="false">
+                    审：鉴于本案
+                    <!-- <span contenteditable="true" class="editable-area" ng-bind="Record.data.adjourn
+                          "></span> -->
+                    <!-- 临时添加span -->
+                      <span class="temporary">{{Record._selectConditionMap.adjourn.options[Record.data.adjournReason-1].text}}</span>
+                    <!-- 临时 end -->
+                    <select class="medium" ng-model="Record.data.adjournReason" ng-options="x.value as x.text for x in Record._selectConditionMap.adjourn.options" ></select>
+                    ，本院定于年月日时分复庭。各方是否清楚？
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.accuserList" ng-if="item.show_flag">
+                    原<i ng-bind="Record.personList.accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.agentLegal" ng-if="item.show_flag">
+                    <span>{{item.legalShortA}}</span>
+                    <i ng-bind="Record.personList.agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.agentAccuserList" ng-if="item.show_flag">
+                    原代<i ng-bind="Record.personList.agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.defendantList" ng-show="item.show_flag">
+                    被<i ng-bind="Record.personList.defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.agentDefendantLegal" ng-show="item.show_flag">
+                    <span>{{item.legalShortB}}</span>
+                    <i ng-bind="Record.personList.agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.agentDefendantList" ng-show="item.show_flag">
+                    被代<i ng-bind="Record.personList.agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.thirdPeopleList" ng-show="item.show_flag">
+                    第<i ng-bind="Record.personList.thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.agentThirdPeopleLegal" ng-show="item.show_flag">
+                    <span>{{item.legalShortT}}</span>
+                    <i ng-bind="Record.personList.agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                  <div class="Paragraph-style" ng-repeat="item in Record.personList.agentThirdPeopleList" ng-show="item.show_flag">
+                    第代<i ng-bind="Record.personList.agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </div>
+                </div>
+                <div class="undo Paragraph-style">审：本案经过法庭调查、法庭辩论，本庭将对各方当事人及其他诉讼参加人的陈述及辩论意见作充分考虑。各方当事人及其他诉讼参加人休庭后应当仔细阅读笔录，并按要求签名或盖章。对记录有误的地方，五日内可以申请书记员进行补正。今天的庭审活动到此结束，宣判时间另行通知，现在休庭。（敲击法槌）</div>  
+              </div>  
+              <div class="undo Paragraph-style" id="others" contenteditable="true"> 当事人及代理人签名处（注：当事人应当逐页在指定位置签名，并在末页写明：“以上笔录阅后无误”字样后签名并署时间）：</div>
+            </div>
+              <!-- 内容主体结束 -->
+          </div>
+        </div>
+        <div class="fixed">
+          <a href="" ng-click="Record.adjourn()">休庭</a>
+        </div>
+        <div class="sign"></div>
+        <span class="dot-right"></span>
+      </div>
+      <!--右侧目录-->
+      <div class="catalog">
+        <div class="box box-default" id="listStyle">
+          <div class="box-header">
+            <h6 class="box-title" >庭审笔录列表</h6>
+            <div class="box-tools pull-right">
+              <div class="btn-group" uib-dropdown>
+                <button id="single-button" type="button" class="btn btn-default btn-sm" uib-dropdown-toggle ng-disabled="disabled">
+                  <span class="text-warning">新增笔录</span>
+                  <span class="caret text-warning"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                  <li role="menuitem"><a ui-sref="record">分段式</a></li>
+                  <li class="divider"></li>
+                  <li role="menuitem"><a ui-sref="record">要素式</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="box-body" style="display: block;" slim-scroll slim-scroll-color="white" slim-scroll-offset="20">
+            <div class="list-group">
+               <ul class="todo-list">
+               <!--ui-serf="record.show"-->
+                <li class="list-group-item" ng-repeat="list in Record.caption.body" >
+                  <!-- todo text -->
+                  <span class="text"><i class=" fa fa-gavel"></i>&nbsp;第<i>{{ $index + 1 }}</i>次庭审笔录</span>
+                  <!-- <span class="build-times">{{list.case_no}}</span> -->
+                  <!-- General tools such as edit or delete-->
+                  <div class="tools" style="margin-right: 10px;">
+                    <i class="fa fa-eye" title="查看笔录" ng-click="Record.showRecordTpl(list.record_id)"></i>
+                    <i class="fa fa-clone" title="复制历史笔录信息" ng-click="Record.recordModel.openModal(list.record_id)"></i>
+                    <i class="fa fa-trash-o" title="删除" ng-click="Record.event.deleteRecord(list.record_id,list.case_no)"></i>
+                  </div>
+                </li>  
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>    
+  </section>
+</div>

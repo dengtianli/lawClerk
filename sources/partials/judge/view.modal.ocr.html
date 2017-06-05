@@ -1,0 +1,24 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close">
+    <span ng-click="Judge.material.closeOcrModal()">×</span></button>
+    <h4 class="modal-title">案件材料OCR识别</h4>
+  </div>
+  <div class="modal-body">
+    <section class="left">
+      <img ng-src="{{Judge.material.image}}" class="img-responsive" />
+    </section>
+    <section class="right"  cg-busy="{promise:Judge.promise,message:'加载中',backdrop:backdrop,delay:delay,minDuration:minDuration}">
+      <div class="text-muted" contenteditable="true"
+        slim-scroll slim-scroll-color="gray" slim-scroll-offset="50" slim-scroll-width="8">
+        <p ng-repeat="result in  Judge.material.ocrResult">
+          {{result.text}}
+        </p>
+      </div>
+    </section>
+  </div>
+  <div class="modal-footer">
+    <button type="button" ng-click="Judge.material.closeOcrModal()" class="btn btn-default btn-flat pull-left" data-dismiss="modal">关闭</button>
+    <button type="button" ng-click="Judge.material.ocrMaterial(Judge.material.image)" class="btn btn-info btn-flat">识别</button>
+  </div>
+</div>

@@ -1,0 +1,222 @@
+<div id="template-helper" class="animated fadeIn">
+  <section class="content">
+    <div class="row">
+      <div class="column">
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <!-- Form -->
+            <form class="form-inline">
+              <span class="title"><i class="fa fa-chain"></i>&nbsp;辅助树</span>
+              <div class="form-group input-group-sm">
+                <select class="form-control" disabled>
+                  <option selected>民间借贷纠纷</option>
+                  <option >合同纠纷</option>
+                </select>
+              </div>
+              <div class="form-group input-group-sm">
+                <select class="form-control" disabled>
+                  <option selected>普通式</option>
+                  <option>令状式</option>
+                  <option>表格式</option>
+                  <option>要素式</option>
+                </select>
+              </div>
+              <div class="form-group input-group-sm">
+                <select class="form-control">
+                  <option selected>事实</option>
+                  <option >理由</option>
+                  <!--<option>主文</option>-->
+                </select>
+              </div>
+              <button class="btn btn-danger btn-sm btn-flat">
+                <i class="fa fa-search"></i>&nbsp;搜索
+              </button>
+            </form>
+            <!-- Form -->
+            <div class="box-tools pull-right">
+              <button class="btn btn-box-tool" ui-sref="cases">
+                <i class="fa fa-reply"></i>
+              </button>
+            </div>
+          </div>
+          <div class="box-body">
+            <div class="left pull-left">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <!-- Add -->
+                  <div class="btn-group" uib-dropdown is-open="status.isopen">
+                    <button class="btn btn-fix btn-default btn-flat" uib-dropdown-toggle disabled>
+                        <i class="fa fa-plus text-danger"></i>&nbsp;<span class="text-danger">新增</span>&nbsp;
+                        <span class="caret text-danger"></span>
+                      </button>
+                    <ul id="condition-menu" class="dropdown-menu" uib-dropdown-menu>
+                      <li>
+                        <!-- Form -->
+                        <form>
+                          <div class="form-group input-group-sm">
+                            <label>案由</label>
+                            <select class="form-control">
+                                <option>民事案件</option>
+                                <option>行政案件</option>
+                                <option>刑事案件</option>
+                              </select>
+                          </div>
+                          <div class="form-group input-group-sm">
+                            <label>文书类型</label>
+                            <select class="form-control">
+                                <option>普通式</option>
+                                <option>令状式</option>
+                                <option>表格式</option>
+                                <option>要素式</option>
+                              </select>
+                          </div>
+                          <div class="form-group input-group-sm">
+                            <label>辅助树类别</label>
+                            <select class="form-control">
+                                <option>事实</option>
+                                <option>理由</option>
+                                <option>主文</option>
+                              </select>
+                          </div>
+                          <button class="btn btn-danger btn-flat btn-sm btn-block">
+                              确&nbsp;认
+                            </button>
+                        </form>
+                        <!-- Form -->
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- Add -->
+                  <!-- 分页预留位置-->
+                </div>
+                <div class="panel-body" wiserv-scroll wiserv-scroll-offset="86">
+                  <!-- List -->
+                  <ul class="todo-list ui-sortable">
+                    <li>
+                      <span class="handle ui-sortable-handle">
+                          <i class="fa fa-file-text-o"></i>
+                        </span>
+                      <small class="label label-default">民间借贷纠纷-普通式-辅助树1</small>
+                      <div class="tools"  ng-if="false">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                    <li ng-if="false"> 
+                      <span class="handle ui-sortable-handle">
+                          <i class="fa fa-file-text-o"></i>
+                        </span>
+                      <small class="label label-default">辅助树1</small>
+                      <div class="tools">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                  </ul>
+                  <!-- List -->
+                </div>
+              </div>
+            </div>
+            <div class="right pull-right">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <div class="btn-group left" >
+                     <button  class="btn btn-fix btn-default btn-hover" uib-dropdown-toggle>
+                        <i class="fa fa-list"></i>决策树信息
+                      </button>
+                    <button ng-if="false" class="btn btn-fix btn-default" uib-dropdown-toggle>
+                        <i class="fa fa-save text-danger"></i>
+                      </button>
+                    <button ng-if="false" class="btn btn-fix btn-default" uib-dropdown-toggle>
+                        <i class="fa fa-refresh text-danger"></i>
+                      </button>
+                    <button ng-if="false" class="btn btn-fix btn-default" uib-dropdown-toggle>
+                        <i class="fa fa-undo text-danger"></i>
+                      </button>
+                  </div>
+                  <div class="btn-group pull-right right" >
+                    <button class="btn btn-fix btn-default btn-flat btn-hover ">
+                        <i class="fa fa-edit"></i>&nbsp;编辑内容
+                      </button>
+                    <button ng-if="false" class="btn btn-fix btn-default btn-flat" uib-dropdown-toggle>
+                        <i class="fa fa-list-ol"></i>&nbsp;设置逻辑
+                      </button>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <div class="row">
+                    <div class="left pull-left">
+                      <div id="helper">
+                        <div class="slim-scroll" slim-scroll-color="gray" slim-scroll-width="8" slim-scroll-offset="-13">
+                          <!--helper for 事实部分 -->
+                          <div class="box box-default">
+                            <div class="box-header with-border">
+                              <i class="fa fa-cut"></i>&nbsp;<span>事实与理由</span>
+                              <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                              </div>
+                            </div>
+                            <div class="box-body box-body-padding">
+                              <!-- exchange -->
+                              <select class="form-control input-sm input-primary" ng-model="Helper.treeReason.selectedTreeModel" ng-options="tree.node_name for tree in Helper.treeReason.treeModel">
+                              </select>
+                              <!-- helper -->
+                              <div slim-scroll>
+                                <treecontrol class="tree-boot tree-wiserv" tree-model="Helper.treeReason.selectedTreeModel" on-selection="Helper.treeReason.onSelection(node, $parentNode, $index, $first, $middle, $last, $odd, $even, $path)"
+                                  options="Helper.treeReason.option" expanded-nodes="Helper.treeReason.expandedNodes" selected-node="Helper.treeReason.selectedNode">
+                                  <span class="tree-item">{{node.node_name}}</span>
+                                </treecontrol>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- helper for 本院认为 -->
+                          <div class="box box-default">
+                            <div class="box-header with-border">
+                              <i class="fa fa-cut"></i>&nbsp;<span>裁判结果</span>
+                              <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                              </div>
+                            </div>
+                            <div class="box-body box-body-padding">
+                              <treecontrol class="tree-boot tree-wiserv" options="Helper.treeResult.option" tree-model="Helper.treeResult.treeModel" on-selection="Helper.treeResult.onSelection(node, $parentNode)"
+                                on-node-toggle="Helper.treeResult.onNodeToggle(node)" expanded-nodes="Helper.treeResult.expandedNodes"
+                                selected-nodes="Helper.treeResult.selectedNodes">
+                                <span class="tree-item">{{node.node_name}}</span>
+                              </treecontrol>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="right pull-right">
+                      <div class="box-footer" ng-if="Helper.treeReason.treeInfoModel[0].template1_info || Helper.treeReason.treeInfoModel[0].template2_info">
+                        <div class="form-group" ng-if="Helper.treeReason.treeInfoModel[0].template1_info">
+                          <label>事实部分</label>
+                          <button ng-click="Helper.treeReason.save(Helper.treeReason.treeInfoModel[0])" class="pull-right btn btn-sm btn-flat btn-primary">编辑保存</button>
+                          <textarea class="form-control" rows="6" ng-model="Helper.treeReason.treeInfoModel[0].template1_info"></textarea>
+                        </div>
+                        <div class="form-group" ng-if="Helper.treeReason.treeInfoModel[0].template2_info">
+                          <label>理由部分</label>
+                          <button ng-click="Helper.treeReason.save(Helper.treeReason.treeInfoModel[0])" class="pull-right btn btn-sm btn-flat btn-primary">编辑保存</button>
+                          <textarea class="form-control" rows="9" ng-model="Helper.treeReason.treeInfoModel[0].template2_info"></textarea>
+                        </div>
+                      </div>
+                      <div class="box-footer" ng-show="Helper.treeResult.treeInfoModel">
+                        <div class="form-group">
+                          <label>理由部分</label>
+                           <button ng-click="Helper.treeResult.save(Helper.treeResult.treeInfoModelParam)" class="pull-right btn btn-sm btn-flat btn-primary">编辑保存</button>
+                            <textarea class="form-control" rows="6" ng-model="Helper.treeResult.treeInfoModelParam.template1_info"></textarea>
+                          <!--<p class="box-tree-content" wiserv-edit ng-model="Helper.treeResult.treeInfoModelParam.template1_info"></p>-->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

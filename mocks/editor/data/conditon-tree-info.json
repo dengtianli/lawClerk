@@ -1,0 +1,20 @@
+{
+  "head": {
+    "status": 200,
+    "token": null,
+    "message": null,
+    "total": 1
+  },
+  "body": [{
+    "auto_id": 21,
+    "tree_id": 20,
+    "owner": "admin",
+    "tree_name": "承诺共同还款人",
+    "template1_info": null,
+    "template2_info": "被告自愿承诺为本案借款债务的共同还款人，其意思表示真实有效，本院予以确认。故被告为借款共同债务人，原告要求被告共同归还借款本息的的理由成立，其诉讼请求本院予以支持。",
+    "template3_info": null,
+    "template1_explain": "事实部分的模板",
+    "template2_explain": "理由部分的模板",
+    "template3_explain": null
+  }]
+}

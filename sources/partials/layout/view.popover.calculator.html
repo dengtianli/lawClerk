@@ -1,0 +1,27 @@
+<!--******* Calculator *******-->
+<!--<script type="text/ng-template" id="calculatorPropover.html">-->
+<div class="form-group">
+  <div class="input-group">
+    <input type="text" ng-keyup="Layout.calculator.i($event)" id="inputNumber" class="form-control" placeholder="开始计算" ng-model="Layout.calculator.result" aria-describedby="basic-addon2"/>
+    <span class="input-group-addon" id="basic-addon2" ng-click="Layout.calculator.clearVal()">清除</span>
+  </div>
+  <div class="dcalculator light" style="display: block;">
+    <span ng-click="Layout.calculator.input('7')">7</span>
+    <span ng-click="Layout.calculator.input('8')">8</span>
+    <span ng-click="Layout.calculator.input('9')">9</span>
+    <span class="operate" ng-click="Layout.calculator.input('+')">+</span>
+    <span ng-click="Layout.calculator.input('4')">4</span>
+    <span ng-click="Layout.calculator.input('5')">5</span>
+    <span ng-click="Layout.calculator.input('6')">6</span>
+    <span class="operate" ng-click="Layout.calculator.input('-')">-</span>
+    <span ng-click="Layout.calculator.input('1')">1</span>
+    <span ng-click="Layout.calculator.input('2')">2</span>
+    <span ng-click="Layout.calculator.input('3')">3</span>
+    <span class="operate" ng-click="Layout.calculator.input('*')">*</span>
+    <span ng-click="Layout.calculator.input('.')" >.</span>
+    <span ng-click="Layout.calculator.input('0')">0</span>
+    <span class="equal" ng-click="Layout.calculator.input('=')">=</span>
+    <span class="operate" ng-click="Layout.calculator.input('/')">/</span>
+  </div>
+</div>
+<!--</script>-->

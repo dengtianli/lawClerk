@@ -1,0 +1,110 @@
+#trial-update{
+	    .temporary {
+        display: none;
+    }
+    .editable-area {
+        // padding: 0 20px;
+        outline: none;
+        border-bottom: 1px solid @blue;
+    }
+    i{
+        font-style: normal;
+    }
+    .small{
+        width: 4rem;
+        text-align: center;
+    }
+    input {
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        outline: 0;
+        background: @paper;
+        font-family: "FangSong"!important;
+        font-size: 1.313rem;
+    }
+    select {
+        outline: 0;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        background: @paper;
+    }
+    #info {
+        p {
+            text-indent: 0!important;
+        }
+        .case-number{
+            width: 70%;
+        }
+    }
+    .input-group-btn {
+        width: 0;
+    }
+    #verify_participant {
+        p {
+            // height: 60px!important;
+            button {
+                display: none;
+            }
+        }
+        #accuser {
+            position: relative;
+            .accuser-button {
+                position: absolute;
+                display: none;
+                top: 80px;
+                right: -32px;
+            }
+        }
+        #accuser:hover .accuser-button {
+            display: block;
+        }
+    }
+    #verify_participant p:hover button {
+        display: inline-block;
+    }
+    #defendant {
+        position: relative;
+        .defendant-button {
+            position: absolute;
+            top: 80px;
+            right: -32px;
+        }
+        .defendant-button{
+            display: none;
+        }
+    }
+    #defendant:hover .defendant-button{
+        display: inline-block;
+    }
+    #third {
+        position: relative;
+        .third-button {
+            position: absolute;
+            top: 80px;
+            right: -32px;
+        }
+        .third-button{
+            display: none;
+        }
+    }
+    #third:hover .third-button{
+        display: block;
+    }
+    #change-ordinary {
+        display: none;
+    }
+    #change-simple {
+        display: none;
+    }
+    #adjourn {
+        display: none;
+    }
+    #announce,
+    #other {
+        font-size: 1.313rem;
+        font-family: 仿宋;
+        // text-indent: 2rem;
+    }
+}

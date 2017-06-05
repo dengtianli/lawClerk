@@ -1,0 +1,206 @@
+#record {
+    ::-webkit-scrollbar {
+    width: 6px;
+    background-color: @paper;
+  }
+   ::-webkit-scrollbar-thumb {
+    background: rgba(221, 75, 57, 0.6);
+    border-radius: 1rem;
+  }
+  #open-date{
+    input{
+        width: 10rem;
+    }
+  }
+    input{
+            width: 7rem;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            background: @paper;
+            font-family: "FangSong"!important;
+            font-size: 1.313rem;
+    }
+    select{
+            width: 7rem;
+            border-left: none;
+            border-right: none;
+            border-top: none;
+            background: @paper; 
+    }
+    #the_court_asked{
+        select{
+            width: 90%;
+            background: @lightBlue;
+        }
+    }
+    #dissent_reason{
+        input{
+            width: 15rem;
+        }
+    }
+    #withdrawal_petition{
+        input{
+            width: 15rem;
+        }
+    }
+    #proof{
+       input{
+            width: 15rem;
+        }  
+    }
+    .small{
+            width: 4rem;
+    }
+    .big{
+        width: 15rem;
+    }
+    .medium{
+        width: 5rem;
+    }
+    .content{
+        display: flex;
+        flex-flow: row nowrap;  
+        padding-bottom: 0; 
+        background: @base-background;         
+        .main-body{
+            flex: 0 0 798px;
+            position: relative;
+        }
+        .catalog{
+            flex: 1;
+            padding-left: 1rem; 
+        }
+    }
+    #recordMain{
+        background: @paper;
+        margin: 0;
+    }
+    #navigation{
+            flex: 0 0 13rem;
+        } 
+    #record-content{
+        font-family: "FangSong"!important;
+        overflow-y: auto;
+        #wrap{
+            width: 80%;
+            color: #000000;
+            margin: 0 auto;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+        i{
+            font-style: normal;
+        }
+    }
+    #record-content>div{
+        font-size: 1.313rem;
+        margin: 0 80px;
+    }
+    .record-details{
+        p{
+            text-indent: 2em;
+            font-size: 1.313rem;
+        }
+    }
+    .Paragraph-style{
+        text-indent: 2em;
+        font-size: 1.313rem;
+        margin: 0 0 10px;
+    }
+    .title{
+        margin: 0 0 30px 0;
+        text-align: center; 
+        h1{
+            font-size: 29px;
+            margin-top: 0;
+            padding-top: 5px;
+            font-family: "STKaiti"!important;
+        }
+        h2{
+            font-size: 35px;
+            margin: 10px 0 20px 0;
+            font-family: "SimHei"!important;
+        }
+    }
+    .content-head{
+        font-size: 1.313rem;    
+    }
+    .fixed{
+        position: absolute;
+        right: 2px;
+        top: 15rem;
+        width: 40px;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        z-index: 999;
+        a{
+            color: @white;
+        }  
+    }
+    .fixed{
+        background: @pale-blue;
+    }
+    .sign{
+            position: absolute;
+            right: -2px;
+            top: 15rem;
+            width: 4px;
+            height: 60px;
+            background: @pale-blue;
+        }
+   .dot-right {  
+            font-size: 0;  
+            line-height: 0;  
+            border-width: 4px;  
+            border-color: @white;  
+            border-right-width: 0;  
+            border-style: dashed;  
+            border-left-style: solid;  
+            border-top-color: transparent;  
+            border-bottom-color: transparent;  
+            position: absolute;
+            right: -2px;
+            top: 16.6rem;
+        }  
+    .default{
+        // outline: 1px solid slateblue;
+    }
+    .build-times{
+        font-size: 0.7rem;
+        padding-left: 1rem;
+    }
+    .temporary{
+        display: none;
+    }
+    #adjourn{
+        display: none;
+    }
+    .todo-list li:hover{
+        background: @paper;
+    }
+    #listStyle{
+        margin-bottom: 0;
+    }
+    .editable-area{
+        padding: 0 20px;
+        outline: none;
+        border-bottom: 1px solid @blue;
+    }
+    .underline{
+        border-bottom: 1px solid @blue;
+    }
+    #itigant_participant{
+        .editable-area{
+            padding: 7px 20px;
+            // display: inline-block;
+        }
+    }
+    #change-ordinary{
+        display: none;
+    }
+    #change-simple{
+        display: none;
+    }
+}

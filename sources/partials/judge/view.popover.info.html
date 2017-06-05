@@ -1,0 +1,23 @@
+<ul class="list-group">
+  <li class="list-group-item">
+    <span class="label label-default text-xs">案件名称</span>：
+    <span class="text-sm">{{Judge.case.title}}
+  </li>
+  <li class="list-group-item">
+    <span class="label label-default text-xs">审理程序</span>：
+    <span class="text-sm" ng-if="Judge.case.hearing_procedure=='simple'">简易程序</span>
+    <span class="text-sm" ng-if="Judge.case.hearing_procedure=='normal'">普通程序</span>
+  </li>
+  <li class="list-group-item">
+    <span class="label label-default text-xs">案件类型</span>：
+    <span class="text-sm">{{Judge.case.category}}</spoan>
+  </li>
+  <li class="list-group-item">
+    <span class="label label-default text-xs">本案案由</span>：
+    <span class="text-sm">{{Judge.case.case_brief}}</spoan>
+  </li>
+  <li class="list-group-item">
+    <span class="label label-default text-xs">受理日期</span>：
+    <span class="text-sm">{{Judge.case.accepted_date}}</spoan>
+  </li>
+</ul>

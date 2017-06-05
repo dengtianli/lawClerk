@@ -1,0 +1,148 @@
+<div class="nav-tabs-custom">
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="editor/#tab_1" data-toggle="tab" aria-expanded="false">财产诉讼费用计算</a></li>
+    <li class=""><a href="editor/#tab_2" data-toggle="tab" aria-expanded="false">财产诉讼利息计算</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab_1">
+      <form class="form-horizontal" name="calculator_fee">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="fee1" class="col-sm-4 control-label">案件受理费用</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="text" class="form-control" id="fee1" ng-pattern="/^\d+(\.\d+)?$/" name="court_acceptance_fee" ng-model="calculator.court_acceptance_fee"
+                  placeholder="" required>
+                <span class="input-group-addon copy" data-clipboard-target="#fee1"><i title="复制到剪贴板" class="fa fa-paste text-info" ></i></span>
+              </div>
+              <span class="error" ng-if="calculator_fee.court_acceptance_fee.$error.required && calculator_fee.court_acceptance_fee.$dirty">案件受理费用不能为空!</span>
+              <span class="error" ng-if="calculator_fee.court_acceptance_fee.$error.pattern  && calculator_fee.court_acceptance_fee.$dirty">输入不合法!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fee2" class="col-sm-4 control-label">诉讼保全费用</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="text" class="form-control" id="fee2" name="attachment_fee" ng-model="calculator.attachment_fee" ng-pattern="/^\d+(\.\d+)?$/"
+                  required>
+                <span class="input-group-addon copy" data-clipboard-target="#fee2"><i title="复制到剪贴板" class="fa fa-paste text-info" ></i></span>
+              </div>
+              <span class="error" ng-if="calculator_fee.attachment_fee.$error.required  && calculator_fee.attachment_fee.$dirty">诉讼保全费用不能为空!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fee3" class="col-sm-4 control-label">原告负担</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="text" class="form-control" id="fee3" name="accuser_fee" ng-blur="Judge.operation.formula.getCceptanceFee(calculator,0)"
+                  ng-model="calculator.accuser_fee" ng-pattern="/^[0-9]+(\.[0-9]+)?$/" required>
+                <span class="input-group-addon copy" data-clipboard-target="#fee3"><i title="复制到剪贴板" class="fa fa-paste text-info"></i></span>
+              </div>
+              <span class="error" ng-if="calculator_fee.accuser_fee.$error.required  && calculator_fee.accuser_fee.$dirty">原告负担费用不能为空!</span>
+              <span class="error" ng-if="calculator_fee.accuser_fee.$error.pattern  && calculator_fee.accuser_fee.$dirty">原告负担费用不能为负数!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fee4" class="col-sm-4 control-label">被告负担</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="text" class="form-control" id="fee4" name="defendant_fee" ng-blur="Judge.operation.formula.getCceptanceFee(calculator,1)"
+                  ng-model="calculator.defendant_fee" ng-pattern="/^[0-9]+(\.[0-9]+)?$/">
+                <span class="input-group-addon copy" data-clipboard-target="#fee4"><i title="复制到剪贴板" class="fa fa-paste text-info"></i></span>
+              </div>
+              <span class="error" ng-if="calculator_fee.defendant_fee.$error.required  && calculator_fee.defendant_fee.$dirty">原告负担费用不能为负数!</span>
+            </div>
+          </div>
+          <!--<div class="form-group">
+            <div class="col-sm-12">
+              <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat btn-lr">插入计算结果</a>
+            </div>
+          </div>-->
+        </div>
+      </form>
+    </div>
+    <div class="tab-pane " id="tab_2">
+      <form class="form-horizontal" name="calculator_interest">
+        <div class="box-body">
+          <div class="form-group">
+            <label for="interest1" class="col-sm-4 control-label">本金计算基数</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="text" class="form-control" id="interest1" ng-pattern="/^[-+]?\d+(\.\d+)?$/" name="principal" ng-model="Judge.operation.formula.fee.principal"
+                  placeholder="" required>
+                <span class="input-group-addon">元</span>
+              </div>
+              <span class="error" ng-if="calculator_interest.principal.$error.required && calculator_interest.principal.$dirty">输入不能为空!</span>
+              <span class="error" ng-if="calculator_interest.principal.$error.pattern  && calculator_interest.principal.$dirty">输入不合法!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="interest2" class="col-sm-4 control-label">借款起始时间</label>
+            <div class="col-sm-8">
+              <!--<input type="date" class="form-control" id="interest2" name="start_time" ng-model="Judge.operation.formula.fee.start_time" required>
+              <span class="error" ng-if="calculator_interest.start_time.$error.required && calculator_interest.principal.$dirty"></span>-->
+              <p class="input-group">
+                <input type="text" id="start_time" value="<%=Now()%>" readOnly class="form-control" name="start_time" placeholder="请输入借款起始时间"
+                  uib-datepicker-popup ng-model="Judge.operation.formula.fee.start_time" ng-change="Judge.operation.formula.changeDate()"
+                  is-open="Judge.date.popup1.opened" datepicker-options="Judge.date.dateOptions1 " clear-text="清除" close-text="关闭"
+                  current-text="今天" uib-datepicker-popup="yyyy-MM-dd" close-text="Close" />
+                <span class="input-group-btn">
+                          <button type="button" class="btn btn-default" ng-click="Judge.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="interest3" class="col-sm-4 control-label">还款时间</label>
+            <div class="col-sm-8">
+              <!--<input type="date" class="form-control" id="interest3" name="end_time" ng-model="Judge.operation.formula.fee.end_time" required>
+              <span class="error" ng-if="calculator_interest.end_time.$error.required"></span>-->
+              <p class="input-group">
+                <input type="text" readOnly class="form-control" name="end_time" placeholder="请输入还款时间" uib-datepicker-popup ng-model="Judge.operation.formula.fee.end_time"
+                  is-open="Judge.date.popup2.opened" datepicker-options="Judge.date.dateOptions2 " clear-text="清除" close-text="关闭"
+                  current-text="今天" uib-datepicker-popup="yyyy-MM-dd" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="Judge.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label">请选择利率</label>
+            <div class="col-sm-8">
+              <div class="col-xs-6 p-l-0">
+                <select class="form-control" id="rate_default" name="rate_default" ng-model="Judge.operation.formula.fee.rate_default" ng-change="Judge.operation.formula.getRate()">
+                    <option value=24.00 >年利率</option>
+                    <option value=2.00>月利率</option>
+                    <option value=0.066 >日利率</option>
+                </select>
+              </div>
+              <div class="input-group col-xs-6">
+                <input type="text" id="rate" ng-keyup="" class="form-control input-xs" name="rate" ng-model="Judge.operation.formula.fee.rate"
+                  ng-pattern="/^[-+]?\d+(\.\d+)?$/">
+                <span class="input-group-addon">%</span>
+              </div>
+              <span class="error" ng-if="calculator_interest.rate.$error.required && calculator_interest.rate.$dirty">输入不能为空!</span>
+              <span class="error" ng-if="calculator_interest.rate.$error.pattern  && calculator_interest.rate.$dirty">输入不合法!</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="interest5" class="col-sm-4 control-label">利息总计</label>
+            <div class="col-sm-8">
+              <div class="input-group">
+                <input type="text" class="form-control" id="interest5" name="interest_total" ng-focus="Judge.operation.formula.getInterests(calculator_interest.$valid)"
+                  ng-model="Judge.operation.formula.fee.interest_total" placeholder="">
+                <span class="input-group-addon">元</span>
+                <span class="input-group-addon copy" data-clipboard-target="#interest5"><i title="复制到剪贴板" class="fa fa-paste text-info" alt="Copy to clipboard"></i></span>
+              </div>
+            </div>
+          </div>
+          <!--<div class="form-group">
+            <div class="col-sm-12">
+              <a href="javascript:void(0)" class="btn btn-sm btn-info btn-flat btn-lr">插入计算结果</a>
+            </div>
+          </div>-->
+      </form>
+      </div>
+    </div>
+  </div>

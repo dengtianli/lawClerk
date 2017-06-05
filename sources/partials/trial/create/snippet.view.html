@@ -1,0 +1,1758 @@
+<div id="trial-create" class="animated bounceInRight">
+  <div class="box box-default">
+    <div class="box-header">
+      <!-- left buttons -->
+      <div class="btn-group">
+        <button title="文书目录" type="button" class="btn btn-primary btn-sm btn-flat" wiserv-toggle wiserv-toggle-selector="#catalog">
+          <i class="fa fa-hand-lizard-o"></i>
+        </button>
+      </div>
+      <div class="btn-group">
+        <button title="保存" type="button" class="btn btn-info btn-sm btn-flat" ng-click="TrialCreate.http.create()">
+          <i class="fa fa-save">&nbsp;保存</i>
+        </button>
+      </div>
+      <div class="btn-group">
+        <button title="休庭" type="button" class="btn btn-danger btn-sm btn-flat" ng-click="TrialCreate.adjourn()">
+        <i class="fa fa-gavel text-default">&nbsp;休庭</i>
+        </button>
+      </div>
+      <!-- right buttons -->
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-default btn-sm" title="返回案件列表" ui-sref="trial">
+          <i class="fa fa-mail-reply text-primary"></i>
+        </button>
+      </div>
+    </div>
+    <div class="box-body" wiserv-scroll wiserv-scroll-offset="30">
+      <!-- article -->
+      <article class="trial">
+          <!-- 标题 -->
+          <section contenteditable="true" id="title">
+            <div id="record_title">
+              <h1 style="font-family: 楷体; font-size: 28pt;" ng-bind="Trial.article.store.data.info.courtName"></h1>
+              <h2 style="font-family: 黑体; font-size: 28pt; font-weight: 900">法&nbsp;庭&nbsp;笔&nbsp;录</h2>
+            </div>
+          </section>
+          <!-- 庭审信息 -->
+          <section contenteditable="true" id="info">
+            <p id="open-date">
+              时间：
+              <a href="#" editable-bsdate="Trial.article.store.data.info.time.start"
+                e-is-open="Trial.event.info.opened.$data"
+                e-ng-click="Trial.event.info.open($event,'$data')"
+                e-datepicker-popup="dd-MMMM-yyyy" 
+                e-close-text="关闭"
+                e-current-text="今天"
+                e-clear-text="清除">
+                {{ (Trial.article.store.data.info.time.start | date:"yyyy年MM月dd日") || 'empty' }}
+              </a><span class="underline">9时30分</span>至<span class="underline">11时30分</span> 
+            </p>
+            <p class="form-inline">地点：<span class="temporary" ng-bind="Trial.article.store.data.info.courtName"></span><input type="text" placeholder="法院名称" class="form-control" ng-model="Trial.article.store.data.info.courtName" />第<span class="temporary" ng-bind="Trial.article.store.data.info.courtNumber"></span><input type="text"  class="form-control small" ng-model="Trial.article.store.data.info.courtNumber" ng-blur="Trial.event.info.setNumberFormat('courtNumber')" ng-focus="Trial.event.info.checkName($event)" />号法庭第<span class="temporary" ng-bind="Trial.article.store.data.info.conrtTimes"></span><input type="text" class="form-control small" ng-model="Trial.article.store.data.info.conrtTimes" ng-blur="Trial.event.info.setNumberFormat('conrtTimes')" ng-focus="Trial.event.info.checkName($event)" />次开庭</p>
+            <p class="form-inline">案号：<span class="temporary" ng-bind="Trial.article.store.data.info.caseNumber"></span><input type="text" title="{{Trial.article.store.data.info.caseNumber}}" placeholder="案号" class="form-control case-number" ng-model="Trial.article.store.data.info.caseNumber" /></p>
+            <p class="form-inline">案由：<span class="temporary" ng-bind="Trial.article.store.data.info.caseReason"></span><input type="text" placeholder="案由" class="form-control" ng-model="Trial.article.store.data.info.caseReason" /></p>
+            <p class="form-inline">是否公开审理：<span class="temporary" ng-bind="Trial.article.store.data.info.open"></span><select ng-model="Trial.article.store.data.info.open" ng-options="x.text as x.text for x in Trial.article.store.map.statuses.options"></select><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            旁听人数：<span class="temporary" ng-bind="Trial.article.store.data.info.peopleOfNumber"></span><input type="text" class="form-control small" ng-model="Trial.article.store.data.info.peopleOfNumber" ng-blur="Trial.event.info.setNumberFormat('peopleOfNumber')" ng-focus="Trial.event.info.checkName($event)" /></p>
+            <div id="judge_info">
+              <p class="form-inline">
+                <span class="temporary" ng-bind="Trial.article.store.map.duties.options[Trial.article.store.data.info.judge.judgeFirst-1].text"></span>
+                <select ng-model="Trial.article.store.data.info.judge.judgeFirst" ng-options="x.value as x.text for x in Trial.article.store.map.duties.options" ng-change="Trial.event.info.judgeShow(Trial.article.store.data.info.judge.judgeFirst)"></select>：
+                <span class="temporary" ng-bind="Trial.article.store.data.info.judge.firstName"></span>
+                <input type="text" placeholder="姓名" class="form-control" ng-model="Trial.article.store.data.info.judge.firstName" ng-blur="Trial.event.info.setNameFormat('firstName',$event)" ng-focus="Trial.event.info.checkName($event)" />
+              </p>
+              <p class="form-inline" ng-show="Trial.article.store.data.info.judge.duties_flag">
+                <span class="temporary" ng-bind="Trial.article.store.map.agents.options[Trial.article.store.data.info.judge.judgeSecond-1].text"></span>
+                <select ng-model="Trial.article.store.data.info.judge.judgeSecond" ng-options="x.value as x.text for x in Trial.article.store.map.agents.options"></select>：
+                <span class="temporary" ng-bind="Trial.article.store.data.info.judge.secondName_second"></span>
+                <input type="text" placeholder="姓名" class="form-control" ng-model="Trial.article.store.data.info.judge.secondName_second" ng-blur="Trial.event.info.setNameFormat('secondName_second',$event)" ng-focus="Trial.event.info.checkName($event)" />
+              </p>
+              <p class="form-inline" ng-show="Trial.article.store.data.info.judge.duties_flag">
+                <span class="temporary" ng-bind="Trial.article.store.map.agents.options[Trial.article.store.data.info.judge.judgeThird-1].text"></span>
+                <select ng-model="Trial.article.store.data.info.judge.judgeThird" ng-options="x.value as x.text for x in Trial.article.store.map.agents.options"></select>：
+                <span class="temporary" ng-bind="Trial.article.store.data.info.judge.thirdName_third"></span>
+                <input type="text" placeholder="姓名" class="form-control" ng-model="Trial.article.store.data.info.judge.thirdName_third" ng-blur="Trial.event.info.setNameFormat('thirdName_third',$event)" ng-focus="Trial.event.info.checkName($event)" />
+              </p>
+            </div>
+            <p class="form-inline">书记员：<span class="temporary" ng-bind="Trial.article.store.data.info.judge.clerkName"></span><input type="text" placeholder="姓名" class="form-control" ng-model="Trial.article.store.data.info.judge.clerkName" ng-blur="Trial.event.info.setNameFormat('clerkName',$event)" ng-focus="Trial.event.info.checkName($event)" /></p>
+          </section>
+          <!-- 法庭纪律 -->
+          <section contenteditable="true" id="discipline">
+            <p>书记员：请安静！请各方当事人及其诉讼代理人入庭（核对当事人及代理人情况）。</p>
+            <p>书记员：为了维护法庭秩序，保障审判活动正常进行，根据《中华人民共和国民事诉讼法》第一百三十七条第一款和《中华人民共和国人民法院法庭规则》之规定，现在宣布法庭纪律：</p>
+            <p>1．全体人员在庭审活动中应当服从<span ng-bind="Trial.article.store.map.duties.options[Trial.article.store.data.info.judge.judgeFirst-1].text | replaceTrim"></span>的指挥，尊重司法礼仪，遵守法庭纪律，不得实施下列行为：</p>
+            <p>（一）鼓掌、喧哗；</p>
+            <p>（二）吸烟、进食；</p>
+            <p>（三）拨打或接听电话；</p>
+            <p>（四）对庭审活动进行录音、录像、拍照或使用移动通信工具等传播庭审活动；</p>
+            <p>（五）其他危害法庭安全或妨害法庭秩序的行为。</p>
+            <p>2．诉讼参与人发言或提问，应当经审判长许可。</p>
+            <p>3．旁听人员不得进入审判活动区，不得随意站立、走动，不得发言和提问。</p>
+            <p>4．媒体记者经许可实施第一款第四项规定的行为，应当在指定的时间及区域进行，不得影响或干扰庭审活动。</p>
+            <p>5．<span ng-bind="Trial.article.store.map.duties.options[Trial.article.store.data.info.judge.judgeFirst-1].text | replaceTrim"></span>对违反法庭纪律的人员应当予以警告；对不听警告的，予以训诫；对训诫无效的，责令其退出法庭；对拒不退出法庭的，指令司法警察将其强行带出法庭。</p>
+            <p>6．行为人违反第一款第四项规定的，人民法院可以暂扣其使用的设备及存储介质，删除相关内容。</p>
+            <p>书记员:全体起立,请审判人员入庭。</p>
+            <p>审：（全体审判人员就位后）请坐下。</p>
+            <p>书记员:（面向审判人员正面站立）报告<span ng-bind="Trial.article.store.map.duties.options[Trial.article.store.data.info.judge.judgeFirst-1].text | replaceTrim"></span>，本案到庭参加庭审活动的诉讼参与人已经到齐，法庭准备就绪，请审判人员开庭。</p>
+            <p>审：请坐下，准备法庭记录。</p>
+          </section>
+          <!-- 信息核对 -->
+          <section contenteditable="true" id="verify">
+            <p>审：（敲击法槌）现在开庭。首先核对当事人和其他诉讼参与人的基本信息。</p>
+            <!-- 诉讼参与人 -->
+            <div id="verify_participant">
+              <!-- 原告方 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser" style="outline: 2px solid #00acd6; padding: 15px; margin-bottom: 15px;" id="accuser" ng-class="{true: 'hide_flag', false: ''}[data.hide_flag]" >
+                <button title="区块删除" type="button" class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delTogether('accuser',$index)" ng-show="Trial.article.store.data.verify.personList.accuser.length > 1">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+                <button title="区块添加" class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addTogether('accuser')"><i class="fa  fa-plus"></i></button>
+                <!-- 原告信息 -->
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList track by $index" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  原告：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('accuser','accuserList',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt-1].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>，以下简称 原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>）
+                  <button class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('0',$parent.$index)" ng-show='$index === 0'>
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <i class="fa fa-times" ng-click="Trial.event.verify.verify_participant.delBailor('0',$parent.$index,$index)" ng-show='$index > 0'></i>
+                </p>
+                <!-- 原告法定代表/负责人/ -->
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  <span class="temporary" ng-bind="Trial.article.store.map.legal.options[item.legalSelect-1].text"></span>
+                  <select ng-model="item.legalSelect" ng-options="x.value as x.text for x in Trial.article.store.map.legal.options" ng-change="Trial.event.verify.verify_participant.lagalAgentChange(item)"></select>：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('accuser','agentLegal',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt-1].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>，以下简称<span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i> ）
+                  <button class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delBailor('6',$parent.$index,$index)" ng-show='$index === 0 && Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1'>
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <button class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('6',$parent.$index)" ng-show='$index === 0 && (item.legalSelect !== 1 && item.legalSelect !== 2)'>
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <i class="fa fa-times" ng-click="Trial.event.verify.verify_participant.delBailor('6',$parent.$index,$index)" ng-show='$index > 0'></i>
+                </p>
+                <!-- 原告委托代理人信息 -->
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  委托诉讼代理人：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('accuser','agentAccuserList',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt-1].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>，<span class="temporary" ng-bind="Trial.article.store.map.Authorization.options[item.warrant-1].text"></span><select ng-model="item.warrant" ng-options="x.value as x.text for x in Trial.article.store.map.Authorization.options"></select>，以下简称 原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>）
+                  <button class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delBailor('3',$parent.$index,$index)" ng-show='$index === 0 && Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1'>
+                    <i class="fa fa-minus"></i>
+                  </button>
+                  <button  class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('3',$parent.$index)" ng-show='$index === 0'>
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <i class="fa fa-times" ng-click="Trial.event.verify.verify_participant.delBailor('3',$parent.$index,$index)" ng-show='$index > 0'></i> 
+                </p>
+              </div>
+              <!-- 被告方 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant" style="outline: 2px solid #00acd6; padding: 15px; margin-bottom: 15px;" id="defendant" ng-class="{true: 'hide_flag', false: ''}[data.hide_flag]" >
+                <button title="区块删除" type="button" class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delTogether('defendant',$index)" ng-show="Trial.article.store.data.verify.personList.defendant.length > 1">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+                <button title="区块添加" class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addTogether('defendant')"><i class="fa  fa-plus"></i></button>
+                <!-- 被告信息 -->
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  被告：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('defendant','defendantList',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt-1].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>，以下简称 被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>）
+                  <button class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('1',$parent.$index)" ng-show='$index === 0'>
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <i class="fa fa-times" ng-click="Trial.event.verify.verify_participant.delBailor('1',$parent.$index,$index)" ng-show='$index > 0'></i>
+                </p>
+                <!-- 被告法定代表人/负责人 -->
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  <span class="temporary" ng-bind="Trial.article.store.map.legal.options[item.legalSelect-1].text"></span>
+                  <select ng-model="item.legalSelect" ng-options="x.value as x.text for x in Trial.article.store.map.legal.options" ng-change="Trial.event.verify.verify_participant.lagalAgentChange(item)"></select>：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('defendant','agentDefendantLegal',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt-1].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>，以下简称<span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>）
+                  <button class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delBailor('7',$parent.$index,$index)" ng-show='$index === 0 && Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1'>
+                    <i class="fa  fa-minus"></i>
+                  </button>
+                  <button class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('7',$parent.$index)" ng-show='$index === 0 && (item.legalSelect !== 1 && item.legalSelect !== 2)'>
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <i class="fa  fa-times" ng-click="Trial.event.verify.verify_participant.delBailor('7',$parent.$index,$index)" ng-show='$index > 0'></i>
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  委托诉讼代理人：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('defendant','agentDefendantList',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt-1].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>，<span class="temporary" ng-bind="Trial.article.store.map.Authorization.options[item.warrant-1].text"></span><select ng-model="item.warrant" ng-options="x.value as x.text for x in Trial.article.store.map.Authorization.options"></select>，以下简称被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>）
+                  <button class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delBailor('4',$parent.$index,$index)" ng-show='$index === 0 && Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1'>
+                    <i class="fa  fa-minus"></i>
+                  </button>
+                  <button class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('4',$parent.$index)" ng-show='$index === 0'>
+                    <i class="fa fa-plus"></i>
+                  </button>
+                  <i class="fa fa-times" ng-click="Trial.event.verify.verify_participant.delBailor('4',$parent.$index,$index)" ng-show='$index > 0'></i>
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third" style="outline: 2px solid #00acd6; padding: 15px;" id="third" ng-class="{true: 'hide_flag', false: ''}[data.hide_flag]" >
+                <button title="区块删除" type="button" class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delTogether('third',$index)" ng-show="Trial.article.store.data.verify.personList.third.length > 1">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+                <button title="区块添加" class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addTogether('third')" ng-show="Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length >= 1"><i class="fa  fa-plus"></i></button>
+                <!-- 第三人信息 -->
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  第三人：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('third','thirdPeopleList',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>,以下简称 第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>）
+                  <button class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delBailor('2',$parent.$index,$index)" ng-show='$index === 0 && Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1'>
+                    <i class="fa  fa-minus remove-dom"></i>
+                  </button>
+                  <button class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('2',$parent.$index)" ng-show='$index === 0'>
+                    <i class="fa fa-plus remove-dom"></i>
+                  </button>
+                  <i class="fa fa-times remove-dom" ng-click="Trial.event.verify.verify_participant.delBailor('2',$parent.$index,$index)" ng-show='$index > 0'></i>
+                </p>
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  <span class="temporary" ng-bind="Trial.article.store.map.legal.options[item.legalSelect-1].text"></span>
+                  <select ng-model="item.legalSelect" ng-options="x.value as x.text for x in Trial.article.store.map.legal.options" ng-change="Trial.event.verify.verify_participant.lagalAgentChange(item)"></select>：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('third','agentThirdPeopleLegal',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>，以下简称<span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i> ）
+                  <button class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delBailor('8',$parent.$index,$index)" ng-show='$index === 0 && Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1'>
+                    <i class="fa  fa-minus remove-dom"></i>
+                  </button>
+                  <button class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('8',$parent.$index)" ng-show='$index === 0 && (item.legalSelect !== 1 && item.legalSelect !== 2)'>
+                    <i class="fa fa-plus remove-dom"></i>
+                  </button>
+                  <i class="fa  fa-times remove-dom" ng-click="Trial.event.verify.verify_participant.delBailor('8',$parent.$index,$index)" ng-show='$index > 0'></i>
+                </p>
+                <p class="form-inline" ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-class="{true: 'hide_flag', false: ''}[item.hide_flag]" >
+                  委托诉讼代理人：
+                  <span class="temporary" ng-bind="item.name"></span>
+                  <input type="text" placeholder="姓名" class="form-control" ng-model="item.name" ng-blur="Trial.event.info.setPersonFormat('third','agentThirdPeopleList',$parent.$index, $index,$event)" ng-focus="Trial.event.info.checkName($event)" />
+                  <span ng-bind="item.info"></span>。
+                （<span class="temporary" ng-bind="Trial.article.store.map.attendance.options[item.toCourt-1].text"></span><select ng-model="item.toCourt" ng-options="x.value as x.text for x in Trial.article.store.map.attendance.options" ng-change="Trial.event.verify.verify_participant.toCourtChange(item)"></select>，<span class="temporary" ng-bind="Trial.article.store.map.Authorization.options[item.warrant-1].text"></span><select ng-model="item.warrant" ng-options="x.value as x.text for x in Trial.article.store.map.Authorization.options"></select>，以下简称 第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>）
+                  <button class="btn btn-danger btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.delBailor('5',$parent.$index,$index)" ng-show='$index === 0 && Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1'>
+                    <i class="fa fa-minus remove-dom"></i>
+                  </button>
+                  <button class="btn btn-default btn-sm btn-flat" ng-click="Trial.event.verify.verify_participant.addBailor('5',$parent.$index)" ng-show='$index === 0'>
+                    <i class="fa fa-plus remove-dom" ></i>
+                  </button>
+                  <i class="fa fa-times remove-dom" ng-click="Trial.event.verify.verify_participant.delBailor('5',$parent.$index,$index)" ng-show='$index > 0'></i>
+                </p>
+              </div>
+            </div>
+            <!-- 异议及理由 -->
+            <div id="verify_objection" ng-if="((!Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.third_man_flag) || (Trial.article.store.data.verify.defendant_part_flag && !Trial.article.store.data.verify.third_man_flag)) || Trial.article.store.data.verify.attendance_flag" >
+              <p>审：各方对出庭人员有无异议？</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span>
+                  <span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span><span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span><span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span><span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span><span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span><span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span><span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span><span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection-1].text"></span>
+                  <select ng-model="item.objection" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_flag">，</span><span class="editable-area" ng-model="item.objectionReason" ng-show="!item.objection_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+            </div>
+            <!-- 缺席审理 (部分缺席，全部缺席时都显示)-->
+            <div id="verify_absence" ng-show="((!Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.thirdPeop_part_flag) || (Trial.article.store.data.verify.defendant_part_flag && !Trial.article.store.data.verify.thirdPeop_part_flag)) || !Trial.article.store.data.verify.attendance_flag" >
+              <p>审：<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i><i ng-bind="item.name"></i><i ng-show="Trial.article.store.data.verify.absentee.length > 1">、</i></span>经本院依法传唤，无正当理由拒不当庭，本案缺席审理，是否清楚？
+              </p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+            </div>
+            <!-- 是否有证人出庭 -->
+            <div id="verify_witness">
+              <p>审：经核对，各方当事人和其他诉讼参加人均符合法律规定，可以参加本次诉讼活动。各方当事人是否有证人出庭作证？</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：无。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：无。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：无。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：无。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：无。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：无。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：无。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：无。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：无。
+                </p>
+              </div>
+            </div>
+          </section>
+          <!-- 庭审序言 -->
+          <section contenteditable="true" id="preface">
+            <!-- 庭审组织 -->
+            <div id="preface_organization">
+              <!-- 如果是普通程序时： -->
+              <p ng-if="Trial.article.store.data.info.judge.duties_flag">审：本院受理<span ng-bind="Trial.article.store.data.info.caseNumber"></span><span ng-repeat="item in Trial.article.store.data.verify.personList.accuser"><i ng-repeat="data in item.accuserList" ng-bind="data.name"></i></span>与<span ng-repeat="item in Trial.article.store.data.verify.personList.defendant"><i ng-repeat="data in item.defendantList" ng-bind="data.name"></i></span><span ng-bind="Trial.article.store.data.info.caseReason"></span>一案后，根据《中华人民共和国民事诉讼法》第一百三十四条之规定，依法适用<span ng-bind="Trial.article.store.data.preface.prefaceOrganization.program"></span>第<span ng-bind="Trial.article.store.data.info.conrtTimes | replaceNum"></span>次<span ng-bind="Trial.article.store.data.info.open"></span>开庭进行审理。<button class="btn btn-default btn-sm btn-flat" id="ordinary-button" title="变更审判人员" ng-click='Trial.event.preface.preface_organization.replacePerson("ordinary")'>
+                <i class="fa fa-plus"></i>
+              </button>
+              <span id="change-ordinary">因工作调动，审判员/审判长/代理审判员/人民陪审员/书记员由XXX更换为XXX。
+                <button class="btn btn-danger btn-sm btn-flat" id="ordinary-delete" title="删除" ng-click='Trial.event.preface.preface_organization.ordinaryDelete("ordinary")'>
+                  <i class="fa fa-minus"></i>
+                </button>
+                </span>本案由<span ng-bind="Trial.article.store.map.duties.options[Trial.article.store.data.info.judge.judgeFirst-1].text | replaceTrim"></span><span ng-bind=" Trial.article.store.data.info.judge.firstName | replaceTrim" ></span>、<span ng-bind="Trial.article.store.map.duties.options[Trial.article.store.data.info.judge.judgeSecond-1].text | replaceTrim"></span><span ng-bind=" Trial.article.store.data.info.judge.secondName_second | replaceTrim" ></span>、<span ng-bind="Trial.article.store.map.duties.options[Trial.article.store.data.info.judge.judgeThird-1].text | replaceTrim"></span><span ng-bind=" Trial.article.store.data.info.judge.thirdName_third | replaceTrim" ></span>依法组成合议庭，由审判员<span ng-bind="Trial.article.store.data.info.judge.firstName | replaceTrim" ></span>担任审判长，由书记员<span ng-bind="Trial.article.store.data.info.judge.clerkName | replaceTrim" ></span>担任记录。
+              </p>
+              <!-- 如果是简易程序时： -->
+              <p ng-if="!Trial.article.store.data.info.judge.duties_flag">审：本院受理<span ng-bind="Trial.article.store.data.info.caseNumber"></span><span ng-repeat="item in Trial.article.store.data.verify.personList.accuser"><i ng-repeat="data in item.accuserList" ng-bind="data.name"></i></span>与<span ng-repeat="item in Trial.article.store.data.verify.personList.defendant"><i ng-repeat="data in item.defendantList" ng-bind="data.name"></i></span><span ng-bind="Trial.article.store.data.info.caseReason"></span>一案后，根据《中华人民共和国民事诉讼法》第三十九条、第四十一条之规定，依法适用<span ng-bind="Trial.article.store.data.preface.prefaceOrganization.program"></span>第<span ng-bind="Trial.article.store.data.info.conrtTimes | replaceNum"></span>次开庭<span ng-bind="Trial.article.store.data.info.open"></span>开庭进行审理。
+              <button class="btn btn-default btn-sm btn-flat" id="simple-button" title="变更审判人员" ng-click="Trial.event.preface.preface_organization.replacePerson('simple')">
+                <i class="fa fa-plus"></i>
+              </button>
+              <span id="change-simple">因工作调动，审判员/审判长/代理审判员/人民陪审员/书记员由XXX更换为XXX。
+                <button class="btn btn-danger btn-sm btn-flat" id="simple-delete" title="删除" ng-click='Trial.event.preface.preface_organization.ordinaryDelete("simple")'>
+                  <i class="fa fa-minus"></i>
+                </button>
+              </span>
+              本案由<span ng-bind="Trial.article.store.map.duties.options[Trial.article.store.data.info.judge.judgeFirst-1].text | replaceTrim"></span><span ng-bind=" Trial.article.store.data.info.judge.firstName | replaceTrim" ></span>独任审理，由书记员<span ng-bind=" Trial.article.store.data.info.judge.clerkName | replaceTrim" ></span>担任记录。</p>
+            </div>
+            <!-- 告知诉讼权利 -->
+            <div id="preface_right">
+              <p>审：根据《中华人民共和国民事诉讼法》第四十九条、第五十条、第五十一条之规定，当事人在审理过程中的权利义务是：</p>
+              <p>1、当事人有收集、提供证据，进行辩论，请求调解，提起上诉，申请执行的权利；</p>
+              <p>2、依法行使诉讼权利，遵守诉讼秩序，听从审判人员指挥，发言、提问、辩论需经审判长许可，不得相互吵闹和谩骂；</p>
+              <p>3、当事人可以自行和解；</p>
+              <p>4、原告人可以放弃或者变更诉讼请求，被告人可以承认或反驳诉讼请求，有权提起反诉；</p>
+              <p>5、根据《中华人民共和国民事诉讼法》第一百三十九条第三款之规定，当事人申请重新鉴定、调查或勘验者，是否准许由人民法院决定；</p>
+              <p>6、根据《中华人民共和国民事诉讼法》第一百四十三条之规定，原告经传票传唤，无正当理由拒不到庭的或者未经法庭许可中途退庭的，可按撤诉处理。被告反诉的，可以缺席判决；</p>
+              <p>7、根据《中华人民共和国民事诉讼法》第一百四十四条之规定，被告经传票传唤，无正当理由拒不到庭的或者未经法庭许可中途退庭的，可以缺席判决；</p>
+              <p>8、根据《中华人民共和国民事诉讼法》第一百四十五条第二款之规定，人民法院裁定不准撤诉的，原告经传票传唤，无正当理由拒不到庭的，可以缺席判决。</p>
+              <p>审：根据《中华人民共和国民事诉讼法》第十条、第四十四条、第四十五条、第四十六条之规定，当事人对审判人员有申请回避的权利，如果当事人认为上列人员中有与本案有利害关系或者其他关系，可能影响案件的公正审理，有权用口头或书面形式申请回避，但应当说明理由。审判人员的回避由本院院长决定，书记员的回避由审判长决定。</p>
+            </div>
+            <!-- 告知事项 -->
+            <div id="preface_inform">
+              <p>审：“四个明示”的具体内容如下：</p>
+              <p>
+                <strong>（一）明示全程录音录像。</strong>
+                明确告知当事人及其他诉讼参与人、旁听群众，庭审活动将全程录音录像，所形成的视频资料将存入案件卷宗，可能在网上公开，也可能作法制宣传等之用（不公开审理案件除外），提醒和促使法官、当事人及其他诉讼参与人、旁听群众自觉约束和规范言行，确保庭审的严肃性和良好的审判秩序。对不遵守法庭纪律，扰乱法庭秩序的要坚决予以制止，依法给予处理。
+              </p>
+              <p>
+                <strong>（二）明示诚信诉讼原则。</strong>
+                在民事案件开庭审理中，明确告知当事人及其他诉讼参与人，在诉讼活动中应当遵循诚实信用原则，不得作虚假陈述，提供虚假证据，妨碍证人、鉴定人、勘验人作证。如有违反，将按照法律规定严格追究其法律责任，合议庭并将其违反诚信的行为作为综合评判案件事实和判决结果的考量因素。
+              </p>
+              <p>
+                <strong>（三）明示不得干扰法院独立审判。</strong>
+                明确告知当事人及其他诉讼参与人，应以法律规定的方式表达诉求和提供证据。在诉讼过程中不得通过他人转交材料或转达诉求，不得庭外请托合议庭法官或其他法官，不得以任何形式干扰法院独立和公正行使审判权。对有上述不符合法律规定行为的，合议庭将记录在案并告知对方当事人，同时责令行为方向合议庭及对方当事人作出说明。代理律师有上述行为的，同时还将函告司法行政部门。
+              </p>
+              <p>
+                <strong>（四）明示审判工作纪律。</strong>
+                明确告知当事人及其他诉讼参与人、旁听群众，合议庭在案件审理的全过程将严格遵守最高人民法院“五个严禁”等相关规定，庄严宣示合议庭和其他法官不会接受案件当事人及相关人员的请客送礼，不会违反规定与律师进行不正当交往等。同时，公布监督举报电话，告知如发现法官有上述违反纪律行为或有人借法官之名索要财物的，可进行举报、投诉。通过明示，既表明法官中立、公正的立场，也警示和提醒当事人及其他诉讼参与人配合规范自身行为。
+              </p>
+              <p>审：以上权利义务及四个明示的内容是否清楚?</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+            </div>
+            <!-- 是否申请回避 -->
+            <div id="preface_withdrawal">
+              <p>审：根据《中华人民共和国民事诉讼法》第四十四条、四十五条、四十六条之规定，当事人可以申请回避，各方是否申请回避？</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)" ></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.debarb.options[item.avoid-1].text"></span>
+                  <select ng-model="item.avoid" ng-options="x.value as x.text for x in Trial.article.store.map.debarb.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.avoid_flag">，</span><span class="editable-area" ng-model="item.debarbReason" ng-show="!item.avoid_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+            </div>
+            <!-- 举证期限异议 -->
+            <div id="preface_time_limit">
+              <p>审：庭前向各方送达权利义务通知书、举证通知书，各方是否已收到？对证据期限有无异议？是否同意今天开庭？</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open-1].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open-1].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open-1].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open-1].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open-1].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open-1].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open-1].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：已收到，
+                  <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_open-1].text"></span>
+                  <select ng-model="item.objection_open" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select>，
+                  <span class="temporary" ng-bind="Trial.article.store.map.agree.options[item.agree-1].text"></span>
+                  <select ng-model="item.agree" ng-options="x.value as x.text for x in Trial.article.store.map.agree.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.objection_open_flag">，</span><span class="editable-area" ng-model="item.objection_open_Reason" ng-show="!item.objection_open_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+            </div>
+          </section>
+          <!-- 法庭调查 -->
+          <section contenteditable="true" id="investigate">
+            <!-- 诉辩意见 -->
+            <div id="investigate_opinion">
+              <p>审：现在进行法庭调查。首先由原告简要陈述诉讼请求、事实和理由。</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser" id="opinion_accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )">审：现在由被告简要宣读答辩状或针对原告的诉讼请求及理由进行答辩。</p>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant" id="opinion_defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">审：现在由第三人陈述意见。</p>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third" id="opinion_third_man">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+            </div>
+            <!-- 缺席时添加 -->
+            <div ng-show="((!Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.thirdPeop_part_flag) || (Trial.article.store.data.verify.defendant_part_flag && !Trial.article.store.data.verify.thirdPeop_part_flag)) || !Trial.article.store.data.verify.attendance_flag">
+              <p>审：鉴于<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i><i ng-bind="item.name"></i><i ng-show="Trial.article.store.data.verify.absentee.length > 1">、</i></span>经本院依法传唤，无正当理由拒不到庭参加诉讼，且未提交书面<span ng-show="!(Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 ))">答辩意见</span><span ng-show="!(Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0)))">陈述意见</span><span ng-show="!Trial.article.store.data.verify.attendance_flag">答辩意见或陈述意见</span> ，<span ng-show="!(Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 ))">答辩意见</span><span ng-show="!(Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0)))">陈述意见</span><span ng-show="!Trial.article.store.data.verify.attendance_flag">答辩意见或陈述意见</span>予以省略。
+              </p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+            </div>
+            <!-- 法庭询问 -->
+            <div id="investigate_inquiry">
+              <p>审：现在法庭做如下询问：</p>
+              <div id="findConclude">  
+                <div ng-repeat="item in Trial.article.store.data.investigate.investigate_inquiry.allQuestion" style="background: #CCC" ng-class="{true: 'hide_flag', false: ''}[data.hide_flag]">
+                  <button class="btn btn-danger btn-flat" ng-click="Trial.event.investigate.investigate_inquiry.delCurr($index)"><i class="fa fa-times"></i></button>
+                  <p ng-bind="item.askInfo"><i class="fa fa-graduation-cap"></i></p>
+                  <!-- 原告 -->
+                  <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser" >
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                      原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                    </p>  
+                    <!-- 原告法定代表/负责人 -->
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                      <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                    </p>
+                    <!-- 原告委托诉讼代理人 -->
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                      原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                    </p>
+                  </div>
+                  <!-- 被告 -->
+                  <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                      被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                    </p> 
+                    <!-- 被告法定代表/负责人 -->
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                      <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                    </p>
+                    <!-- 被告委托诉讼代理人 -->
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                      被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                    </p>
+                  </div>
+                  <!-- 第三人 -->
+                  <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                      第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                    </p>
+                    <!-- 第三人法定代表人/负责人 -->
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                      <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                    </p>
+                    <!-- 第三人委托诉讼代理人 -->
+                    <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                      第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                    </p>
+                  </div>
+                  <p ng-bind-html="item.summaryInfo"></p>
+                </div>
+              </div>
+              <p>
+                <select ng-model="Trial.article.store.data.investigate.investigate_inquiry.question" ng-options="x.value as x.text for x in Trial.article.store.data.investigate.investigate_inquiry.all" ng-change="Trial.event.investigate.investigate_inquiry.questionChange(Trial.article.store.data.investigate.investigate_inquiry.question)"></select>
+              </p>
+            </div>
+            <!-- 归纳争点 -->
+            <div id="investigate_summary">
+              <!-- 无争议归纳 -->
+              <div id="investigate_conclude_without_dispute">
+                <p>审：根据各方陈述意见，归纳无争议及争议事实如下：无争议事实：
+                  <span class="temporary" ng-bind="Trial.article.store.data.investigate.investigateConclude.investigateConcludeWithoutDispute"></span>
+                  <textarea placeholder="无争议事实内容" ng-model="Trial.article.store.data.investigate.investigateConclude.investigateConcludeWithoutDispute"></textarea>。
+                </p>
+                <!-- 原告 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                    原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>  
+                  <!-- 原告法定代表/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                  <!-- 原告委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                    原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                </div>
+                <!-- 被告 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                    被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p> 
+                  <!-- 被告法定代表/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                  <!-- 被告委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                    被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                </div>
+                <!-- 第三人 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                    第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                  <!-- 第三人法定代表人/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                  <!-- 第三人委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                    第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                </div>
+              </div>
+              <!-- 争议归纳 -->
+              <div id="investigate_conclude_in_dispute">
+                <p>审：争议事实： 
+                  <span class="temporary" ng-bind="Trial.article.store.data.investigate.investigateConclude.investigateConcludeInDispute"></span>
+                  <textarea placeholder="争议事实内容" ng-model="Trial.article.store.data.investigate.investigateConclude.investigateConcludeInDispute"></textarea> 。对于本院归纳内容是否有异议或补充
+                </p>
+                <!-- 原告 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                    原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>  
+                  <!-- 原告法定代表/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                  <!-- 原告委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                    原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                </div>
+                <!-- 被告 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                    被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p> 
+                  <!-- 被告法定代表/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                  <!-- 被告委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                    被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                </div>
+                <!-- 第三人 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                    第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                  <!-- 第三人法定代表人/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                  <!-- 第三人委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                    第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                    <span class="temporary" ng-bind="Trial.article.store.map.objection.options[item.objection_no_controversy-1].text"></span>
+                    <select ng-model="item.objection_no_controversy" ng-options="x.value as x.text for x in Trial.article.store.map.objection.options"></select>，
+                    <span class="temporary" ng-bind="Trial.article.store.map.replenish.options[item.no_controversy_isAdd-1].text"></span>
+                    <select ng-model="item.no_controversy_isAdd" ng-options="x.value as x.text for x in Trial.article.store.map.replenish.options"></select>。
+                  </p>
+                </div>
+              </div>
+            </div>
+            <!-- 举证质证 -->
+            <div id="investigate_evidence">
+              <p>审：现在开始举证，先由原告方举证。</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p ng-show="(Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )) && (Trial.article.store.data.verify.thirdPeop_part_flag && (Trial.article.store.data.verify.personList.third.length > 0 ))">审：各方发表质证意见。</p>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )">审：现由被告方举证。</p>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )">审：各方发表质证意见</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser" ng-show="Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">审：现由第三人举证。</p>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">审：各方发表质证意见。</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser" ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant" ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+            </div>
+            <!-- 缺席时显示 （包含部分缺席和全部缺席2种情况） -->
+            <div ng-show="((!Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.thirdPeop_part_flag) || (Trial.article.store.data.verify.defendant_part_flag && !Trial.article.store.data.verify.thirdPeop_part_flag)) || !Trial.article.store.data.verify.attendance_flag">
+              <p>审：鉴于<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i><i ng-bind="item.name"></i><i ng-show="Trial.article.store.data.verify.absentee.length > 1">、</i></span>经本院依法传唤，无正当理由拒不当庭，也未提交书面举证质证意见，<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i><i ng-bind="item.name"></i></span>举证质证意见予以省略。
+              </p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+            </div>
+            <!-- 交叉询问环节，全部缺席时隐藏（全部到庭和部分缺席时都需要显示） -->
+            <div ng-show="((!Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.third_man_flag) || (Trial.article.store.data.verify.defendant_part_flag && !Trial.article.store.data.verify.third_man_flag)) || Trial.article.store.data.verify.attendance_flag">
+              <p>审：各方当事人是否需要交叉询问或法庭补充调查？</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.need.options[item.askedtoadd-1].text"></span>
+                  <select ng-model="item.askedtoadd" ng-options="x.value as x.text for x in Trial.article.store.map.need.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.askedtoadd_flag">，</span><span class="editable-area" ng-model="item.askedtoaddReason" ng-show="!item.askedtoadd_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+            </div>
+          </section>
+          <!-- 法庭辩论 -->
+          <section contenteditable="true" id="debate">
+            <p>审：法庭调查结束，现在进行法庭辩论。为保证法庭辩论正常有序的进行，本庭提醒各方当事人，辩论应当实事求是、以理服人，在辩论中，各方当事人要围绕本案争议的焦点，对本案的事实认定、责任、法律适用等发表辩论意见，不得引用与本案无关或者未经法庭核对的事实、证据，不得重复，严禁使用不文明语言。首先由原告发表辩论意见。</p>
+            <!-- 原告方辩论意见 -->
+            <div id="debate_accuser">
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+            </div>
+            <!-- 被告方辩论意见 -->
+            <div id="debate_defendant">
+              <p ng-show="Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )">审：现在由被告发表辩论意见。</p>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+            </div>
+            <!-- 第三人辩论意见 -->
+            <div id="debate_third">
+              <p ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">审：现在由第三人发表意见。</p>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+            </div>
+            <!-- 手动添加辩论次数 -->
+            <div ng-repeat="times in Trial.article.store.data.debate.debateArray">
+              <p>
+                审：现在进行第<span ng-bind="$index + 2"></span>轮辩论。首先由原告发表第<span ng-bind="$index + 2"></span>轮辩论意见。
+                <i class="fa fa-times-circle-o" ng-click="Trial.event.debate.debate_times.delDebate()"></i>
+              </p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p  ng-show="Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )">审：现在由被告发表辩论意见。</p>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">审：现在由第三人发表意见。</p>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                </p>
+              </div>
+            </div>
+            <p>
+              <button class="btn btn-flat" ng-click="Trial.event.debate.debate_times.addTrial()" title="新增辩论次数">
+                <i class="fa fa-plus"></i>
+              </button>
+            </p> 
+            <!-- 缺席时显示 （包含部分缺席和全部缺席2种情况） -->
+            <div ng-show="((!Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.thirdPeop_part_flag) || (Trial.article.store.data.verify.defendant_part_flag && !Trial.article.store.data.verify.thirdPeop_part_flag)) || !Trial.article.store.data.verify.attendance_flag">
+              <p>审：鉴于<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i><i ng-bind="item.name"></i><i ng-show="Trial.article.store.data.verify.absentee.length > 1">、</i></span>经本院依法传唤，无正当理由拒不当庭，无法发表辩论意见，<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i></span>辩论意见予以省略。
+              </p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+            </div>
+          </section>
+          <!-- 最后陈述 -->
+          <section contenteditable="true"nt id="statement">
+            <p>审：法庭辩论终结。现在由各方当事人最后陈述。首先由原告陈述。</p>
+            <!-- 原告 -->
+            <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+              </p>  
+              <!-- 原告法定代表/负责人 -->
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+              </p>
+              <!-- 原告委托诉讼代理人 -->
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+              </p>
+            </div>
+            <p ng-show="Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )">审：现在由被告陈述。</p>
+            <!-- 被告 -->
+            <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+              </p> 
+              <!-- 被告法定代表/负责人 -->
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+              </p>
+              <!-- 被告委托诉讼代理人 -->
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+              </p>
+            </div>
+            <p ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">审：现在由第三人陈述。</p>
+            <!-- 第三人 -->
+            <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+              </p>
+              <!-- 第三人法定代表人/负责人 -->
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+              </p>
+              <!-- 第三人委托诉讼代理人 -->
+              <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+              </p>
+            </div>
+            <!-- 缺席时显示 （包含部分缺席和全部缺席2种情况） -->
+            <div  ng-show="((!Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.thirdPeop_part_flag) || (Trial.article.store.data.verify.defendant_part_flag && !Trial.article.store.data.verify.thirdPeop_part_flag)) || !Trial.article.store.data.verify.attendance_flag">
+              <p>审：鉴于<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i><i ng-bind="item.name"></i><i ng-show="Trial.article.store.data.verify.absentee.length > 1">、</i></span>经本院依法传唤，无正当理由拒不当庭，无法发表最后陈述意见，<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i><i ng-bind="item.name"></i></span>最后陈述意见予以省略。</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+            </div>
+          </section>
+          <!-- 法庭调解 -->
+          <section contenteditable="true" id="conciliation">
+            <!-- 如果存在部分缺席或全部缺席时：显示 -->
+            <div ng-show="((!Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.thirdPeop_part_flag) || (Trial.article.store.data.verify.defendant_part_flag && !Trial.article.store.data.verify.thirdPeop_part_flag)) || !Trial.article.store.data.verify.attendance_flag">
+              <p>审：法庭辩论终结，应当依法作出判决，判决前能够调解的可以进行调解。鉴于本案<span ng-repeat="item in Trial.article.store.data.verify.absentee"><i ng-bind="item.type"></i><i ng-bind="item.name"></i><i ng-show="Trial.article.store.data.verify.absentee.length > 1">、</i></span>未到庭参加诉讼，本庭不组织各方调解，但不影响各方庭下进行调解。</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+            </div>
+            <!-- 如果全部到庭时：显示 -->
+            <div ng-show="Trial.article.store.data.verify.defendant_part_flag && Trial.article.store.data.verify.thirdPeop_part_flag">
+              <p>审：法庭辩论终结，应当依法作出判决，判决前能够调解的可以进行调解，各方是否申请由法庭主持调解？</p>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.defendant_part_flag && (Trial.article.store.data.verify.personList.defendant.length > 0 )">审：被告是否愿意调解？</p>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <p ng-show="Trial.article.store.data.verify.thirdPeop_part_flag && ((Trial.article.store.data.verify.personList.third[0].thirdPeopleList.length > 0 )||(Trial.article.store.data.verify.personList.third[0].agentThirdPeopleList.length > 0)|| (Trial.article.store.data.verify.personList.third[0].agentThirdPeopleLegal.length > 0))">审：第三人是否愿意参加调解？</p>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：
+                  <span class="temporary" ng-bind="Trial.article.store.map.reconcile.options[item.peace-1].text"></span>
+                  <select ng-model="item.peace" ng-options="x.value as x.text for x in Trial.article.store.map.reconcile.options" ng-change="Trial.event.verify.verify_objection.objectionChange(item)"></select><span ng-show="!item.reconcile_flag">，</span><span class="editable-area" ng-model="item.reconcileReason" ng-show="!item.reconcile_flag">&nbsp;&nbsp;</span>。
+                </p>
+              </div>
+              <!-- 在全部到庭的前提下，如果任何一方不同意调解时： -->
+              <div ng-show="!Trial.article.store.data.conciliation.toMediate_flag">
+                <p>审：鉴于<span ng-repeat="item in Trial.article.store.data.conciliation.toMediateMan"><i ng-bind="item.type"></i><i ng-bind="item.name"></i><i ng-show="Trial.article.store.data.conciliation.toMediateMan.length > 1">、</i>
+                  </span>不同意调解，本庭不再当庭组织各方调解，但不影响各方庭下进行调解。
+                </p>
+                <!-- 原告 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                    原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>  
+                  <!-- 原告法定代表/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                  <!-- 原告委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                    原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                </div>
+                <!-- 被告 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                    被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p> 
+                  <!-- 被告法定代表/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                  <!-- 被告委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                    被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                </div>
+                <!-- 第三人 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                    第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                  <!-- 第三人法定代表人/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                  <!-- 第三人委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                    第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                </div>
+                </div>
+              <!-- 在全部到庭的前提下，如果各方均同意调解时： -->
+              <div ng-show="Trial.article.store.data.conciliation.toMediate_flag">
+                <p>审：鉴于各方当事人均同意调解，休庭后由法庭组织各方当事人进行调解，也可以自行调解。</p>
+                <!-- 原告 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                    原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>  
+                  <!-- 原告法定代表/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                  <!-- 原告委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                    原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                </div>
+                <!-- 被告 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                    被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p> 
+                  <!-- 被告法定代表/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                  <!-- 被告委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                    被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                </div>
+                <!-- 第三人 -->
+                <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                    第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                  <!-- 第三人法定代表人/负责人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                    <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                  <!-- 第三人委托诉讼代理人 -->
+                  <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                    第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- 休庭宣读 -->
+          <section contenteditable="true" id="announce">
+            <!-- 点击休庭时显示 start -->
+            <div id="adjourn">
+              <div>审：鉴于本案<span class="temporary" ng-bind="Trial.article.store.map.adjourn.options[Trial.article.store.data.announce.adjournment-1].text"></span><select ng-model="Trial.article.store.data.announce.adjournment" ng-options="x.value as x.text for x in Trial.article.store.map.adjourn.options"></select>，本院定于年月日时分复庭。各方是否清楚？</div>
+              <!-- 原告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.accuser">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].accuserList" ng-show="item.show_flag">
+                  原<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].accuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>  
+                <!-- 原告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortA"></span><i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 原告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList" ng-show="item.show_flag">
+                  原代<i ng-bind="Trial.article.store.data.verify.personList.accuser[$index].agentAccuserList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 被告 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.defendant">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].defendantList" ng-show="item.show_flag">
+                  被<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].defendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p> 
+                <!-- 被告法定代表/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortB"></span><i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 被告委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList" ng-show="item.show_flag">
+                  被代<i ng-bind="Trial.article.store.data.verify.personList.defendant[$index].agentDefendantList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+              <!-- 第三人 -->
+              <div ng-repeat="data in Trial.article.store.data.verify.personList.third">
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].thirdPeopleList" ng-show="item.show_flag">
+                  第<i ng-bind="Trial.article.store.data.verify.personList.third[$index].thirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人法定代表人/负责人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal" ng-show="item.show_flag">
+                  <span ng-bind="item.legalShortT"></span><i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleLegal.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+                <!-- 第三人委托诉讼代理人 -->
+                <p ng-repeat="item in Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList" ng-show="item.show_flag">
+                  第代<i ng-bind="Trial.article.store.data.verify.personList.third[$index].agentThirdPeopleList.length <= 1 ? '' : $index + 1"></i>：清楚。
+                </p>
+              </div>
+            </div>
+            <!-- end -->
+            <div>审：本案经过法庭调查、法庭辩论，本庭将对各方当事人及其他诉讼参加人的陈述及辩论意见作充分考虑。各方当事人及其他诉讼参加人休庭后应当仔细阅读笔录，并按要求签名或盖章。对记录有误的地方，五日内可以申请书记员进行补正。今天的庭审活动到此结束，宣判时间另行通知，现在休庭。（敲击法槌）</div>
+          </section>
+          <!-- 其他 -->
+          <section contenteditable="true" id="other">
+            <div>当事人及代理人签名处（注：当事人应当逐页在指定位置签名，并在末页写明：“以上笔录阅后无误”字样后签名并署时间）：</div>
+          </section>
+      </article>
+      <!-- #article -->
+    </div>
+  </div>
+</div>

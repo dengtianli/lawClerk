@@ -1,0 +1,7 @@
+  <div class="box-body">
+    <ul class="todo-list">
+      <li ng-repeat="similar in Judge.operation.similars">
+        <small class="label label-warning pull-right"><i class="fa fa-object-group"></i> 相似度：{{similar.similarity}}</small>
+        <textarea rows ="4" cols="88">{{similar.case}}</textarea>
+    </ul>
+  </div>

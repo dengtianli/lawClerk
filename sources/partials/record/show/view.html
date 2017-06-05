@@ -1,0 +1,62 @@
+<div id="record-show" class="animated fadeIn">
+  <div class="box box-default" id="recordMain">
+    <div class="box-header">
+      <button type="button" class="btn btn-info btn-sm"
+                wiserv-toggle wiserv-toggle-selector="#navigation"
+                data-toggle="tooltip" data-placement="bottom" title="笔录导航">
+                <i class="fa  fa-hand-lizard-o"></i>
+      </button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="Show.operation.export()">
+        <i class="fa fa-file-word-o">&nbsp;导出</i>
+      </button>
+      <button type="button" class="btn btn-default btn-sm" ng-click="Show.operation.print()">
+        <i class="fa fa-print">&nbsp;打印</i>
+      </button>
+      <h3 class="box-title"></h3>
+      <div class="box-tools pull-right">
+              <button type="button" class="btn btn-default btn-sm" title="返回" ng-click="Show.goToRecord()">
+                <i class="fa fa-mail-reply text-primary"></i>
+              </button>
+      </div>
+    </div>
+    <div class="show-content" id="record-content" wiserv-scroll wiserv-scroll-offset="30"> 
+      <div class="title" style="margin: 0 0 20pt 0;text-align: center;">
+        <style>
+          .title{
+            margin: 0 0 30pt 0;
+            text-align: center;
+          }
+          .title>h1{
+            font-size: 22pt;
+            margin-top: 0;
+            font-family: "STKaiti"!important;
+          }
+          .title>h2{
+            font-size: 26pt;
+            margin: 10pt 0 20pt 0;
+            font-family: 黑体;
+          }
+        </style>
+        <h1 style="font-size: 22pt; font-family: 楷体;">{{Show.court_name}}</h1>
+        <h2 style="font-size: 26pt; font-family: 黑体;">法&nbsp;庭&nbsp;笔&nbsp;录</h2>
+      </div>
+      <!--content-->
+      <div id="show-body">
+        <style>
+          #show-body>div p{
+            margin: 0;
+            font-family: 仿宋;
+            font-size: 16pt;
+            text-align: justify;
+          }
+        </style>
+        <div id="show">
+          <!--The trial information-->
+          <p
+          style="line-height: 30pt; margin: 0.5pt 0cm; font-family: 仿宋; font-size: 16pt;"
+          class="undo" ng-repeat="item in Show.info track by $index" ng-bind-html="item.value" id="{{item.id}}" ng-if="item.value.length" contenteditable="true" ></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

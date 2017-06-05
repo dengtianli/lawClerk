@@ -1,0 +1,119 @@
+<div class="modal-body">
+  <button ng-click="Layout.search.closeModal()" type="button" class="close">
+    <span aria-hidden="true">×</span>
+  </button>
+  <div class="box-body">
+    <form name="outerForm" class="tab-form-demo">
+      <uib-tabset active="Layout.search.type">
+        <uib-tab index=1 heading="法条库">
+          <div ng-if="!Layout.search.law.length">
+              <h5>法条库中没有找到你要搜索的内容！</h5>
+          </div>
+          <div slim-scroll slim-scroll-color="red" slim-scroll-offset="50" slim-scroll-width="10">
+            <div ng-repeat="lawData in Layout.search.law">
+              <div id="wrap">
+                <style>
+                  #wrap {
+                    padding: 10px 20px;
+                    border-bottom: 1px solid #d2d6de;
+                  }
+                </style>
+                <p>分类名称：
+                  <span>{{lawData.category_name}}</span>
+                </p>
+                <p>公布机关：
+                  <span>{{lawData.publish_department}}</span>
+                </p>
+                <p>效力状况：
+                  <span>{{lawData.effective}}</span>
+                </p>
+                <p>公布日期：
+                  <span>{{lawData.publish_date}}</span>
+                </p>
+                <p>施行日期：
+                  <span>{{lawData.force_date}}</span>
+                </p>
+                <p>
+                  失效日期：
+                  <span>{{lawData.expiry_date}}</span>
+                </p>
+                <p ng-show="lawData.article_no.length">文号：
+                  <span>{{lawData.article_no}}</span>
+                </p>
+                <p ng-bind-html="lawData.article_content"></p>
+              </div>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index=2 heading="案由库">
+          <div ng-if="!Layout.search.cause.length">
+              <h5>案由库中没有找到你要搜索的内容！</h5>
+          </div>
+          <div slim-scroll slim-scroll-color="red" slim-scroll-offset="50" slim-scroll-width="10">
+            <div ng-repeat="causeData in Layout.search.cause">
+              <div id="wrap" ng-show="Layout.search.cause.length">
+                <style>
+                  #wrap {
+                    padding: 10px 20px;
+                    border-bottom: 1px solid #d2d6de;
+                  }
+                </style>
+                <p>
+                  <strong>【案由】：</strong>
+                  <span>{{causeData.case_cause}}</span>
+                </p>
+                <p>
+                  <strong>【释义】：</strong>
+                  <span>{{causeData.case_explain}}</span>
+                </p>
+                <p>
+                  <strong>【管辖】：</strong>
+                  <span>{{causeData.case_administer}}</span>
+                </p>
+                <p>
+                  <strong>【法律依据】：</strong>
+                  <span>{{causeData.case_accord}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </uib-tab>
+        <uib-tab index=3 heading="裁判文书库">
+          <div ng-if="!Layout.search.judgment.length">
+              <h5>裁判文书库中没有找到你要搜索的内容！</h5>
+          </div>
+          <div slim-scroll slim-scroll-color="red" slim-scroll-offset="50" slim-scroll-width="10">
+            <div ng-repeat="judgmentData in Layout.search.judgment">
+              <div id="wrap" ng-show="Layout.search.judgment.length">
+                <style>
+                  #wrap {
+                    padding: 10px 20px;
+                    border-bottom: 1px solid #d2d6de;
+                  }
+                </style>
+                <p>
+                  <strong>【标题】：</strong>
+                  <a href="" ng-click="Layout.search.getDetails(judgmentData.row_key)">{{judgmentData.title}}</a>
+                </p>
+                <p ng-show="judgmentData.ori_text.length">
+                  <strong>【正文】：</strong>
+                  <span>{{judgmentData.ori_text}}</span>
+                </p>
+                <p>
+                  <strong>【案号】：</strong>
+                  <span>{{judgmentData.case_no}}</span>
+                </p>
+                <p>
+                  <strong>【法院名称】：</strong>
+                  <span>{{judgmentData.court_name}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </uib-tab>
+      </uib-tabset>
+    </form>
+  </div>
+</div>
+<div calss="modal-footer">
+</div>

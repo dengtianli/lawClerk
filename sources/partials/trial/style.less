@@ -1,0 +1,94 @@
+#trial {
+  .wiserv-scrollbar;
+  .content {
+    display: flex;
+    flex-flow: row nowrap;
+    padding-bottom: 0;
+    #catalog {
+      flex: 0 0 13rem;
+      li:hover {
+        cursor: pointer;
+      }
+      li:active {
+        background: @gray;
+      }
+    }
+    #editor {
+      flex: 0 0 798px;
+      .box {
+        margin: 0;
+        .box-header {
+          background: @paper;
+          padding-bottom: 5px;
+          padding-top: 5px;
+        }
+        .box-body {
+          background: @paper;
+          article.trial {
+            width: 80%;
+            color: #000000;
+            margin: 0 auto;
+            word-wrap: break-word;
+            word-break: break-all;
+          }
+        } //
+        #record {
+          width: 80%;
+          margin: 0 auto;
+        }
+        p {
+          font-size: 1.313rem;
+          font-family: 仿宋;
+          text-indent: 2rem;
+        }
+        #record_title {
+          h1 {
+            text-align: center;
+            margin-bottom: 0;
+          }
+          h2 {
+            text-align: center;
+            margin: 10px 0 20px 0;
+          }
+        }
+        .indentation {
+          p {
+            text-indent: 2rem;
+          }
+        } //
+      }
+    }
+    #helper {
+      flex: 1;
+      padding-left: 0.8rem;
+      .text {
+        .label {
+          margin: 0;
+        }
+      }
+      .box {
+        margin: 0;
+        .box-body {
+          font-size: 0.7rem;
+          padding-top: 0.7rem;
+          padding-left: 0.8rem;
+          .todo-list {
+            .todo-list-item:hover {
+              cursor: pointer;
+              background: @gray;
+            }
+          }
+        }
+      }
+      .slim-scroll {
+        margin-right: 0.7rem;
+      }
+      .box-body {
+        border: none;
+        .todo-list-item {
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}

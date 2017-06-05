@@ -1,0 +1,106 @@
+#judgment-cases {
+  .content {
+    .wiserv-scrollbar;
+    padding-bottom: 0;
+    .box-title {
+      font-size: 16px;
+    }
+    .list-group-item {
+      font-size: 13px;
+    }
+    .panel-heading {
+      padding: 0;
+    }
+    .box-footer {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+      border-top: none !important; 
+      padding: 10px;
+      background-color: #ffffff;
+    }
+    .box-search {
+      .panel-body {
+        padding: 0;
+        border-top: none;
+      }
+    }
+    .row-cases-list {
+      margin-right: 1px;
+    }
+    .left {
+      padding-right: 5px;
+    }
+    .right {
+      padding-right: 10px;
+      .case {
+        padding-left: 10px;
+        padding-right: 10px;
+        .header {
+          padding: 8px;
+        }
+        .title {
+          font-weight: normal;
+          font-size: 13px;
+          cursor: pointer;
+        }
+        .title:hover {
+          background: @paper;
+        }
+        .field {
+          display: inline-block;
+          background-color: #f4f4f4;
+          color: #444;
+          border-radius: 3px;
+          -webkit-box-shadow: none;
+          box-shadow: none;
+          border: 1px solid #ddd;
+          margin-bottom: -7px;
+          padding: 1px 5px;
+          font-size: 12px;
+          line-height: 1.5;
+          max-width: 15rem;
+          word-break: keep-all;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        .dropdown-menu {
+          font-size: 12px;
+          background: @gray-light;
+          border: 1px solid @gray;
+          li {
+             a:hover,
+            a:active,
+            a:focus {
+              cursor: pointer;
+              text-decoration: none;
+            }
+          }
+          .nooperation {
+            a:hover,
+            a:active,
+            a:focus {
+              cursor: not-allowed;
+              text-decoration: none;
+              color: @gray-light
+            }
+            span,
+            i {
+              color: @gray
+            }
+          }
+        }
+      }
+      #paging {
+        margin-top: 0.6rem;
+        margin-right: 0.6rem;
+        .tag {
+          position: relative;
+          bottom: -4px;
+        }
+      }
+    }
+  }
+}

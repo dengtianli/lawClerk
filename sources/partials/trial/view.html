@@ -1,0 +1,57 @@
+<div id="trial" class="animated fadeIn">
+  <section class="content">
+    <div id="catalog">
+      <!-- view.menu.html -->
+      <div ng-include="Trial.include.menu"></div>
+    </div>
+    <div id="editor">
+      <!-- editor -->
+      <ui-view>
+        <div class="box box-default">
+          <div class="box-header">
+            <!-- left buttons -->
+            <div class="btn-group">
+              <button title="文书目录" type="button" class="btn btn-primary btn-sm btn-flat" wiserv-toggle wiserv-toggle-selector="#catalog">
+                <i class="fa fa-hand-lizard-o"></i>
+              </button>
+            </div>
+            <!-- right buttons -->
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-default btn-sm" title="返回案件列表" ui-sref="cases">
+                <i class="fa fa-mail-reply text-primary"></i>
+              </button>
+            </div>
+          </div>
+          <div class="box-body" wiserv-scroll wiserv-scroll-offset="30">
+            <!-- article -->
+            <article class="trial">
+              <br /><br />
+              <h4>
+                <span class="text-muted">请点击右侧</span>
+                <button ui-sref="trial.create" type="button" class="btn btn-primary btn-sm btn-flat">
+                  <i class="fa fa-plus"></i>
+                  新建笔录
+                </button>
+                <span class="text-muted">新增一份庭审笔录</span>
+              </h4>
+              <br />
+              <h4>
+                <span class="text-muted">或点击右侧庭审笔录列表</span>
+                <button class="btn btn-xs btn-default btn-flat fa fa-eye">&nbsp;查看</button>
+                <button class="btn btn-xs btn-warning btn-flat fa fa-edit">&nbsp;修改</button>
+                <button class="btn btn-xs btn-danger btn-flat fa fa-trash-o">&nbsp;删除</button>
+                <span class="text-muted">执行相应操作</span>
+              </h4>
+            </article>
+            <!-- #article -->
+          </div>
+        </div>
+      </ui-view>
+      <!-- #editor -->
+    </div>
+    <div id="helper">
+      <!-- view.list.html -->
+      <div ng-include="Trial.include.list"></div>
+    </div>
+  </section>
+</div>

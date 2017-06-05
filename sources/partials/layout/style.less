@@ -1,0 +1,67 @@
+#layout {
+  .navbar-header {
+    height: 50px;
+    .logo {
+      display: inline-block;
+      width: 245px;
+      height: 40px;
+      position: relative;
+      top: 5px;
+      span:nth-child(1) {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background: url("../assets/images/layout/logo.svg") no-repeat;
+        background-size: 33px;
+      }
+      span:nth-child(2) {
+        display: inline-block;
+        width: 160px;
+        height: 40px;
+        position: relative;
+        top: 7px;
+        background: url("../assets/images/layout/title.svg") no-repeat;
+        background-size: 160px;
+      }
+    }
+  }
+  .logo-lg {
+    line-height: 0;
+    span:nth-child(2) {
+      position: relative;
+      top: -15px;
+      left: 3px;
+    }
+  }
+  .main-header {
+    .sidebar-toggle:before {
+      content: "\f258" !important;
+    }
+  }
+  #select-repository {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: transparent;
+    color: @gray;
+    option {
+      color: @navy;
+    }
+  }
+}
+// form search-shortcut
+.search-shortcut {
+  form {
+    padding-right: 5px;
+    .input-group-addon {
+      cursor: pointer;
+      color: @gray;
+      background: rgba(255, 255, 255, 0.2);
+      border-color: transparent;
+      i {
+        color: @white;
+      }
+    }
+    .input-group-addon:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}

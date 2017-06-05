@@ -1,0 +1,266 @@
+<div id="template-judged" class="animated fadeIn">
+  <section class="content">
+    <div class="row">
+      <div class="left pull-left">
+        <div class="box box-search box-default">
+          <div class="box-header with-border">
+            <span><i class="fa fa-clipboard"></i>&nbsp;文书模板</span>
+            <div class="box-tools pull-right">
+              <!-- Search -->
+              <button class="btn btn-danger btn-sm btn-flat" ng-click="Judged.template.getTemplate(Judged.template.searchParam)">
+                <i class="fa fa-search"></i>&nbsp;搜索
+              </button>
+              <!-- Search -->
+              <!-- Add -->
+              <div class="btn-group" uib-dropdown is-open="status.isopen">
+                <button class="btn btn-fix btn-sm btn-default btn-flat" uib-dropdown-toggle disabled>
+                  <i class="fa fa-plus"></i>&nbsp;新增&nbsp;<span class="caret"></span>
+                </button>
+                <ul id="condition-menu" class="dropdown-menu" uib-dropdown-menu>
+                  <li>
+                    <form>
+                      <div class="form-group input-group-sm">
+                        <label>案由</label>
+                        <select class="form-control">
+                          <option>民事案件</option>
+                          <option>行政案件</option>
+                          <option>刑事案件</option>
+                        </select>
+                      </div>
+                      <div class="form-group input-group-sm">
+                        <label>文书样式</label>
+                        <select class="form-control">
+                          <option>普通式</option>
+                          <option>令状式</option>
+                          <option>表格式</option>
+                          <option>要素式</option>
+                        </select>
+                      </div>
+                      <div class="form-group input-group-sm">
+                        <label>辅助树类别</label>
+                        <select class="form-control">
+                          <option>事实</option>
+                          <option>理由</option>
+                          <option>主文</option>
+                        </select>
+                      </div>
+                      <button class="btn btn-danger btn-flat btn-sm btn-block">
+                        确&nbsp;认
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+              </div>
+              <!-- Add -->
+            </div>
+          </div>
+          <div class="box-body">
+            <!-- Form -->
+            <form role="form" name="searchParam">
+              <div class="form-group">
+                <label>案件类型</label>
+                <select class="form-control input-sm" ng-model="Judged.template.searchParam.category" name="category">
+                  <option value="民事案件">民事案件</option>
+                  <option value="行政案件">行政案件</option>
+                  <option value="刑事案件">刑事案件</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>文书类型</label>
+                <select type="text" class="form-control input-sm" ng-model="Judged.template.searchParam.doc_type" name="doc_type">
+                       <option  value="民事裁判书">民事裁判书</option>
+                       <option  value="民事决定书">民事决定书</option>
+                       <option  value="民事判定书">民事判定书</option>
+                       <option  value="民事裁决书">民事裁决书</option>
+                       <option  value="民事调解书">民事调解书</option>
+                       <option  value="民事判决书">民事判决书</option>
+                    </select>
+              </div>
+              <div class="form-group">
+                <label>文书样式</label>
+                <select class="form-control input-sm" ng-model="Judged.template.searchParam.write_type" name="write_type">
+                  <option value="normal">普通式</option>
+                  <option value="writ">令状式</option>
+                  <option value="table">表格式</option>
+                  <option value="elements">要素式</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>审理程序</label>
+                <select class="form-control input-sm" ng-model="Judged.template.searchParam.hearing_procedure" name="hearing_procedure">
+                  <option value="normal">普通程序</option>
+                  <option value="simple">简易程序</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>案由</label>
+                <input class="form-control input-sm" ng-model="Judged.template.searchParam.case_brief" disabled/>
+              </div>
+            </form>
+            <!-- Form -->
+          </div>
+        </div>
+        <div class="box box-list box-default">
+          <div class="box-body">
+            <!-- List -->
+            <ul class="todo-list">
+              <li>
+                <span class="handle">
+                  <i class="fa fa-file-text"></i>
+                </span>
+                <small class="label label-default" ng-bind="Judged.template.name"></small>
+                <div class="tools">
+                  <i class="fa fa-edit"></i>
+                  <i class="fa fa-trash-o"></i>
+                </div>
+              </li>
+              <li ng-if="false">
+                <span class="handle">
+                  <i class="fa fa-file-text"></i>
+                </span>
+                <small class="label label-default">文书模板2</small>
+                <div class="tools">
+                  <i class="fa fa-edit"></i>
+                  <i class="fa fa-trash-o"></i>
+                </div>
+              </li>
+            </ul>
+            <!-- List -->
+          </div>
+          <div class="box-footer" ng-if="false">
+            <ul class="pagination pagination-sm inline pull-right">
+              <li><a href="#">«</a></li>
+              <li><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">»</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right pull-right">
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <div class="btn-group">
+              <button title="保存" class="btn btn-fix btn-default" ng-click="Judged.template.saveTemple(Judged.template.info)" uib-dropdown-toggle="">
+                <i class="fa text-danger fa-save"> &nbsp;保存</i>
+              </button>
+              <button class="btn btn-fix btn-default" uib-dropdown-toggle="">
+                <i class="fa text-danger fa-refresh"></i>
+              </button>
+              <button class="btn btn-fix btn-default" uib-dropdown-toggle="">
+                <i class="fa text-danger fa-undo"></i>
+              </button>
+            </div>
+            <div class="box-tools pull-right">
+              <div class="btn-group" data-toggle="btn-toggle">
+                <button ui-sref="cases" class="btn btn-box-tool">
+                  <i class="fa fa-reply"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="box-body" wiserv-scroll wiserv-scroll-offset="23">
+            <article id="judgment">
+              <style>
+                #judgment-body p {
+                  line-height: 25pt;
+                  text-align: justify;
+                  text-justify: inter-ideograph;
+                  text-indent: 30pt;
+                  margin: 0.5pt 0cm;
+                  font-family: 仿宋;
+                  font-size: 16pt;
+                }
+                
+                #judgment-foot {
+                  float: right;
+                  width: 17em;
+                  margin: 0.5pt 72pt 0.5pt 0cm;
+                }
+                
+                #judgment-foot p {
+                  line-height: 25pt;
+                  font-family: 仿宋;
+                  font-size: 16pt;
+                }
+              </style>
+              <div id="judgment-head" cg-busy="{promise:Judged.promise,message:'加载中',backdrop:backdrop,delay:delay,minDuration:minDuration}">
+                <!-- 标题 -->
+                <p wiserv-modify  style="text-align: center; line-height: 25pt; margin: 0.5pt 0cm; font-family: 宋体; font-size: 22pt;" id="{{Judged.template.article[0].nodes[0].id}}"
+                  title="{{Judged.template.article[0].nodes[0].name}}" ng-model="Judged.template.article[0].nodes[0].content">
+                </p>
+                <p wiserv-modify style="text-align: center; line-height: 30pt; margin: 0.5pt 0cm; font-family: 仿宋; font-size: 26pt;" id="{{Judged.template.article[0].nodes[1].id}}"
+                  title="{{Judged.template.article[0].nodes[1].name}}" ng-model="Judged.template.article[0].nodes[1].content">
+                </p>
+                <p wiserv-modify style="text-align: right; line-height: 30pt; margin: 0.5pt 0cm; font-family: 仿宋; font-size: 16pt;" id="{{Judged.template.article[0].nodes[2].id}}"
+                  title="{{Judged.template.article[0].nodes[2].name}}" ng-model="Judged.template.article[0].nodes[2].content">
+                </p>
+              </div>
+              <div id="judgment-body">
+                <!-- 首部 -->
+                <p wiserv-modify id="{{Judged.template.article[1].nodes[0].id}}" title="{{Judged.template.article[1].nodes[0].name}}" ng-model="Judged.template.article[1].nodes[0].content">
+                </p>
+                <p wiserv-modify id="{{Judged.template.article[1].nodes[1].id}}" title="{{Judged.template.article[1].nodes[1].name}}" ng-model="Judged.template.article[1].nodes[1].content">
+                </p>
+                <!-- 事实 诉辩意见 -->
+                <p wiserv-modify id="{{Judged.template.article[2].nodes[0].nodes[0].id}}" title="{{Judged.template.article[2].nodes[0].nodes[0].name}}"
+                  ng-model="Judged.template.article[2].nodes[0].nodes[0].content">
+                </p>
+                <p wiserv-modify id="{{Judged.template.article[2].nodes[0].nodes[1].id}}" title="{{Judged.template.article[2].nodes[0].nodes[1].name}}"
+                  ng-model="Judged.template.article[2].nodes[0].nodes[1].content">
+                </p>
+                <p wiserv-modify id="{{Judged.template.article[2].nodes[0].nodes[2].id}}" title="{{Judged.template.article[2].nodes[0].nodes[2].name}}"
+                  ng-model="Judged.template.article[2].nodes[0].nodes[2].content">
+                </p>
+                <!-- 事实 争点归纳 -->
+                <p wiserv-modify id="{{Judged.template.article[2].nodes[1].nodes[0].id}}" title="{{Judged.template.article[2].nodes[1].nodes[0].name}}"
+                  ng-model="Judged.template.article[2].nodes[1].nodes[0].content">
+                </p>
+                <p wiserv-modify id="{{Judged.template.article[2].nodes[1].nodes[1].id}}" title="{{Judged.template.article[2].nodes[1].nodes[1].name}}"
+                  ng-model="Judged.template.article[2].nodes[1].nodes[1].content">
+                </p>
+                <!-- 事实 举证质证 -->
+                <p wiserv-modify id="{{Judged.template.article[2].nodes[2].id}}" title="{{Judged.template.article[2].nodes[2].name}}" ng-model="Judged.template.article[2].nodes[2].content">
+                </p>
+                <!-- 事实 证据事实认定 -->
+                <p wiserv-modify id="{{Judged.template.article[2].nodes[3].nodes[0].id}}" title="{{Judged.template.article[2].nodes[3].nodes[0].name}}"
+                  ng-model="Judged.template.article[2].nodes[3].nodes[0].content">
+                </p>
+                <p wiserv-modify id="{{Judged.template.article[2].nodes[3].nodes[1].id}}" title="{{Judged.template.article[2].nodes[3].nodes[1].name}}"
+                  ng-model="Judged.template.article[2].nodes[3].nodes[1].content">
+                </p>
+                <!-- 理由 -->
+                <p wiserv-modify id="{{Judged.template.article[3].id}}" title="{{Judged.template.article[3].name}}" ng-model="Judged.template.article[3].content">
+                </p>
+                <!-- 裁判依据 -->
+                <p wiserv-modify id="{{Judged.template.article[4].id}}" title="{{Judged.template.article[4].name}}" ng-model="Judged.template.article[4].content">
+                </p>
+                <!-- 裁判结果 -->
+                <p wiserv-modify id="{{Judged.template.article[5].id}}" title="{{Judged.template.article[5].nodes[0].name}}" ng-model="Judged.template.article[5].content">
+                </p>
+                <!-- 尾部 -->
+                <p wiserv-modify id="{{Judged.template.article[6].nodes[0].id}}" title="{{Judged.template.article[6].nodes[0].name}}" ng-model="Judged.template.article[6].nodes[0].content">
+                </p>
+                <p wiserv-modify id="{{Judged.template.article[6].nodes[1].id}}" title="{{Judged.template.article[6].nodes[1].name}}" ng-model="Judged.template.article[6].nodes[1].content">
+                </p>
+              </div>
+              <div id="judgment-foot">
+                <!-- 落款 -->
+                <p ng-style="Judged.style.sign" wiserv-modify id="{{Judged.template.article[7].nodes[0].id}}" title="{{Judged.template.article[7].nodes[0].name}}"
+                  ng-model="Judged.template.article[7].nodes[0].content">
+                </p>
+                <p ng-style="Judged.style.sign" wiserv-modify id="{{Judged.template.article[7].nodes[1].id}}" title="{{Judged.template.article[7].nodes[1].name}}"
+                  ng-model="Judged.template.article[7].nodes[1].content">
+                </p>
+                <p ng-style="Judged.style.sign" wiserv-modify id="{{Judged.template.article[7].nodes[2].id}}" title="{{Judged.template.article[7].nodes[2].name}}"
+                  ng-model="Editor.template.article[7].nodes[2].content">
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

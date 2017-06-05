@@ -1,0 +1,30 @@
+<div id="trial-update" class="animated bounceInRight">
+  <div class="box box-default">
+    <div class="box-header">
+      <!-- left buttons -->
+      <div class="btn-group">
+        <button title="文书目录" type="button" class="btn btn-primary btn-sm btn-flat" wiserv-toggle wiserv-toggle-selector="#catalog">
+          <i class="fa fa-hand-lizard-o"></i>
+        </button>
+      </div>
+      <div class="btn-group">
+        <button title="修改" type="button" class="btn btn-warning btn-sm btn-flat" ng-click="TrialUpdate.http.update()">
+          <i class="fa fa-edit">&nbsp;修改</i>
+        </button>
+      </div>
+      <!-- right buttons -->
+      <div class="box-tools pull-right">
+        <button type="button" class="btn btn-default btn-sm" title="返回案件列表" ui-sref="trial">
+          <i class="fa fa-mail-reply text-primary"></i>
+        </button>
+      </div>
+    </div>
+    <div class="box-body" wiserv-scroll wiserv-scroll-offset="30">
+      <!-- article -->
+      <article class="trial">
+        <div wiserv-trial-compiler="Trial.article.template"></div>
+      </article>
+      <!-- #article -->
+    </div>
+  </div>
+</div>

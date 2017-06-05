@@ -1,0 +1,20 @@
+{
+  "head": {
+    "status": 200,
+    "token": null,
+    "message": null,
+    "total": 1
+  },
+  "body": [{
+    "auto_id": 239,
+    "tree_id": 238,
+    "owner": "admin",
+    "tree_name": "解除合同",
+    "template1_info": "解除原告与被告于_年_月_日签订的借款合同（合同编号：_）；",
+    "template2_info": "",
+    "template3_info": null,
+    "template1_explain": "裁判结果",
+    "template2_explain": "多选结尾词",
+    "template3_explain": null
+  }]
+}

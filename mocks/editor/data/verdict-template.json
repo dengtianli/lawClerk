@@ -1,0 +1,157 @@
+{
+  "head": {
+    "status": 200,
+    "token": null,
+    "message": null,
+    "total": 1
+  },
+  "body": [{
+    "template_id": 1,
+    "category": "民事案件",
+    "doc_type": "民事判决书",
+    "write_type": "normal",
+    "hearing_procedure": "normal",
+    "owner": "admin",
+    "template_name": "民事判决书普通式普通程序公共模板",
+    "template_article": [{
+      "id": "title",
+      "name": "标题",
+      "content": "",
+      "nodes": [{
+        "id": "court_name",
+        "name": "法院名称",
+        "content": "成都市武侯区人民法院"
+      }, {
+        "id": "doc_name",
+        "name": "文书名称",
+        "content": "民事判决书"
+      }, {
+        "id": "case_no",
+        "name": "案号",
+        "content": "12345678910"
+      }]
+    }, {
+      "id": "first_part",
+      "name": "首部",
+      "content": "",
+      "nodes": [{
+        "id": "participant",
+        "name": "诉讼参与人",
+        "content": "<p>原告：hank23</p><p>委托诉讼代理人：XXX。</p><p>被告：david</p><p>委托诉讼代理人：XXX。</p><p>第三人：豆腐渣</p><p>委托诉讼代理人：XXXX。</p><p></p>"
+      }, {
+        "id": "doc_abstract",
+        "name": "审理经过",
+        "content": "原告hank23与被告david、第三人豆腐渣民间借贷纠纷一案，本院于2017年03月28日立案后，由审判员张三三依法组成合议庭，于2017年03月28日、2017年03月29日、2017年03月31日适用于普通程序三次公开开庭进行了审理。原告hank23、被告david、第三人豆腐渣、原告代理都、被告代理逗逗、第三人代理投投、原告法定代表人米米、被告法定代表人逗逗、第三人法定代表人嘻嘻到庭参加诉讼，本案现已审理终结。"
+      }]
+    }, {
+      "id": "fact",
+      "name": "事实",
+      "content": "",
+      "nodes": [{
+        "id": "the_plea_opinion",
+        "name": "诉辩意见",
+        "content": "",
+        "nodes": [{
+          "id": "plea_opinion_accuser",
+          "name": "原告方诉辩意见",
+          "content": "原告：hank23向本院提出诉讼请求：诉讼请求2"
+        }, {
+          "id": "plea_opinion_defendant",
+          "name": "被告方诉辩意见",
+          "content": "被告david辩称，诉辩意见2"
+        }, {
+          "id": "plea_opinion_third_man",
+          "name": "第三人方诉辩意见",
+          "content": "第三人豆腐渣述称，第三人诉辩意见二"
+        }]
+      }, {
+        "id": "controversial_inductive",
+        "name": "争点归纳",
+        "content": "",
+        "nodes": [{
+          "id": "no_contest_inductive",
+          "name": "无争议归纳",
+          "content": "无争议事实内容3"
+        }, {
+          "id": "contest_inductive",
+          "name": "争议归纳",
+          "content": "争议事实内容3"
+        }]
+      }, {
+        "id": "proof",
+        "name": "举证质证",
+        "content": "当事人围绕诉讼请求依法提交了证据，本院组织当事人进行了证据交换和质证。"
+      }, {
+        "id": "proof_fact",
+        "name": "证据事实认定",
+        "content": "",
+        "nodes": [{
+          "id": "proof_authentication",
+          "name": "证据认证",
+          "content": "经审查，本院归纳无争议事实如下：<无争议事实内容>"
+        }, {
+          "id": "proof_affirm",
+          "name": "事实认定",
+          "content": "争议事实如下：××××年××月××日一般保证责任/连带责任保证担保抵押物办理了登记/未登记原被告签订了借款合同。/被告向原告出具借条/欠条/收条被告公司或者分公司的法定代表人/负责人或者受委托的工作人员与原告签订了借款合同或出具借条/欠条/收条。借款合同约定：借款本金、利息、借款期限、逾期利息、违约金、实现债权费用的承担等内容/借条载明：借款本金、利息、借款期限、逾期利息、违约金、实现债权费用的承担等内容。××××年××月××日，出借人以银行转账向借款人支付XXXX元。××××年××月××日，出借人以现金方式向借款人支付XXXX元。××××年××月××日，出借人交付给被告指定的收款人XXXX元。××××年××月××日，出借人转款至被告指定的银行账户××××元。其中，原告委托他人向被告支付借款XXXX元。被告未还款/已归还部分借款本金，金额为XXXX元。/已归还部分借款利息，金额为XXXX元。/已归还全额借款本金，金额为XXXX元。/已归还全额借款利息，金额为XXXX元。XXX自愿承诺或者以书面协议方式表示承担被告的借款债务"
+        }]
+      }]
+    }, {
+      "id": "reason",
+      "name": "理由",
+      "content": "本院认为，对于<无争议事实>没有争议，故本院予以确认。本案的争议焦点在于<争议焦点>。<裁判理由>。"
+    }, {
+      "id": "judicial_basis",
+      "name": "裁判依据",
+      "content": "据此，依照《中华人民共和国合同法》第五十四条、第五十五条、第五十八条、第五十九条、第六十条、第九十三条、第九十四条、第九十七条、第一百零七条、第一百零九条、第一百一十四条、第二百条、第二百零五条、第二百零六条、第二百零七条、第二百一十一条，《中华人民共和国担保法》第十八条、第二十一条、第二十六条，《中华人民共和国公司法》第十四条第一款，《最高人民法院关于审理民间借贷案件适用法律若干问题的规定》第二十六条、第二十八条、第二十九条，《中华人民共和国民事诉讼法》第六十四条、第一百三十四条第一款、第一百四十四条之规定，判决如下："
+    }, {
+      "id": "judgments_results",
+      "name": "裁判结果",
+      "content": "<裁判主文>。<p>如果未按本判决指定的期间履行给付金钱义务，应当依照《中华人民共和国民事诉讼法》第二百五十三条规定，加倍支付迟延履行期间的债务利息。</p>"
+    }, {
+      "id": "afterbody",
+      "name": "尾部",
+      "content": "",
+      "nodes": [{
+        "id": "legal_costs",
+        "name": "诉讼费用负担",
+        "content": "案件受理费<案件受理费金额>元，由<诉讼地位名><名称>负担"
+      }, {
+        "id": "told_matters",
+        "name": "告知事项",
+        "content": "如不服本判决，可以在判决书送达之日起十五日内，向本院递交上诉状，并按照对方当事人或者代表人的人数提出副本，上诉于成都市中级人民法院。<br/><br/><br/>&nbsp;"
+      }]
+    }, {
+      "id": "badging",
+      "name": "落款",
+      "content": "",
+      "nodes": [{
+        "id": "judge_part",
+        "name": "审判人员署名",
+        "content": "审判员 ： 张三三<br/>&nbsp;"
+      }, {
+        "id": "judgment_date",
+        "name": "日期",
+        "content": "&nbsp;&nbsp;&nbsp;年&nbsp;&nbsp;月&nbsp;&nbsp;日<br/>&nbsp;"
+      }, {
+        "id": "court_clerk",
+        "name": "书记员署名",
+        "content": "书  记  员：李 四<br/>&nbsp;"
+      }]
+    }, {
+      "id": "appendix",
+      "name": "附录",
+      "content": "",
+      "nodes": [{
+        "id": "evidence_list",
+        "name": "证据目录清单",
+        "content": ""
+      }, {
+        "id": "relevant_law",
+        "name": "相关法条",
+        "content": ""
+      }]
+    }],
+    "case_brief": "民间借贷纠纷",
+    "case_no": "12345678910"
+  }]
+}

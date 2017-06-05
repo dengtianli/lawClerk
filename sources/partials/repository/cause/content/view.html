@@ -1,0 +1,102 @@
+<div id="cause-result">
+  <section class="cause-head">
+     <form name="search">
+    <div class="search-box">
+      <a href="javascript:;" ng-click="CauseResult.prev()">返回上一页</a>
+      <div class="input-group col-lg-6">
+        <input type="text" name="keyword" ng-maxlength="10"  class="form-control" placeholder="输专业关键字" ng-model="CauseResult.keyword"  />
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" ng-click="CauseResult.inquire(search.$valid)">搜索</button>
+        </span>
+      </div>
+      <a href="javascript:;"></a>
+    </div>
+    <span style="color:red;margin-left:30%" ng-if="search.keyword.$error.maxlength && search.keyword.$dirty">搜索内容不能超过100个字符!</span>
+     </form>
+    <div class="select-box">
+      <form class="form-inline" role="form">
+        <div class="form-group">
+          <label class="">案由类型</label>
+          <select class="form-control" disabled>
+             <option value="1">民事案由</option>
+             <option value="2 ">刑事案由</option>
+          </select>
+        </div>
+      </form>
+      <form class="form-inline" role="form">
+        <div class="form-group">
+          <label class="">一级案由</label>
+          <select class="form-control" name="case_district" ng-model="CauseResult.case_part" ng-options="level.case_part as level.case_part for level in CauseResult.level_1"
+            ng-change="CauseResult.levelChange(CauseResult.case_part)">
+            </select>
+        </div>
+        <div class="form-group">
+          <label class="">二级案由</label>
+          <select class="form-control" name="case_district" ng-model="CauseResult.case_district" ng-options=" level.case_district as level.case_district for level in CauseResult.level_2"
+            ng-change="CauseResult.levelChildChange(CauseResult.case_district)">
+                    </select>
+        </div>
+        <div class="form-group">
+          <label class="">三级案由</label>
+          <select class="form-control" name="case_cause" ng-model="CauseResult.case_cause" ng-options=" levelChild.case_cause as levelChild.case_cause for levelChild in CauseResult.level_3">
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="button" class="btn btn-default" ng-click="CauseResult.search()">搜索</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section class="cause-box">
+    <div class="column" ui-view>
+      <div class="col-lg-12 listed-box" slim-scroll slim-scroll-offset=235>
+        <p>为您搜索出&nbsp;<span>{{CauseResult.Paging.totalItems}}</span>&nbsp;条信息</p>
+        <div class="cause-result-list" ng-repeat="obj in CauseResult.causeData">
+          <a>{{obj.case_attention}}</a>
+          <div id="wrap">
+            <ul>
+              <li ng-show="obj.sort.length">
+                <span>案由类型:</span> {{obj.sort}}
+              </li>
+              <li ng-show="obj.case_part.length">
+                <span>案由一级分类:</span> {{obj.case_part}}
+              </li>
+              <li ng-show="obj.case_district.length">
+                <span>案由二级分类:</span> {{obj.case_district}}
+              </li>
+              <li ng-show="obj.case_cause.length">
+                <span>案由三级分类:</span> {{obj.case_cause}}
+              </li>
+            </ul>
+            <p ng-show="obj.case_explain.length">
+              <span>【释义】：</span> {{obj.case_explain}}
+            </p>
+            <p ng-show="obj.case_administer.length">
+              <span>【管辖】：</span> {{obj.case_administer}}
+            </p>
+            <p ng-show="obj.case_accord.length">
+              <span>【法律依据】：</span> {{obj.case_accord}}
+            </p>
+            <p ng-show="obj.case_accord_tiny.length">
+              <span>【整理后的】</span> {{obj.case_accord_tiny}}
+            </p>
+            <p>{{obj.case_attention}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="cause-result-foot">
+    <!-- Pagination -->
+    <div class="cause-paging">
+      <div class="text-primary pull-left">
+        共<b>&nbsp;{{CauseResult.totalPage}}&nbsp;</b>页，第<b>&nbsp;{{CauseResult.Paging.currentPage}}&nbsp;</b>页
+      </div>
+      <ul uib-pagination total-items="CauseResult.Paging.totalItems" max-size="CauseResult.Paging.maxSize" items-per-page="CauseResult.Paging.itemsPerPage"
+        ng-model="CauseResult.Paging.currentPage" ng-change="CauseResult.Paging.pageChanged()" rotate="true" boundary-links="true"
+        boundary-link-numbers="true" first-text="首页" last-text="尾页" previous-text="上一页" next-text="下一页" class="pagination-sm no-margin pull-right">
+      </ul>
+    </div>
+    <!-- #Pagination -->
+  </section>
+</div>

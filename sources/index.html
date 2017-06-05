@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN" ng-app="app" ng-strict-di>
+
+<head>
+  <title>法官智能助理</title>
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="assets/favicon.ico" type="image/png" />
+  <!-- base -->
+  <link href="libraries/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="libraries/animate/animate.min.css" rel="stylesheet" />
+  <!-- jquery plugin -->
+  <link href="libraries/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="libraries/admin/css/AdminLTE.css" rel="stylesheet" />
+  <link href="libraries/admin/css/skins/skin-red-light.css" rel="stylesheet" />
+  <link href="libraries/jquery-icheck/square/red.css" rel="stylesheet" />
+  <link href="libraries/jquery-ztree/css/zTreeStyle/zTreeStyle.css" rel="stylesheet" />
+  <link href="libraries/jquery-submenu/css/bootstrap-submenu.min.css" rel="stylesheet" />
+  <link href="libraries/bootstrap-switch-master/dist/css/bootstrap3/bootstrap-switch.css" rel="stylesheet" />
+
+  <!-- angular plugin -->
+  <link href="libraries/angular-xeditable/css/xeditable.min.css" rel="stylesheet" />
+  <link href="libraries/angular-tree-control/css/tree-control.css" rel="stylesheet" />
+  <link href="libraries/angular-tree-control/css/tree-control-attribute.css" rel="stylesheet" />
+  <link href="libraries/angular-toaster/toaster.min.css" rel="stylesheet" />
+  <link href="libraries/angular-ui-select/select.min.css" rel="stylesheet" />
+  <link href='libraries/angular-busy/angular-busy.min.css' rel='stylesheet' />
+  <!-- bundle -->
+  <link href="bundles/styles.css" rel="stylesheet" />
+</head>
+
+<body class="fixed skin-red-light layout-top-nav">
+  <div id="app" ui-view></div>
+  <!-- base -->
+  <script src="libraries/jquery/jquery.min.js"></script>
+  <script src="libraries/lodash/lodash.min.js"></script>
+  <script src="libraries/moment/moment-with-locales.min.js"></script>
+  <script src="libraries/layer/layer.js"></script>
+  <script src="libraries/echarts/echarts.js"></script>
+  <script src="libraries/photobooth/photobooth.min.js"></script>
+  <script src="libraries/html-docx/file-saver.min.js"></script>
+  <script src="libraries/html-docx/html-docx.js"></script>
+  <script src="libraries/clipboard/clipboard.min.js"></script>
+  <script src="libraries/md5.js"></script>
+  <script src="libraries/jquery/jquery.cookie.js"></script>
+  <!-- jquery plugin -->
+  <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
+  <script src="libraries/admin/js/app.js"></script>
+  <script src="libraries/jquery-icheck/icheck.min.js"></script>
+  <script src="libraries/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="libraries/jquery-fastclick/fastclick.min.js"></script>
+  <script src="libraries/jquery-ztree/js/jquery.ztree.all.min.js"></script>
+  <script src="libraries/jquery-submenu/js/bootstrap-submenu.min.js"></script>
+  <script src="libraries/bootstrap-switch-master/dist/js/bootstrap-switch.min.js"></script>
+  <!-- angular -->
+  <script src="libraries/angular/angular.js"></script>
+  <script src="libraries/angular/angular-animate.js"></script>
+  <script src="libraries/angular/angular-messages.js"></script>
+  <script src="libraries/angular/angular-aria.js"></script>
+  <script src="libraries/angular/i18n/angular-locale_zh-cn.js"></script>
+  <script src="libraries/angular/angular-sanitize.js"></script>
+  <!-- angular plugin -->
+  <script src="libraries/angular-router/angular-ui-router.js"></script>
+  <script src="libraries/angular-ui-select/select.min.js"></script>
+  <script src="libraries/angular-ui/ui-bootstrap-tpls.js"></script>
+  <script src="libraries/angular-toaster/toaster.min.js"></script>
+  <script src="libraries/angular-xeditable/js/xeditable.min.js"></script>
+  <script src="libraries/angular-tree-control/angular-tree-control.js"></script>
+  <script src="libraries/angular-file-upload/angular-file-upload.min.js"></script>
+  <script src='libraries/angular-busy/angular-busy.min.js'></script>
+  <!-- bundle -->
+  <script>
+    angular.module("app.common", []).constant("URL", {
+      /** ==================== Product ==================== */
+      // "ai": "http://150.101.64.31:8937/ai",
+      // "ocr": "http://150.101.64.31:9999/api/ocr_rec",
+      // "master": "/CourtDecisionSystem",
+      /** ==================== Developer ==================== */
+      "ai": "http://192.168.13.175:8937/ai",
+      "ocr": "http://192.168.13.176:9999",
+      // "master": "http://192.168.13.77:8080/CourtDecisionSystem",
+      "master": "http://192.168.13.77:8080/CourtDecisionSystemDevelop",
+      /** ==================== Remote ==================== */
+      // "ai": "http://171.221.254.8:9508/ai",
+      // "ocr": "http://171.221.254.8:9509",
+      // "master": "http://171.221.254.8:9510/CourtDecisionSystem",
+      /** ==================== Test ==================== */
+      // "master": "http://172.16.8.78:8080" // YangDong
+      // "master": "http://172.16.8.85:8080", // LiXingYong
+      // "master": "http://localhost:5009", // Local
+    });
+  </script>
+  <script src="bundles/scripts.js"></script>
+</body>
+
+</html>

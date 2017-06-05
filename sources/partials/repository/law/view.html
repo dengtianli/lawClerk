@@ -1,0 +1,68 @@
+<div id="repository-law" class="animated fadeIn">
+  <div class="law-wrap">
+    <section class="content">
+      <div class="column">
+        <div class="box collapsed-box box-wrap">
+          <div class="row search-wrap">
+            <div class="col-lg-7">
+              <form name="search">
+              <div class="input-group search">
+                <input type="text" ng-model='Law.keyword' name="keyword" class="form-control" placeholder="输入法律、行政法规司法解释定义过的法律概念和术语"
+                 ng-change='Law.filterBy()' ng-keydown='Law.keydown($event,search.$valid)' ng-maxlength="100"/>
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button" ng-click="Law.search(search.$valid)">搜索</button>
+                </span>
+              </div>
+              <span style="color:red" ng-if="search.keyword.$error.maxlength && search.keyword.$dirty">搜索内容不能超过100个字符!</span>
+              </form>
+              <div class='suggest-result' ng-show='Law.resultShow && Law.keyword'>
+                  <div class='search-type' ng-repeat-start='obj in Law.suggest'>{{obj.tableType}}</div>
+                  <ul ng-repeat-end>
+                    <li ng-repeat='item in obj.autoFillInfo track by $index' data-type={{obj.tableType}} ng-click='Law.writeback($event)'>{{item}}</li>
+                  </ul>
+              </div>
+              <p class="tips">已汇聚全国法院依法公开案例、法规数据共
+                <span>{{Law.data.fa_tiao + Law.data.an_you + Law.data.wen_shu}}</span>&nbsp;份，今日新增
+                <span>{{Law.today.fa_tiao + Law.today.an_you + Law.today.an_you}}</span>&nbsp;份
+                </p>
+            </div>
+          </div>
+          <div class="row search-wrap">
+            <ul class="col-lg-7 repository-list">
+              <li class="col-lg-3" ng-click="Law.go('law',Law.data.fa_tiao)">
+                <h5>法条库</h5>
+                <p>共计
+                  <span>{{Law.data.fa_tiao}}</span>
+                </p>
+                <p>今日新增
+                  <span>{{Law.today.fa_tiao}}</span>
+                </p>
+                <i class="icon-law"></i>
+              </li>
+              <li class="col-lg-3" ng-click="Law.go('cause',Law.data.an_you)">
+                <h5>案由库</h5>
+                <p>共计
+                  <span>{{Law.data.an_you}}</span>
+                </p>
+                <p>今日新增
+                  <span>{{Law.today.an_you}}</span>
+                </p>
+                <i class="icon-cause"></i>
+              </li>
+              <li class="col-lg-3" ng-click="Law.go('writ',Law.data.wen_shu)">
+                <h5>裁判文书库</h5>
+                <p>共计
+                  <span>{{Law.data.wen_shu}}</span>
+                </p>
+                <p>今日新增
+                  <span>{{Law.today.wen_shu}}</span>
+                </p>
+                <i class="icon-writ"></i>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

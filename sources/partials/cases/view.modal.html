@@ -1,0 +1,97 @@
+<div class="modal-header">
+  <button ng-click="Cases.case.closeModal()" type="button" class="close">
+    <span aria-hidden="true">×</span>
+  </button>
+  <h4 class="modal-title title">
+    <i class="fa fa-briefcase"></i>&nbsp;录入案件信息
+  </h4>
+</div>
+<div class="modal-body">
+  <form class="form-horizontal" role="form" name="caseInfoForm"  ng-submit="Cases.case.saveModal(caseInfoForm.$valid,Cases.case.caseInfo)">
+    <div class="form-group ">
+      <label for="input1" class="col-sm-2 control-label"><span class="require-sign">*</span>原告</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="input1" name="accuser" placeholder="请输入原告姓名" ng-model="Cases.case.caseInfo.accuser" ng-maxlength="100" ng-pattern="/^[\u4e00-\u9fa5 \.a-zA-Z]+$/" required>
+        <span class="error" ng-if="caseInfoForm.accuser.$error.required && caseInfoForm.accuser.$dirty">原告姓名不能为空!</span>
+         <span class="error" ng-if="caseInfoForm.accuser.$error.maxlength && caseInfoForm.accuser.$dirty">原告姓名不能超过100个字符!</span>
+         <span class="error" ng-if="caseInfoForm.accuser.$error.pattern && caseInfoForm.accuser.$dirty">原告姓名由汉字、英文、. 、空格组成，例如: 米洛 马森，本.拉登</span>
+      </div>
+      <div class="col-sm-2">
+        <span class="help-block">必填项</span>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="input2" class="col-sm-2 control-label"><span class="require-sign">*</span>被告</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="input2" name="defendant" placeholder="请输入被告姓名" ng-model="Cases.case.caseInfo.defendant" ng-maxlength="100"  ng-pattern="/^[\u4e00-\u9fa5 \.a-zA-Z]+$/"
+          required>
+        <span class="error" ng-if="caseInfoForm.defendant.$error.required && caseInfoForm.defendant.$dirty">被告姓名不能为空!</span>
+        <span class="error" ng-if="caseInfoForm.defendant.$error.maxlength && caseInfoForm.defendant.$dirty">被告姓名不能超过100个字符!</span>
+          <span class="error" ng-if="caseInfoForm.defendant.$error.pattern && caseInfoForm.defendant.$dirty">原告姓名由汉字、英文、. 、空格组成，例如: 米洛 马森，本.拉登</span>
+      </div>
+      <div class="col-sm-2">
+        <span class="help-block">必填项</span>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="input3" class="col-sm-2 control-label"><span class="require-sign">*</span>案号</label>
+      <div class="col-sm-8">
+        <input type="text" class="form-control" id="input3" name="case_no" ng-blur="Cases.case.checkValue(Cases.case.caseInfo.case_no)" placeholder="（<收案年度>）<法院代字><类型代字><案件编号>号" ng-model="Cases.case.caseInfo.case_no" required 
+           ng-maxlength="50"  ng-disabled="Cases.case.flag">
+         <span class="error" ng-if="caseInfoForm.case_no.$error.required && caseInfoForm.case_no.$dirty">案号不能为空!</span>
+         <span class="error" ng-if="Cases.case.validNumber">案号不能为英文()括号</span>  
+          <span class="error" ng-if="caseInfoForm.case_no.$error.maxlength && caseInfoForm.case_no.$dirty">案号不能超过50个字符!</span>
+          <!--<span class="error" ng-if="caseInfoForm.case_no.$error.pattern && caseInfoForm.case_no.$dirty">案号格式为：（<收案年度>）<法院代字><类型代字><案件编号>号</span> ng-pattern="/^\（[0-9]+）[\u4e00-\u9fa5a-zA-Z0-9]+[0-9]+号/"-->
+      </div>
+      <div class="col-sm-2">
+        <span class="help-block">必填项</span>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="input4" class="col-sm-2 control-label"><span class="require-sign">*</span>案由</label>
+      <div class="col-sm-8">
+        <input disabled type="text" class="form-control" id="input4" name="case_brief" placeholder="请输入案由" ng-model="Cases.case.caseInfo.case_brief"
+          required>
+        <span class="error" ng-show="caseInfoForm.case_brief.$error.required && caseInfoForm.case_brief.$dirty">案由不能为空!</span>
+      </div>
+      <div class="col-sm-2">
+        <span class="help-block">必填项</span>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="input5" class="col-sm-2 control-label"><span class="require-sign">*</span>审限</label>
+      <div class="col-sm-8">
+        <select class="form-control" id="input5" name="trial_term" ng-model="Cases.case.caseInfo.trial_term"  required>
+             <option  ng-value=30 >30</option>
+             <option  ng-value=90 >90</option>
+             <option  ng-value=180 >180</option>
+           </select>
+      </div>
+       <div class="col-sm-2">
+        <span class="help-block">必填项</span>
+      </div>
+    </div>
+    <div class="form-group ">
+      <label for="input6" class="col-sm-2 control-label"><span class="require-sign">*</span>受理日期</label>
+      <div class="col-sm-8">
+        <p class="input-group">
+          <input type="text" value="<%=Now()%>" readOnly class="form-control" id="input6" name="accepted_date" placeholder="请输入受理日期" uib-datepicker-popup  ng-model="Cases.case.caseInfo.accepted_date"  
+            is-open="Cases.case.popup2.opened" datepicker-options="Cases.case.dateOptions "ng-required="true" clear-text="清除" close-text="关闭" current-text="今天" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="Cases.case.open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+        </p>
+        <span class="error" ng-show="caseInfoForm.accepted_date.$error.required && caseInfoForm.accepted_date.$dirty">受理日期不能为空!</span>
+      </div>
+       <div class="col-sm-2">
+        <span class="help-block">必填项</span>
+      </div>
+    </div>
+    <div class="box-footer">
+      <button type="submit" class="btn btn-primary btn-flat btn-sm pull-right">
+        <i class="fa fa-floppy-o"></i>&nbsp;保存案件
+      </button>
+    </div>
+  </form>
+</div>
+<div calss="modal-footer"></div>

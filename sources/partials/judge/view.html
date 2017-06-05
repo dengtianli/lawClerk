@@ -1,0 +1,490 @@
+<div id="editor" class="animated fadeIn">
+  <section class="content">
+    <!-- CATALOG -->
+    <div id="catalog">
+      <section class="sidebar">
+        <!-- # MENU -->
+        <ul class="sidebar-menu">
+          <!-- 标题 -->
+          <li class="treeview">
+            <a>
+              <i class="fa fa-folder-o"></i> {{Judge.template.article[0].name}}
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[0].nodes[0].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[0].nodes[0].name}}
+                </a>
+              </li>
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[0].nodes[1].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[0].nodes[1].name}}
+                </a>
+              </li>
+              <li ng-click="Judge.template.anchor(Judge.template.article[0].nodes[2].id)">
+                <a>
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[0].nodes[2].name}}
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- 首部 -->
+          <li class="treeview">
+            <a>
+              <i class="fa fa-folder-o"></i> {{Judge.template.article[1].name}}
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[1].nodes[0].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[1].nodes[0].name}}
+                </a>
+              </li>
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[1].nodes[1].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[1].nodes[1].name}}
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- 事实 -->
+          <li class="treeview">
+            <a>
+              <i class="fa fa-folder-o"></i> {{Judge.template.article[2].name}}
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <!-- 事实 诉辩意见 -->
+              <li>
+                <a>
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[0].name}}
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a ng-click="Judge.template.anchor(Judge.template.article[2].nodes[0].nodes[0].id)">
+                      <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[0].nodes[0].name}}
+                    </a>
+                  </li>
+                  <li >
+                    <a ng-click="Judge.template.anchor(Judge.template.article[2].nodes[0].nodes[1].id)">
+                      <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[0].nodes[1].name}}
+                    </a>
+                  </li>
+                  <li ng-if="Judge.template.article[2].nodes[0].nodes[2].content!=''">
+                    <a ng-click="Judge.template.anchor(Judge.template.article[2].nodes[0].nodes[2].id)">
+                      <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[0].nodes[2].name}}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- 事实 争点归纳 -->
+              <li>
+                <a>
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[1].name}}
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a ng-click="Judge.template.anchor(Judge.template.article[2].nodes[1].nodes[0].id)">
+                      <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[1].nodes[0].name}}
+                    </a>
+                  </li>
+                  <li>
+                    <a ng-click="Judge.template.anchor(Judge.template.article[2].nodes[1].nodes[1].id)">
+                      <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[1].nodes[1].name}}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- 事实 举证质证 -->
+              <li ng-if="Judge.template.article[2].nodes[2].content!=''">
+                <a ng-click="Judge.template.anchor(Judge.template.article[2].nodes[2].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[2].name}}
+                </a>
+              </li>
+              <!-- 事实 证据事实认定 -->
+              <li>
+                <a>
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[3].name}}
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a ng-click="Judge.template.anchor(Judge.template.article[2].nodes[3].nodes[0].id)">
+                      <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[3].nodes[0].name}}
+                    </a>
+                  </li>
+                  <li >
+                    <a ng-click="Judge.template.anchor(Judge.template.article[2].nodes[3].nodes[1].id)">
+                      <i class="fa fa-paperclip"></i> {{Judge.template.article[2].nodes[3].nodes[1].name}}
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!-- 理由 -->
+          <li class="treeview reason">
+            <a ng-click="Judge.template.anchor(Judge.template.article[3].id)">
+              <i class="fa fa-folder-o"></i> {{Judge.template.article[3].name}}
+            </a>
+          </li>
+          <!-- 裁判依据 -->
+          <li class="treeview">
+            <a ng-click="Judge.template.anchor(Judge.template.article[4].id)">
+              <i class="fa fa-folder-o"></i> {{Judge.template.article[4].name}}
+            </a>
+          </li>
+          <!-- 裁判结果 -->
+          <li class="treeview judgments_results">
+            <a ng-click="Judge.template.anchor(Judge.template.article[5].id)">
+              <i class="fa fa-folder-o"></i> {{Judge.template.article[5].name}}
+            </a>
+          </li>
+          <!-- 尾部 -->
+          <li class="treeview">
+            <a>
+              <i class="fa fa-folder-o"></i> {{Judge.template.article[6].name}}
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[6].nodes[0].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[6].nodes[0].name}}
+                </a>
+              </li>
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[6].nodes[1].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[6].nodes[1].name}}
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- 落款 -->
+          <li class="treeview">
+            <a>
+              <i class="fa fa-folder-o"></i> {{Judge.template.article[7].name}}
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[7].nodes[0].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[7].nodes[0].name}}
+                </a>
+              </li>
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[7].nodes[1].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[7].nodes[1].name}}
+                </a>
+              </li>
+              <li>
+                <a ng-click="Judge.template.anchor(Judge.template.article[7].nodes[2].id)">
+                  <i class="fa fa-paperclip"></i> {{Judge.template.article[7].nodes[2].name}}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <!-- # MENU -->
+      </section>
+    </div>
+    <!-- # CATALOG -->
+    <!-- Judge -->
+    <div id="edit">
+      <div class="box box-default">
+        <div class="box-header">
+          <div class="btn-group">
+            <button title="文书目录" type="button" class="btn btn-primary btn-sm btn-flat" wiserv-toggle wiserv-toggle-selector="#catalog">
+              <i class="fa fa-hand-lizard-o"></i>
+            </button>
+          </div>
+          <div class="btn-group">
+            <button title="保存" type="button" class="btn btn-default btn-sm btn-flat" ng-click="Judge.template.uploadArticle()">
+              <i class="fa fa-save text-primary">&nbsp;保存</i>
+            </button>
+            <!--<button title="暂存至本地" type="button" class="btn btn-default btn-sm btn-flat" ng-click="Judge.template.saveArticle()">
+              <i class="fa fa-bookmark-o text-primary">&nbsp;暂存</i>
+            </button>-->
+          </div>
+          <div class="btn-group">
+            <button title="案件信息" type="button" class="btn btn-default btn-sm btn-flat" popover-title="案件信息" uib-popover-template="Judge.popover.info"
+              popover-trigger="{outsideClick: outsideClick}" popover-placement="bottom-left" popover-class="info">
+              <i class="fa fa-info-circle">&nbsp;信息</i>
+            </button>
+            <button title="相似案例" type="button" class="btn btn-default btn-sm btn-flat" popover-title="相似案例" uib-popover-template="Judge.popover.similar"
+              popover-trigger="{outsideClick: outsideClick}" popover-placement="bottom-left" popover-class="similar" ng-click="Judge.operation.getsimilarCase(Judge.template.article[4].content)">
+              <i class="fa fa-table">&nbsp;相似</i>
+            </button>
+            <button title="关联法条" type="button" class="btn btn-default btn-sm btn-flat" popover-title="关联法条" uib-popover-template="Judge.popover.law"
+              popover-trigger="{outsideClick: outsideClick}" popover-placement="bottom-left" popover-class="law" ng-click="Judge.operation.getLaws(Judge.template.article[2].nodes[3].nodes[0].content)">
+              <i class="fa fa-list-ol">&nbsp;法条</i>
+            </button>
+            <button title="计算公式" type="button" class="btn btn-default btn-sm btn-flat" popover-title="计算公式" uib-popover-template="Judge.popover.formula"
+              popover-trigger="{outsideClick: outsideClick}" popover-placement="bottom-left" popover-class="formula">
+              <i class="fa fa-database">&nbsp;公式</i>
+            </button>
+          </div>
+          <div class="btn-group">
+            <button title="纠错" type="button" class="btn btn-default btn-sm btn-flat" ng-click="Judge.operation.errorCorrection()">
+              <i class="fa fa-calendar-check-o">&nbsp;纠错</i>
+            </button>
+            <button title="导出" type="button" class="btn btn-default btn-sm btn-flat" ng-click="Judge.operation.export()">
+              <i class="fa fa-file-word-o">&nbsp;导出</i>
+            </button>
+            <button title="打印" type="button" class="btn btn-default btn-sm btn-flat" ng-click="Judge.operation.print()">
+              <i class="fa fa-print">&nbsp;打印</i>
+            </button>
+          </div>
+          <!-- RIGHT -->
+          <div class="box-tools pull-right">
+            <!--<span title="每隔5秒保存内容" class="switch switch-mini" data-on="primary" data-off="info">
+              <input type="checkbox" name="my-checkbox" checked disabled />
+            </span>-->
+            <button type="button" class="btn btn-default btn-sm" title="返回案件列表" ui-sref="cases">
+              <i class="fa fa-mail-reply text-primary"></i>
+            </button>
+          </div>
+        </div>
+        <div class="box-body" wiserv-scroll wiserv-scroll-offset="30">
+          <article id="judgment">
+            <style>
+              #judgment-body section {
+                line-height: 25pt;
+                text-align: justify;
+                text-justify: inter-ideograph;
+                text-indent: 30pt;
+                margin: 0.5pt 0.917cm;
+                font-family: 仿宋;
+                font-size: 16pt;
+              }
+              
+              #judgment-foot {
+                float: right;
+                /*text-align: right;
+                width: 17em;*/
+              }
+              
+              #judgment-foot section {
+                text-align: right;
+                margin: 0.5pt 0.917cm;
+                line-height: 25pt;
+                font-family: 仿宋;
+                font-size: 16pt;
+              }
+            </style>
+            <div id="judgment-content">
+              <div id="judgment-head">
+                <!-- 标题 -->
+                <section wiserv-edit style="text-align: center; line-height: 25pt; margin: 0.5pt 0cm; font-family: 宋体; font-size: 22pt;" id="{{Judge.template.article[0].nodes[0].id}}"
+                  title="{{Judge.template.article[0].nodes[0].name}}" ng-model="Judge.template.article[0].nodes[0].content">
+                </section>
+                <section wiserv-edit style="text-align: center; line-height: 30pt; margin: 0.5pt 0cm; font-family: 仿宋; font-size: 26pt;" id="{{Judge.template.article[0].nodes[1].id}}"
+                  title="{{Judge.template.article[0].nodes[1].name}}" ng-model="Judge.template.article[0].nodes[1].content">
+                </section>
+                <section wiserv-edit style="text-align: right; line-height: 30pt; margin: 0.5pt 0cm; font-family: 仿宋; font-size: 16pt;" id="{{Judge.template.article[0].nodes[2].id}}"
+                  title="{{Judge.template.article[0].nodes[2].name}}" ng-model="Judge.template.article[0].nodes[2].content">
+                </section>
+              </div>
+              <div id="judgment-body">
+                <!-- 首部 -->
+                <section wiserv-edit id="{{Judge.template.article[1].nodes[0].id}}" title="{{Judge.template.article[1].nodes[0].name}}" ng-model="Judge.template.article[1].nodes[0].content">
+                </section>
+                <section wiserv-edit id="{{Judge.template.article[1].nodes[1].id}}"  ng-model="Judge.template.article[1].nodes[1].content">
+                </section>
+                <!-- 事实 诉辩意见 -->
+                <section wiserv-edit id="{{Judge.template.article[2].nodes[0].nodes[0].id}}" title="{{Judge.template.article[2].nodes[0].nodes[0].name}}"
+                  ng-model="Judge.template.article[2].nodes[0].nodes[0].content">
+                </section>
+                <section wiserv-edit id="{{Judge.template.article[2].nodes[0].nodes[1].id}}" title="{{Judge.template.article[2].nodes[0].nodes[1].name}}"
+                  ng-model="Judge.template.article[2].nodes[0].nodes[1].content">
+                </section>
+                <section ng-if="Judge.template.article[2].nodes[0].nodes[2].content!=''" wiserv-edit id="{{Judge.template.article[2].nodes[0].nodes[2].id}}"
+                  title="{{Judge.template.article[2].nodes[0].nodes[2].name}}" ng-model="Judge.template.article[2].nodes[0].nodes[2].content">
+                </section>
+                <!-- 事实 争点归纳 -->
+                <section wiserv-edit id="{{Judge.template.article[2].nodes[1].nodes[0].id}}" title="{{Judge.template.article[2].nodes[1].nodes[0].name}}"
+                  ng-model="Judge.template.article[2].nodes[1].nodes[0].content">
+                </section>
+                <section wiserv-edit id="{{Judge.template.article[2].nodes[1].nodes[1].id}}" title="{{Judge.template.article[2].nodes[1].nodes[1].name}}"
+                  ng-model="Judge.template.article[2].nodes[1].nodes[1].content">
+                </section>
+                <!-- 事实 举证质证 -->
+                <section ng-if="Judge.template.article[2].nodes[2].content!=''" wiserv-edit id="{{Judge.template.article[2].nodes[2].id}}" title="{{Judge.template.article[2].nodes[2].name}}" ng-model="Judge.template.article[2].nodes[2].content">
+                </section>
+                <!-- 事实 证据事实认定 -->
+                <section wiserv-edit id="{{Judge.template.article[2].nodes[3].nodes[0].id}}" title="{{Judge.template.article[2].nodes[3].nodes[0].name}}"
+                  ng-model="Judge.template.article[2].nodes[3].nodes[0].content">
+                </section>
+                <section wiserv-edit id="{{Judge.template.article[2].nodes[3].nodes[1].id}}" title="{{Judge.template.article[2].nodes[3].nodes[1].name}}"
+                  ng-model="Judge.template.article[2].nodes[3].nodes[1].content">
+                </section>
+                <!-- 理由 -->
+                <section wiserv-edit id="{{Judge.template.article[3].id}}"  ng-model="Judge.template.article[3].content">
+                </section>
+                <!-- 裁判依据 -->
+                <section wiserv-edit id="{{Judge.template.article[4].id}}"  ng-model="Judge.template.article[4].content">
+                </section>
+                <!-- 裁判结果 -->
+                <section wiserv-edit id="{{Judge.template.article[5].id}}"  ng-model="Judge.template.article[5].content">
+                </section>
+                <!-- 尾部 -->
+                <section wiserv-edit id="{{Judge.template.article[6].nodes[0].id}}" ng-model="Judge.template.article[6].nodes[0].content">
+                </section>
+                <section wiserv-edit id="{{Judge.template.article[6].nodes[1].id}}"  ng-model="Judge.template.article[6].nodes[1].content">
+                </section>
+              </div>
+              <div id="judgment-foot">
+                <!-- 落款 -->
+                <section ng-style="Judge.style.sign" wiserv-edit id="{{Judge.template.article[7].nodes[0].id}}" 
+                  ng-model="Judge.template.article[7].nodes[0].content">
+                </section>
+                <section ng-style="Judge.style.sign" wiserv-edit id="{{Judge.template.article[7].nodes[1].id}}" 
+                  ng-model="Judge.template.article[7].nodes[1].content">
+                </section>
+                <section ng-style="Judge.style.sign" wiserv-edit id="{{Judge.template.article[7].nodes[2].id}}" 
+                  ng-model="Judge.template.article[7].nodes[2].content">
+                </section>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+    <!-- # Judge -->
+    <!-- helper -->
+    <div id="helper">
+      <div wiserv-scroll wiserv-scroll-offset="30">
+        <!--helper for 事实部分 -->
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <i class="fa fa-cut"></i>&nbsp;<span>理由</span>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+          </div>
+          <div class="box-body box-body-padding">
+            <!-- exchange -->
+            <select class="form-control input-sm input-primary" ng-model="Judge.treeReason.selectedTreeModel" ng-options="tree.node_name for tree in Judge.treeReason.treeModel"
+              ng-change="Judge.treeReason.getlevel1TreeInfo()">
+            </select>
+            <!-- helper -->
+            <div slim-scroll>
+              <treecontrol class="tree-boot tree-wiserv" tree-model="Judge.treeReason.selectedTreeModel" on-selection="Judge.treeReason.onSelection(node, $parentNode, $index, $first, $middle, $last, $odd, $even, $path)"
+                on-node-toggle="Judge.treeReason.nodeToggle(node, $parentNode, $index, $first, $middle, $last, $odd, $even, $path)"
+                options="Judge.treeReason.option" expanded-nodes="Judge.treeReason.expandedNodes" selected-node="Judge.treeReason.selectedNode">
+                <span class="tree-item">{{node.node_name}}</span>
+              </treecontrol>
+            </div>
+          </div>
+          <div class="box-footer" ng-if="Judge.treeReason.treeInfoModel[0].template2_info">
+            <div class="form-group">
+              <label>理由部分</label>
+              <button ng-click="Judge.treeReason.quote()" class="pull-right btn btn-sm btn-flat btn-primary">引用</button>
+              <button ng-click="Judge.treeReason.reset()" class="pull-right btn btn-sm btn-flat btn-default">重置</button>
+              <textarea class="form-control" rows="3" ng-model="Judge.treeReason.treeInfoModel[0].template2_info"
+                readOnly></textarea>
+            </div>
+          </div>
+        </div>
+        <!-- helper for 本院认为 -->
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <i class="fa fa-cut"></i>&nbsp;<span>裁判结果</span>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+          </div>
+          <div class="box-body box-body-padding">
+            <treecontrol class="tree-boot tree-wiserv" options="Judge.treeResult.option" tree-model="Judge.treeResult.treeModel" on-selection="Judge.treeResult.onSelection(node, selected,$parentNode)"
+              on-node-toggle="Judge.treeResult.onNodeToggle(node)" expanded-nodes="Judge.treeResult.expandedNodes" selected-nodes="Judge.treeResult.selectedNodes">
+              <span class="tree-item">{{node.node_name}}</span>
+            </treecontrol>
+          </div>
+          <div class="box-footer" ng-show="Judge.treeResult.treeInfoModel">
+            <div class="form-group">
+              <label>裁判结果</label>
+              <button ng-click="Judge.treeResult.quote()" class="pull-right btn btn-sm btn-flat btn-primary">引用</button>
+              <button ng-click="Judge.treeResult.reset()" class="pull-right btn btn-sm btn-flat btn-default">重置</button>
+              <p class="box-tree-content" wiserv-edit ng-model="Judge.treeResult.treeInfoModel"></p>
+            </div>
+          </div>
+        </div>
+        <!-- helper for 案件材料 -->
+        <div class="box box-default">
+          <div class="box-header with-border">
+            <i class="fa fa-newspaper-o"></i>&nbsp;<span>案件材料</span>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            </div>
+          </div>
+          <div class="box-body box-body-padding">
+            <div>
+              <input type="file" multiple="multiple" nv-file-select uploader="Judge.material.uploader" filter="Judge.material.uploader.filters"
+              />
+              <!-- body -->
+              <table class="table table-hover table-bordered">
+                <tr ng-repeat="item in Judge.material.uploader.queue">
+                  <!--<td>
+                    <div class=" ddh-panel2  ddh-width-full ddh-height-100" ng-show="Judge.material.uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>
+                  </td>-->
+                  <td class="text-primary">{{item.file.name}}</td>
+                  <td class="text-muted">{{item.file.size/1024/1024|number:2}} MB</td>
+                  <td nowrap="">
+                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                          <span class="glyphicon glyphicon-upload"></span> 上传
+                      </button><br/>
+                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading">
+                          <span class="glyphicon glyphicon-ban-circle"></span> 取消
+                      </button><br/>
+                    <button type="button" class="btn btn-danger btn-xs" ng-click="Judge.material.uploader.remove(item)">
+                          <span class="glyphicon glyphicon-trash"></span> 移除
+                      </button>
+                  </td>
+                </tr>
+              </table>
+              <!--<div ng-if="Judge.material.uploader.queue.length">
+                <div class="progress progress-xxs">
+                  <div class="progress-bar progress-bar-danger progress-bar-striped" ng-style="{'width': Judge.material.uploader.progress + '%'}"></div>
+                </div>
+                <button type="button" class="btn btn-flat btn-primary btn-xs" ng-click="Judge.material.uploader.uploadAll()" ng-disabled="!Judge.material.uploader.getNotUploadedItems().length"
+                  disabled="disabled">
+                  <span class="glyphicon glyphicon-upload"></span>上传
+                </button>
+                <button type="button" class="btn btn-flat btn-warning btn-xs" ng-click="Judge.material.uploader.cancelAll()" ng-disabled="!Judge.material.uploader.isUploading"
+                  disabled="disabled">
+                  <span class="glyphicon glyphicon-ban-circle"></span>取消
+                </button>
+                <button type="button" class="btn btn-flat btn-danger btn-xs" ng-click="Judge.material.uploader.clearQueue()" ng-disabled="!Judge.material.uploader.queue.length">
+                  <span class="glyphicon glyphicon-trash"></span>移除
+                </button>
+              </div>-->
+            </div>
+            <div class="thumbnail">
+              <img ng-click="Judge.material.openOcrModal('ftp://' + image.url)" ng-repeat="image in Judge.material.images" ng-src="{{'ftp://' + image.url}}"
+                class="img-thumbnail img-responsive" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- #helper -->
+  </section>
+</div>

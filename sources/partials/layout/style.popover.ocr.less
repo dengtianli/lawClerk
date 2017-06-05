@@ -1,0 +1,57 @@
+// Propover
+.ocr {
+  .wiserv-scrollbar-gray;
+  max-width: 47rem;
+  min-width: 47rem;
+  #access {
+    height: 2rem;
+    margin-bottom: 0.5rem;
+    input {
+      float: left;
+    }
+  }
+  #upload {
+    .row-fix {
+      height: 13.5rem;
+      display: inline-block;
+      overflow-y: scroll;
+      .panel-heading {
+        >span {
+          font-size: 13px;
+        }
+      }
+    }
+    .panel-fix {
+      display: inline-block;
+      margin-right: 0.8rem;
+      border-radius: 0;
+    }
+    .row-result {
+      margin: 1rem 0 0 0;
+      padding: 0;
+      >div {
+        font-size: 13px;
+        border: 1px solid @gray-light;
+        overflow-y: auto;
+        height: 13.5rem;
+      }
+    }
+    .panel-heading {
+      padding: 5px 0.5rem;
+      span {
+        display: inline-block;
+        width: 5rem;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .panel-body {
+      .status {
+        position: relative;
+        font-size: 11px;
+      }
+    }
+  }
+}

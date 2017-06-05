@@ -1,0 +1,31 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <i class="fa fa-list"></i>&nbsp;<span>庭审笔录列表</span>
+    <div class="box-tools pull-right">
+      <button ng-click="Trial.http.refresh()" type="button" class="btn btn-default btn-sm btn-flat ">
+        <i class="fa fa-refresh"></i>
+        刷新列表
+      </button>
+      <button ui-sref="trial.create" type="button" class="btn btn-primary btn-sm btn-flat ">
+        <i class="fa fa-plus"></i>
+        新建笔录
+      </button>
+    </div>
+  </div>
+  <div class="box-body" wiserv-scroll wiserv-scroll-offset="30">
+    <ul class="todo-list ui-sortable">
+      <li ng-repeat="item in Trial.http.list" class="todo-list-item">
+        <span class="text">
+          第&nbsp;<span class="badge bg-default">{{$index+1}}</span>&nbsp;次庭审记录 -
+        <span class="label label-primary">{{item.court_open_date}}</span>
+        </span>
+        <div class="tools">
+          <button ui-sref="trial.preview({record_id: item.record_id})" class="btn btn-xs btn-default btn-flat fa fa-eye">&nbsp;查看</button>
+          <!-- <button ng-click="Trial.event.other.recordModel.openModal(item.record_id)" class="fa fa-clone">&nbsp;复制</button> -->
+          <button ui-sref="trial.update({record_id: item.record_id})" class="btn btn-xs btn-warning btn-flat fa fa-edit">&nbsp;修改</button>
+          <button ng-click="Trial.http.delete(item.record_id)" class="btn btn-xs btn-danger btn-flat fa fa-trash-o">&nbsp;删除</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

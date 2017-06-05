@@ -1,0 +1,65 @@
+<div class="modal-header">
+  <button ng-click="Layout.feedback.closeModal()" type="button" class="close">
+    <span aria-hidden="true">×</span>
+  </button>
+  <h4 class="modal-title title">
+    <i class="fa fa-comment"></i>&nbsp;反馈信息
+  </h4>
+</div>
+<div class="modal-body">
+  <form class="form" role="form" name="feedbackInfoForm" ng-submit="Layout.feedback.savefeedback(feedbackInfoForm.$valid,Layout.feedback.info)" novalidate
+    enctype="multipart/form-data">
+    <div class="form-group">
+      <label> 有问题页面url(选填)</label>
+      <input type="text" class="form-control" 
+        name="que_page_url" ng-model="Layout.feedback.info.que_page_url" ng-pattern="/^((http|ftp|https)://)(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6})|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,4})*(/[\u4e00-\u9fa5a-zA-Z0-9\&\%\#\!\_\./-~-\?]*)?$/">
+      <span class="error" ng-if="feedbackInfoForm.que_page_url.$error.pattern && feedbackInfoForm.que_page_url.$dirty">url格式不对,例如：http://192.168.22.99:5008/#!/layout/cases</span>
+    </div>
+    <div class="form-group">
+      <label><span class="require-sign">*</span>反馈标题(必填)</label>
+      <input type="text" class="form-control" name="que_function" ng-model="Layout.feedback.info.que_function" ng-maxlength="50" required>
+      <span class="error" ng-show="feedbackInfoForm.que_function.$error.required && feedbackInfoForm.que_function.$dirty">反馈标题不能为空!</span>
+      <span class="error" ng-show="feedbackInfoForm.que_function.$error.maxlength && feedbackInfoForm.que_function.$dirty">反馈标题不能超过50个字!</span>
+    </div>
+    <div class="form-group">
+      <label><span class="require-sign">*</span>反馈内容(必填)</label>
+      <textarea class="form-control"name="feedback_info" rows="4" placeholder="请输入内容" ng-model="Layout.feedback.info.feedback_info" ng-maxlength="300" required></textarea>
+      <span class="error" ng-show="feedbackInfoForm.feedback_info.$error.required && feedbackInfoForm.feedback_info.$dirty">反馈内容不能为空!</span>
+      <span class="error" ng-show="feedbackInfoForm.feedback_info.$error.maxlength && feedbackInfoForm.feedback_info.$dirty">反馈内容不能超过300个字!</span>
+    </div>
+    <div class="form-group">
+      <label>上传相关图片</label>
+      <input type="file" multiple="multiple" nv-file-select uploader="Layout.feedback.uploader"
+        filter="Layout.feedback.uploader.filters[0].name" />
+      <div class="row" ng-if="Layout.feedback.uploader.queue.length!==0">
+        <div ng-repeat="item in Layout.feedback.uploader.queue" class="col-sm-3">
+          <div>
+            <span class="text-muted" title="{{item.file.name}}" style="display: inline-block; width: 5rem;
+            word-break: keep-all;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            {{ item.file.name }}</span>
+            <div class="box-tools pull-right">
+              <button ng-click="item.remove()" type="button" class="btn btn-box-tool"><i class="fa fa-times"></i></button>
+            </div>
+          </div>
+          <div class="">
+            <div wiserv-thumb="{file:item._file,height:100,width:133}"></div>
+            <div class="status">
+              <span class="text-info">{{item.file.size/1024/1024|number:2}} MB</span>
+              <span class="text-center">
+              <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+              <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+              <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="box-footer ">
+      <button type="submit" class="btn btn-primary btn-flat btn-sm pull-right">
+        <i class="fa fa-floppy-o"></i>&nbsp;提交反馈
+      </button>
+    </div>
+</div>
+</form>
+<div calss="modal-footer"></div>

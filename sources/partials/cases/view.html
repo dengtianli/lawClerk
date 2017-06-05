@@ -1,0 +1,331 @@
+<div id="judgment-cases" class="animated fadeIn">
+  <section class="content">
+    <div class="row">
+      <div class="col-md-3 left">
+        <!-- search for case list -->
+        <div class="box box-danger">
+          <div class="box-header with-border">
+            <div>
+              <i class="fa fa-search"></i>
+              <span>案件查询</span>
+            </div>
+            <div class="box-tools pull-right">
+              <button ng-click="Cases.case.openModal()" class="btn btn-default btn-sm btn-flat">
+                <i class="fa fa-plus"></i>&nbsp;录入案件
+              </button>
+            </div>
+          </div>
+          <div class="box-search box-body" >
+            <form role="form">
+              <div class="form-group">
+                <label>类型</label>
+                <select class="form-control input-sm" ng-model="Cases.case.searchParams.closure_flag">
+                    <option ng-value=0 >未结案</option>
+                    <option ng-value=1>已结案</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                <label>案由</label>
+                <div class="input-group input-group-sm">
+                  <div class="input-group-addon">
+                    <i class="fa fa-sort-numeric-asc"></i>
+                  </div>
+                  <input type="text" class="form-control" ng-model="Cases.case.searchParams.case_brief" placeholder="请输入案由" />
+                </div>
+                <!--<div class="input-group input-group-sm">
+                  <div class="input-group-addon">
+                    <i class="fa fa-road"></i>
+                  </div>
+                  <select class="form-control" name="case_brief" ng-model="Cases.case.searchParams.case_brief">
+                    <option value="民事案件">民事案件</option>
+                    <option value="行政案件">行政案件</option>
+                  </select>
+                </div>-->
+              </div>
+              <div class="form-group">
+                <label>案号</label>
+                <div class="input-group input-group-sm">
+                  <div class="input-group-addon">
+                    <i class="fa fa-sort-numeric-asc"></i>
+                  </div>
+                  <input type="text" class="form-control" ng-model="Cases.case.searchParams.case_no" placeholder="请输入案号" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>当事人</label>
+                <div class="input-group input-group-sm">
+                  <div class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                  <input type="text" class="form-control input-md" ng-model="Cases.case.searchParams.parties" placeholder="当事人" />
+                </div>
+              </div>
+              <div uib-accordion ng-hide="true">
+                <div uib-accordion-group is-open="Cases.isOpen">
+                  <div class="form-group">
+                    <label>案件名称</label>
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-addon">
+                        <i class="fa fa-user-circle-o"></i>
+                      </div>
+                      <input type="text" class="form-control input-md" placeholder="案件名称" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>文书类型</label>
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-addon">
+                        <i class="fa fa-newspaper-o"></i>
+                      </div>
+                      <select class="form-control">
+                          <option>普通式</option>
+                          <option>令状式</option>
+                          <option>表格式</option>
+                          <option>要素式</option>
+                        </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>代理人</label>
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-addon">
+                        <i class="fa fa-user-o"></i>
+                      </div>
+                      <input type="text" class="form-control input-md" placeholder="代理人" />
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label>日期范围</label>
+                    <div class="input-group input-group-sm">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control pull-right" placeholder="请选择日期范围" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="box-footer">
+            <button type="button" class="btn btn-default btn-sm btn-flat" ng-click="Cases.isOpen=!Cases.isOpen" ng-hide="true">
+              <i class="fa fa-filter" aria-hidden="true"></i>&nbsp;筛选条件
+            </button>
+            <button type="button" class="btn btn-danger btn-sm btn-flat pull-right" ng-click="Cases.case.searchCases(Cases.case.searchParams)">
+              <i class="fa fa-search" aria-hidden="true"></i>&nbsp;搜索
+            </button>
+          </div>
+        </div>
+        <!-- #search for case list -->
+      </div>
+      <div class="col-md-9 right">
+        <div class="row row-cases-list" slim-scroll slim-scroll-width="8" slim-scroll-offset="25" cg-busy="{promise:Cases.promise_getCaseList,message:'加载中',backdrop:backdrop,delay:delay,minDuration:minDuration}">
+          <div class="case col-md-12" ng-repeat="case in Cases.list" >
+            <div class="box box-default">
+              <div class="header box-header with-border">
+                <span class="title label label-default" ng-click="Cases.writer.openModal({
+                                                                case_brief: case.case_brief,
+                                                                case_no: case.case_no
+                                                              },case.verdict_flag,case.court_record_flag )">
+                    <i class="fa fa-telegram"></i>
+                    {{case.title}}
+                  </span>
+                <div class="box-tools pull-right">
+                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+              </div>
+              <div class="box-body">
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <div class="row">
+                      <span class="col-md-4">原告：<span class="field" title="{{case.accuser }}">{{case.accuser }}</span></span>
+                      <span class="col-md-4">被告：<span class="field" title="{{case.defendant}}">{{case.defendant}}</span></span>
+                      <span class="col-md-4">
+                        案由：<span class="field" title="{{case.case_brief}}">{{case.case_brief}}</span>
+                      </span>
+                    </div>
+                  </li>
+                  <li class="list-group-item">
+                    <div class="row">
+                      <span class="col-md-4">
+                        案号：<span class="field" title="{{case.case_no}}">{{case.case_no}}</span>
+                      </span>
+                      <span class="col-md-4">
+                        开庭：<span class="field" title="{{case.court_open_date}}"ng-show="case.court_open_date !=null">{{case.court_open_date}}</span>
+                      </span>
+                      <span class="col-md-4">
+                        审限：<span class="field" title="{{case.judge_interval}}">{{case.judge_interval}}</span>
+                      </span>
+                    </div>
+                  </li>
+                  <!-- Operations left-->
+                  <div class="btn-group pull-left">
+                    <div class="btn-group" uib-dropdown>
+                      <button type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                        <i class="fa fa-wrench text-info"></i>
+                        <span class="text-info">案件操作</span>
+                        <span class="caret text-info"></span>
+                      </button>
+                      <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li>
+                          <a>
+                            <i class="fa fa-pencil text-info"></i>
+                            <span class="text-info" ng-click="Cases.case.openModal(case)">修改案件</span>
+                          </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li ng-class="{true:'nooperation',false:''}[case.court_record_flag !='0']">
+                          <a>
+                            <i class="fa fa-remove text-info"></i>
+                            <span class="text-info"  ng-click="Cases.case.delete(case.case_no,case.court_record_flag )" >删除案件</span>
+                          </a>
+                        </li>
+                    </div>
+                    <div class="btn-group" uib-dropdown ng-show="case.court_record_flag=='1'">
+                      <button type="button" class="btn btn-default btn-sm" uib-dropdown-toggle>
+                        <i class="fa  fa-gear text-info"></i>
+                        <span class="text-info">文书操作</span>
+                        <span class="caret text-info"></span>
+                      </button>
+                      <ul class="dropdown-menu" uib-dropdown-menu>
+                        <li ng-show="case.verdict_flag">
+                          <a ng-click="Cases.writer.openModal({
+                              case_brief: case.case_brief,
+                              case_no: case.case_no
+                            },
+                              case.verdict_flag,case.court_record_flag 
+                            )">
+                            <i class="fa fa-eye text-info"></i>
+                            <span class="text-info">查看文书</span>
+                          </a>
+                        </li>
+                        <li class="divider" ng-show="case.verdict_flag"></li>
+                        <li ng-show="case.verdict_flag">
+                          <a ng-click="Cases.case.writerOperation(case,'normal',3)">
+                            <i class="fa fa-pencil-square text-primary"></i>
+                            <span class="text-primary">修改文书</span>
+                          </a>
+                        </li>
+                        <li class="divider" ng-show="case.verdict_flag"></li>
+                        <li class="dropdown-submenu" ng-show="case.verdict_flag">
+                          <a tabindex="-1" data-toggle="dropdown">
+                            <i class="fa fa-refresh text-primary"></i>
+                            <span class="text-primary">重新生成</span>
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <a ng-click="Cases.case.writerOperation(case,'normal',4)">
+                                <i class="fa fa-file-o text-info"></i>
+                                <span class="text-info">普通式</span>
+                              </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="nooperation">
+                                <a href="" disabled>
+                                <i class="fa fa-file-text-o text-info"></i>
+                                <span class="text-info">要素式</span>
+                              </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="nooperation">
+                              <a href="" disabled>
+                                <i class="fa fa-bookmark-o text-info"></i>
+                                <span class="text-info">令状式</span>
+                              </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="nooperation">
+                              <a href="" disabled>
+                                <i class="fa fa-table text-info"></i>
+                                <span class="text-info">表格式</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class="dropdown-submenu" ng-show="!case.verdict_flag">
+                          <a tabindex="-1" data-toggle="dropdown">
+                            <i class="fa fa-gavel text-primary"></i>
+                            <span class="text-primary">新建文书</span>
+                          </a>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <a ng-click="Cases.case.writerOperation(case,'normal',1)">
+                                <i class="fa fa-file-o text-info"></i>
+                                <span class="text-info">普通式</span>
+                              </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="nooperation">
+                              <a href="" disabled>
+                                <i class="fa fa-file-text-o text-info"></i>
+                                <span class="text-info">要素式</span>
+                              </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="nooperation">
+                              <a href="" disabled>
+                                <i class="fa fa-bookmark-o text-info"></i>
+                                <span class="text-info">令状式</span>
+                              </a>
+                            </li>
+                            <li class="divider"></li>
+                            <li class="nooperation">
+                              <a href="" disabled >
+                                <i class="fa fa-table text-info"></i>
+                                <span class="text-info">表格式</span>
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- Operations right -->
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-default btn-sm" ng-click="Cases.caseOpinion.openModal(case.case_brief)" >
+                      <i class="fa fa-map-o text-info"></i>
+                      <span class="text-info">舆情展示</span>
+                    </button>
+                    <button ui-sref="record({court_record_flag:case.court_record_flag,verdict_flag:case.verdict_flag,case_no:case.case_no,case_brief:case.case_brief,court_name:case.court_name, accuser:case.accuser,accuser_baseinfo:case.accuser_baseinfo, defendant:case.defendant,defendant_baseinfo:case.defendant_baseinfo,third_man:case.third_man,third_man_baseinfo:case.third_man_baseinfo,hearing_procedure:case.hearing_procedure,accepted_date:case.accepted_date})" type="button" class="btn btn-default btn-sm">
+                      <i class="fa fa-edit text-danger"></i>
+                      <span class="text-danger">庭审笔录</span>
+                    </button>
+                    <button ui-sref="trial({
+                        court_record_flag:case.court_record_flag,
+                        verdict_flag:case.verdict_flag,
+                        case_no:case.case_no,
+                        case_brief:case.case_brief,
+                        court_name:case.court_name,
+                        accuser:case.accuser,
+                        accuser_baseinfo:case.accuser_baseinfo,
+                        defendant:case.defendant,
+                        defendant_baseinfo:case.defendant_baseinfo,
+                        third_man:case.third_man,
+                        third_man_baseinfo:case.third_man_baseinfo,
+                        hearing_procedure:case.hearing_procedure,
+                        accepted_date:case.accepted_date
+                      })" class="btn btn-default btn-sm">
+                      <i class="fa fa-edit text-warning"></i>
+                      <span class="text-warning">新版庭审笔录</span>
+                    </button>
+                  </div>
+                  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Pagination -->
+        <div id="paging">
+          <div class="tag text-muted pull-left">
+            共<b>&nbsp;<small class="label label-primary">{{Cases.pagesTotal}}</small>&nbsp;</b>页，第<b>&nbsp;<small class="label label-primary">{{Cases.pagination.currentPageNumber}}</small>&nbsp;</b>页
+          </div>
+          <ul uib-pagination total-items="Cases.itemsTotal" max-size="Cases.pagination.maxSize" items-per-page="Cases.pagination.itemsPerPage"
+            ng-model="Cases.pagination.currentPageNumber" ng-change="Cases.pagination.change($index)" rotate="true" boundary-links="true"
+            boundary-link-numbers="true" first-text="首页" last-text="尾页" previous-text="上一页" next-text="下一页" class="pagination-sm no-margin pull-right">
+          </ul>
+        </div>
+        <!-- #Pagination -->
+      </div>
+    </div>
+  </section>
+</div>

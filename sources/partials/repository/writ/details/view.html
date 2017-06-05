@@ -1,0 +1,35 @@
+<div id="details">
+    <div class="col-lg-12 details-box">
+        <div class="box box-default" slim-scroll slim-scroll-offset=30>
+            <ul class="timeline">
+                <!-- timeline time label -->
+                <li class="time-label">
+                    <span class="bg-red">
+                        {{Details.data.judge_date}}
+                    </span>
+                    <a href="javascript:;" ng-click="Details.prev()">返回上一页</a>
+                </li>
+                <!-- /.timeline-label -->
+
+                <!-- timeline item -->
+                <li>
+                    <!-- timeline icon -->
+                    <i class="fa fa-gavel bg-blue"></i>
+                    <div class="timeline-item">
+                        <span class="time"><i class="fa fa-thumb-tack">&nbsp;&nbsp;</i>{{Details.data.case_brief}}</span>
+                        <h3 class="timeline-header"><a href="javascript:;">{{Details.data.court_name}}</a></h3>
+                        <div class="timeline-body">
+                            <h4>【正文】</h4>
+                            <p ng-bind-html="Details.data.ori_text"></p>
+                        </div>
+                        <div class="timeline-footer">
+                            <p class="btn btn-primary btn-xs" ng-show="Details.data.laws">依据法条</p>
+                            <p>{{Details.data.laws}}</p>
+                        </div>
+                    </div>
+                </li>
+                <!-- END timeline item -->
+            </ul>       
+        </div>
+    </div>
+</div>
